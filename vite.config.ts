@@ -18,6 +18,11 @@ const localBindingConfig = {
   account_id: "6b602e29a4c19258a6a6ac06f981b1d5",
   main: "./worker/index.ts",
   compatibility_flags: ["nodejs_compat"],
+  // The site is served from volyaensemble.ee only. Keeping the workers.dev
+  // subdomain and per-version preview URLs off avoids publishing duplicate
+  // copies of the site on hostnames nobody links to.
+  workers_dev: false,
+  preview_urls: false,
   // `worker/index.ts` and vinext's app-router entry both read `env.ASSETS`,
   // so the static assets need an explicit binding, not just a directory.
   assets: {
