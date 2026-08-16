@@ -126,7 +126,7 @@ export const et: Dictionary = {
     telegram: "Telegram @volya_ee",
     email: "E-post",
     organisation: "Ukraina Noorsoo Liit Eestis",
-    legal: "© 2025 VOLYA\nTegutseb Ukraina Noorsoo Liidu juures Eestis.",
+    legal: "© 2025 VOLYA",
     madeWith: "Tehtud armastusega Tallinnas ✦",
   },
   schedulePage: {

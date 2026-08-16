@@ -22,11 +22,27 @@
   }
 }
 
-/* The drawer stays opaque, and follows the header into dark mode. */
+/* The drawer stays opaque, and follows the header colour. */
 @media (max-width: 800px) {
   .dark-mode .navlinks {
-    background: #101d2f;
+    background: #203754;
   }
+}
+
+/* ---------------------------------------------------------------------------
+ * 1b. Header and footer keep one navy in both themes.
+ *
+ * Dark mode used to darken them separately — the header to #101d2f and the
+ * footer further to #09111f — so the two bars no longer matched each other or
+ * their light-theme colour. Only the page between them changes with the theme.
+ * `!important` is needed because logo.css sets the dark header that way too.
+ * ------------------------------------------------------------------------ */
+.dark-mode .nav {
+  background: #203754 !important;
+}
+
+.dark-mode .footer {
+  background: #203754;
 }
 
 /* ---------------------------------------------------------------------------
