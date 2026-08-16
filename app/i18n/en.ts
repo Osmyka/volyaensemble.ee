@@ -72,6 +72,7 @@ export const en: Dictionary = {
       { day: "THURSDAY", time: "18:00 — 20:00", kind: "DANCE + VOCALS", ages: "ages 13–25" },
     ],
     fullScheduleCta: "Full schedule",
+    watermark: "SCHEDULE",
   },
   team: {
     label: "03 / TEAM",
@@ -80,8 +81,14 @@ export const en: Dictionary = {
     text: "Four teachers who help children discover their voice, movement and confidence every day.",
     photoPlaceholder: "SPACE FOR A LARGE PHOTO",
     photoCaption: "Our children — our team",
-    role: "Teacher",
-    teachers: ["Choreography", "Choreography", "Vocals", "Vocals / VOLYA PRO"],
+    teachersHeadingTop: "Our teachers —",
+    teachersHeadingEm: "our strength.",
+    roles: [
+      "Artistic director and chief choreographer",
+      "Head of the vocal group",
+      "Vocal teacher",
+      "Choreography teacher",
+    ],
   },
   place: {
     label: "04 / WHERE WE MEET",

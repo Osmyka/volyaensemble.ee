@@ -75,6 +75,7 @@ export const et: Dictionary = {
       { day: "NELJAPÄEV", time: "18:00 — 20:00", kind: "TANTS + VOKAAL", ages: "13–25 aastat" },
     ],
     fullScheduleCta: "Täielik ajakava",
+    watermark: "AJAKAVA",
   },
   team: {
     label: "03 / MEESKOND",
@@ -83,8 +84,14 @@ export const et: Dictionary = {
     text: "Neli õpetajat, kes aitavad lastel iga päev avastada oma häält, liikumist ja enesekindlust.",
     photoPlaceholder: "KOHT SUURE FOTO JAOKS",
     photoCaption: "Meie lapsed — meie meeskond",
-    role: "Õpetaja",
-    teachers: ["Koreograafia", "Koreograafia", "Vokaal", "Vokaal / VOLYA PRO"],
+    teachersHeadingTop: "Meie õpetajad —",
+    teachersHeadingEm: "meie jõud.",
+    roles: [
+      "Kunstiline juht ja peaballettmeister",
+      "Vokaalrühma juht",
+      "Vokaaliõpetaja",
+      "Koreograafiaõpetaja",
+    ],
   },
   place: {
     label: "04 / KUS ME TEGUTSEME",

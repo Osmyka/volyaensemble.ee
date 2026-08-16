@@ -11,7 +11,7 @@ hidden in CSS `content` any more.
 | `uk.ts` | Ukrainian, the source language |
 | `et.ts` | Estonian — **draft, needs a native proofread** |
 | `en.ts` | English |
-| `contacts.ts` | Language-neutral data: URLs, addresses, phones, registry code |
+| `contacts.ts` | Language-neutral data: URLs, addresses, phones, registry code, teacher names |
 | `config.ts` | Locale list, default locale, URL helpers |
 
 ## URLs
@@ -35,6 +35,17 @@ conventions:
 - `\n` marks a deliberate line break and renders as `<br>`. Keep the breaks
   where the design needs them; they are not paragraph separators.
 - `{n}` in `gallery.photoAlt` is replaced with the photo number.
+
+## Never put copy in CSS
+
+Text set through a CSS `content` declaration cannot be translated — it renders
+the same on every locale. That is exactly how Ukrainian teacher names and
+headings once appeared on the English page. A test fails the build if any
+stylesheet under `app/` puts Cyrillic in `content`.
+
+Teacher names are spelled in Latin in all three languages and live in
+`contacts.ts`; only their roles (`team.roles`) are translated. The two arrays
+are positional, so they must stay in the same order.
 
 ## Adding a key
 

@@ -1,0 +1,174 @@
+/*
+ * Corrections layered on top of logo.css.
+ *
+ * logo.css grew as a stack of successive overrides, and three of them are
+ * wrong: text baked into CSS `content` (which no translation can reach), a
+ * `background` shorthand that wipes an image in dark mode, and a nav panel
+ * background that only the mobile drawer ever needed. Each block below undoes
+ * one of those at matching specificity.
+ */
+
+/* ---------------------------------------------------------------------------
+ * 1. Header links must not sit on their own lighter panel.
+ *
+ * `.navlinks{background:#203754}` exists for the mobile drawer, where the list
+ * becomes a solid overlay panel. On desktop the list is inline, so the colour
+ * just paints a box behind the links — visible in dark mode, where the header
+ * itself is the darker #101d2f.
+ * ------------------------------------------------------------------------ */
+@media (min-width: 801px) {
+  .navlinks {
+    background: transparent;
+  }
+}
+
+/* The drawer stays opaque, and follows the header into dark mode. */
+@media (max-width: 800px) {
+  .dark-mode .navlinks {
+    background: #101d2f;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * 2. Restore the children's photo in dark mode.
+ *
+ * `.dark-mode .team-photo-placeholder{background:#1a2940}` uses the shorthand,
+ * which resets background-image to none — and it outranks the rule that sets
+ * the image, so the block rendered as an empty panel. Set the colour only.
+ * ------------------------------------------------------------------------ */
+.dark-mode .team-photo-placeholder {
+  background-color: #1a2940;
+  background-image: url("/team-children.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* ---------------------------------------------------------------------------
+ * 3. "Наші викладачі — наша сила." becomes a real heading.
+ *
+ * It used to be a `content` string painted with a background gradient and
+ * `background-clip:text`. In dark mode the gradient's first stop (#203a5c)
+ * landed on a #0f1727 page for a contrast ratio of about 1.6:1, well under the
+ * 3:1 minimum for large text. A single pseudo-element also cannot give the two
+ * lines different fonts, so it never matched the section's other heading.
+ * ------------------------------------------------------------------------ */
+.team-photo-placeholder::before {
+  content: none;
+}
+
+/* Qualified with `.team` so these beat `.team h2` (0,1,1) — the new heading is
+   itself an h2 inside the section, so the bare class would lose on `display`
+   and `font-size`. */
+.team .teachers-heading {
+  position: absolute;
+  top: calc(100% + 24px);
+  left: 0;
+  right: 52%;
+  height: 330px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0;
+  /* Deliberately the same as `.team h2`. */
+  font-size: 70px;
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -3px;
+  color: #203754;
+}
+
+.team .teachers-heading em {
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  color: #56779b;
+}
+
+.dark-mode .team .teachers-heading {
+  color: #edf3fa;
+}
+
+.dark-mode .team .teachers-heading em {
+  color: #86a7ce;
+}
+
+@media (max-width: 800px) {
+  .team .teachers-heading {
+    top: calc(100% + 25px);
+    right: 0;
+    height: 76px;
+    justify-content: flex-start;
+    font-size: 38px;
+    letter-spacing: -1px;
+  }
+
+  /* logo.css ends up placing the teachers' photo at calc(100% + 28px), the
+     same band as the heading, so the two overlapped. Drop it below the
+     heading and give the cards enough room to clear it. */
+  .team .team-photo-placeholder::after {
+    top: calc(100% + 118px);
+    height: 230px;
+  }
+
+  .team .teachers {
+    margin-top: 368px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * 4. Teacher names and roles come from the dictionary.
+ *
+ * They were injected per card with `font-size:0` on the real text plus an
+ * `:after` carrying a Ukrainian string, so every locale showed Ukrainian. The
+ * selectors below match the original specificity (0,2,2) and (0,2,3) and win
+ * by coming later.
+ * ------------------------------------------------------------------------ */
+.team .teachers > div strong {
+  font-size: 16px;
+}
+
+.team .teachers > div span {
+  font-size: 12px;
+}
+
+.team .teachers > div strong::after,
+.team .teachers > div span::after {
+  content: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * 5. The faded word behind the schedule section.
+ *
+ * Was `content:'РОЗКЛАД'`, so it stayed Ukrainian on /et and /en. Now a real
+ * decorative element, hidden from assistive technology.
+ * ------------------------------------------------------------------------ */
+.schedule::before {
+  content: none;
+}
+
+.schedule-watermark {
+  position: absolute;
+  right: 30px;
+  top: 35px;
+  font-size: 92px;
+  font-weight: 700;
+  letter-spacing: -6px;
+  color: #2346b8;
+  opacity: 0.045;
+  pointer-events: none;
+  user-select: none;
+}
+
+.dark-mode .schedule-watermark {
+  color: #86a7ce;
+  opacity: 0.07;
+}
+
+@media (max-width: 800px) {
+  .schedule-watermark {
+    font-size: 54px;
+    letter-spacing: -3px;
+    right: 20px;
+  }
+}

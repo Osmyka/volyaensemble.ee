@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFile, readdir } from "node:fs/promises";
 import test from "node:test";
 
 /**
@@ -70,6 +71,38 @@ test("schedule pages link back to their own locale's home", async () => {
       new RegExp(`<a href="${route.home}" class="back"`),
       `wrong back link on ${route.path}`,
     );
+  }
+});
+
+/**
+ * Copy baked into a stylesheet is invisible to the HTML checks above and no
+ * translation can reach it, which is exactly how Ukrainian teacher names and
+ * headings ended up on the English page. Text belongs in the dictionaries.
+ */
+test("no stylesheet injects translatable copy via `content`", async () => {
+  const appDir = new URL("../app/", import.meta.url);
+  const stylesheets = [];
+
+  const collect = async dir => {
+    for (const entry of await readdir(dir, { withFileTypes: true })) {
+      const child = new URL(`${entry.name}${entry.isDirectory() ? "/" : ""}`, dir);
+      if (entry.isDirectory()) await collect(child);
+      else if (entry.name.endsWith(".css")) stylesheets.push(child);
+    }
+  };
+  await collect(appDir);
+  assert.ok(stylesheets.length > 0, "found no stylesheets to check");
+
+  for (const sheet of stylesheets) {
+    // Comments may quote the very declarations this guard removed.
+    const css = (await readFile(sheet, "utf8")).replace(/\/\*[\s\S]*?\*\//g, "");
+    for (const [, , value] of css.matchAll(/content\s*:\s*(['"])((?:(?!\1).)*)\1/g)) {
+      assert.doesNotMatch(
+        value,
+        cyrillic,
+        `${sheet.pathname.split("/app/")[1]} injects "${value}" via content`,
+      );
+    }
   }
 });
 

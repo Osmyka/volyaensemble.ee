@@ -20,6 +20,18 @@ export const addresses = {
   culturalCentre: { street: "Salme tn 12, 10413 Tallinn", map: "https://maps.google.com/?q=Salme+tn+12+Tallinn" },
 } as const;
 
+/**
+ * Names are spelled the same way in every language, so they live here rather
+ * than in the dictionaries. Roles are translated — see `team.roles`.
+ * Order matches `team.roles`.
+ */
+export const teacherNames = [
+  "Anastasiia Kozachok",
+  "Vitalina Musiienko",
+  "Kateryna Chalova",
+  "Kateryna Otchenashko",
+] as const;
+
 export const organisation = {
   name: "Ukraina Noorsoo Liit Eestis",
   registryCode: "80163437",

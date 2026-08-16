@@ -65,6 +65,8 @@ export interface Dictionary {
     vocalFrequency: string;
     classes: { day: string; time: string; kind: string; ages: string }[];
     fullScheduleCta: string;
+    /** Oversized faded word behind the section. Decorative. */
+    watermark: string;
   };
   team: {
     label: string;
@@ -73,8 +75,11 @@ export interface Dictionary {
     text: string;
     photoPlaceholder: string;
     photoCaption: string;
-    role: string;
-    teachers: string[];
+    /** Second heading in the section, above the teachers' photo. */
+    teachersHeadingTop: string;
+    teachersHeadingEm: string;
+    /** One per teacher, in the same order as `teacherNames` in contacts.ts. */
+    roles: [string, string, string, string];
   };
   place: {
     label: string;
