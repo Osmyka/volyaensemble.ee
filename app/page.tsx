@@ -2,7 +2,12 @@
 
 import { useState } from "react";
 
-const nav = ["Про ансамбль", "Розклад", "Галерея", "Контакти"];
+const nav = [
+  { label: "Про ансамбль", href: "#about" },
+  { label: "Розклад", href: "#schedule" },
+  { label: "Галерея", href: "#gallery" },
+  { label: "Контакти", href: "#contact" },
+];
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -12,7 +17,7 @@ export default function Home() {
       <nav className="nav wrap">
         <a className="brand" href="#top" aria-label="VOLYA на головну"><img src="/logo-volya.webp" alt="VOLYA" width={960} height={386} /></a>
         <div className={`navlinks ${menuOpen ? "open" : ""}`}>
-          {nav.map((item, i) => <a key={item} href={["#about", "#schedule", "#gallery", "#contact"][i]} onClick={() => setMenuOpen(false)}>{item}</a>)}
+          {nav.map(item => <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>{item.label}</a>)}
           <a className="lang" href="#">UA <small>⌄</small></a>
         </div>
         <button className="theme-toggle" onClick={() => setDarkTheme(!darkTheme)} aria-label="Перемкнути тему"><span>{darkTheme ? "☼" : "☾"}</span><small>{darkTheme ? "Світла" : "Темна"}</small></button>
@@ -55,7 +60,7 @@ export default function Home() {
 
       <section className="join" id="join"><div className="wrap join-inner"><div className="section-label">05 / БУДЬ З НАМИ</div><h2>Готовий бути<br /><em>частиною VOLYA?</em></h2><p>Стань частиною нашої великої української родини.</p><a className="button yellow" href="https://forms.gle/BfqdNshRtWhtw2QX9" target="_blank" rel="noreferrer">Приєднуйся до Волі! <span>↗</span></a><div className="join-mark">VOLYA<br /><small>тут починається<br />свобода</small></div></div></section>
 
-      <footer className="footer wrap" id="contact"><div className="footer-brand"><a className="brand" href="#top"><img src="/logo-volya.webp" alt="VOLYA" width={960} height={386} loading="lazy" decoding="async" /></a><p>Український ансамбль<br />пісні і танцю в Естонії.</p></div><div className="footer-contact"><small>КОНТАКТИ</small><a href="mailto:volya@ukraine.ee">volya@ukraine.ee ↗</a><a href="tel:+37253774435">+372 5377 4435 ↗</a><a href="tel:+37253007761">+372 5300 7761 ↗</a><a href="https://t.me/volya_ee" target="_blank" rel="noreferrer">Telegram @volya_ee ↗</a><p>Ukraina Noorsoo Liit Eestis<br />80163437</p></div><div><small>НАВІГАЦІЯ</small>{nav.map(x => <a key={x} href="#top">{x}</a>)}</div><div><small>СЛІДКУЙ ЗА НАМИ</small><a href="https://www.instagram.com/volya_eesti?igsh=MTBkdTcwOWtmNzZjMQ==" target="_blank" rel="noreferrer">Instagram ↗</a><a href="https://www.facebook.com/share/1Bu16UiqZp/?mibextid=wwXIfr" target="_blank" rel="noreferrer">Facebook ↗</a><a href="mailto:volya@ukraine.ee">Email ↗</a></div><div className="footer-legal">© 2025 VOLYA<br />Діє при Спілці української молоді в Естонії.<br /><br />Зроблено з любовʼю в Таллінні ✦</div></footer>
+      <footer className="footer wrap" id="contact"><div className="footer-brand"><a className="brand" href="#top"><img src="/logo-volya.webp" alt="VOLYA" width={960} height={386} loading="lazy" decoding="async" /></a><p>Український ансамбль<br />пісні і танцю в Естонії.</p></div><div className="footer-contact"><small>КОНТАКТИ</small><a href="mailto:volya@ukraine.ee">volya@ukraine.ee ↗</a><a href="tel:+37253774435">+372 5377 4435 ↗</a><a href="tel:+37253007761">+372 5300 7761 ↗</a><a href="https://t.me/volya_ee" target="_blank" rel="noreferrer">Telegram @volya_ee ↗</a><p>Ukraina Noorsoo Liit Eestis<br />80163437</p></div><div><small>НАВІГАЦІЯ</small>{nav.map(item => <a key={item.href} href={item.href}>{item.label}</a>)}</div><div><small>СЛІДКУЙ ЗА НАМИ</small><a href="https://www.instagram.com/volya_eesti?igsh=MTBkdTcwOWtmNzZjMQ==" target="_blank" rel="noreferrer">Instagram ↗</a><a href="https://www.facebook.com/share/1Bu16UiqZp/?mibextid=wwXIfr" target="_blank" rel="noreferrer">Facebook ↗</a><a href="mailto:volya@ukraine.ee">Email ↗</a></div><div className="footer-legal">© 2025 VOLYA<br />Діє при Спілці української молоді в Естонії.<br /><br />Зроблено з любовʼю в Таллінні ✦</div></footer>
     </main>
   );
 }
