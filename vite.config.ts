@@ -12,8 +12,17 @@ const { d1, r2 } = hostingConfig;
 const isCodexSeatbeltSandbox = process.env.CODEX_SANDBOX === "seatbelt";
 
 const localBindingConfig = {
+  // Name of the deployed Cloudflare Worker service.
+  name: "volyaensemble-ee",
+  // Pinned so `wrangler deploy` never has to guess between accounts.
+  account_id: "6b602e29a4c19258a6a6ac06f981b1d5",
   main: "./worker/index.ts",
   compatibility_flags: ["nodejs_compat"],
+  // `worker/index.ts` and vinext's app-router entry both read `env.ASSETS`,
+  // so the static assets need an explicit binding, not just a directory.
+  assets: {
+    binding: "ASSETS",
+  },
   d1_databases: d1
     ? [
         {

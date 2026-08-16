@@ -87,6 +87,31 @@ or enforce explicit server-side membership or allowlist checks.
 Use SIWC for account pages, user-specific dashboards, saved records, and write
 actions tied to the current ChatGPT user. Leave public content anonymous.
 
+## Deploy to Cloudflare Workers
+
+The Worker config is generated at build time into `dist/server/wrangler.json`
+from `localBindingConfig` in `vite.config.ts` — edit it there, not in `dist/`.
+`.wrangler/deploy/config.json` points Wrangler at that generated file, so
+`wrangler deploy` can be run from the project root.
+
+One-time authentication:
+
+```bash
+npx wrangler login
+```
+
+Then, for every release:
+
+```bash
+npm run deploy
+```
+
+- Service name: `volyaensemble-ee` (account `6b602e29a4c19258a6a6ac06f981b1d5`)
+- `env.ASSETS` is bound to `dist/client`; vinext's app-router entry and the
+  image-optimization route in `worker/index.ts` both require it
+- `npx wrangler deploy --dry-run` validates the bundle without uploading
+- `npm run cf:tail` streams live production logs
+
 ## Useful Commands
 
 - `npm run dev`: start local development
