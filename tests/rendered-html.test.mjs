@@ -1,91 +1,81 @@
 import assert from "node:assert/strict";
-import { access, readFile, readdir } from "node:fs/promises";
 import test from "node:test";
 
-const developmentPreviewMeta =
-  /<meta(?=[^>]*\bname=["']codex-preview["'])(?=[^>]*\bcontent=["']development["'])[^>]*>/i;
-const templateRoot = new URL("../", import.meta.url);
-const previewRoot = new URL("../app/_sites-preview/", import.meta.url);
+/**
+ * Smoke tests against the built worker. These guard the things that have
+ * actually broken on this site before: a route going missing, a locale
+ * serving the wrong `lang`, and untranslated Ukrainian leaking into the
+ * Estonian or English pages.
+ */
 
-async function render() {
+const routes = [
+  { path: "/", lang: "uk", title: "VOLYA — український ансамбль в Естонії", home: "/" },
+  { path: "/et", lang: "et", title: "VOLYA — ukraina ansambel Eestis", home: "/et" },
+  { path: "/en", lang: "en", title: "VOLYA — Ukrainian ensemble in Estonia", home: "/en" },
+  { path: "/schedule", lang: "uk", title: "Розклад занять — VOLYA", home: "/" },
+  { path: "/et/schedule", lang: "et", title: "Tundide ajakava — VOLYA", home: "/et" },
+  { path: "/en/schedule", lang: "en", title: "Class schedule — VOLYA", home: "/en" },
+];
+
+const cyrillic = /[Ѐ-ӿ]/;
+
+async function render(path) {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
   const { default: worker } = await import(workerUrl.href);
 
   return worker.fetch(
-    new Request("http://localhost/", {
-      headers: { accept: "text/html" },
-    }),
-    {
-      ASSETS: {
-        fetch: async () => new Response("Not found", { status: 404 }),
-      },
-    },
-    {
-      waitUntil() {},
-      passThroughOnException() {},
-    },
+    new Request(`http://localhost${path}`, { headers: { accept: "text/html" } }),
+    { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } },
+    { waitUntil() {}, passThroughOnException() {} },
   );
 }
 
-test("server-renders the starter loading skeleton", async () => {
-  const response = await render();
-  assert.equal(response.status, 200);
-  assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
+/** Visible text only — scripts carry the RSC payload, which repeats every locale. */
+function visibleText(html) {
+  return html
+    .replace(/<script[\s\S]*?<\/script>/g, "")
+    .replace(/<[^>]+>/g, " ");
+}
 
-  const html = await response.text();
-  assert.match(html, developmentPreviewMeta);
-  assert.match(html, /<title>Your site is taking shape<\/title>/i);
-  assert.match(html, /Building your site/);
-  assert.match(html, /Your site is taking shape/);
-  assert.match(
-    html,
-    /Your first version will appear here automatically when it’s ready\./,
-  );
-  assert.doesNotMatch(html, /Codex/);
-  assert.match(html, /react-loading-skeleton/);
-  assert.match(html, /role="status"/);
+for (const route of routes) {
+  test(`${route.path} renders in ${route.lang}`, async () => {
+    const response = await render(route.path);
+    assert.equal(response.status, 200);
+    assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
+
+    const html = await response.text();
+    assert.match(html, new RegExp(`<html lang="${route.lang}"`));
+    assert.ok(html.includes(`<title>${route.title}</title>`), `wrong <title> on ${route.path}`);
+
+    // Every locale must advertise the other two as translations.
+    for (const tag of ["uk", "et", "en", "x-default"]) {
+      assert.match(html, new RegExp(`hrefLang="${tag}"`, "i"), `missing hreflang ${tag}`);
+    }
+  });
+}
+
+test("non-Ukrainian locales contain no untranslated copy", async () => {
+  for (const route of routes.filter(entry => entry.lang !== "uk")) {
+    const html = await (await render(route.path)).text();
+    assert.doesNotMatch(visibleText(html), cyrillic, `Cyrillic text left on ${route.path}`);
+  }
 });
 
-test("keeps the loading skeleton scoped and disposable", async () => {
-  const [preview, css, page, layout, packageJson, files] = await Promise.all([
-    readFile(new URL("SkeletonPreview.tsx", previewRoot), "utf8"),
-    readFile(new URL("preview.css", previewRoot), "utf8"),
-    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../package.json", import.meta.url), "utf8"),
-    readdir(previewRoot),
-  ]);
+test("schedule pages link back to their own locale's home", async () => {
+  for (const route of routes.filter(entry => entry.path.endsWith("/schedule"))) {
+    const html = await (await render(route.path)).text();
+    assert.match(
+      html,
+      new RegExp(`<a href="${route.home}" class="back"`),
+      `wrong back link on ${route.path}`,
+    );
+  }
+});
 
-  assert.deepEqual(files.sort(), ["SkeletonPreview.tsx", "preview.css"]);
-  assert.match(preview, /from "react-loading-skeleton"/);
-  assert.match(preview, /baseColor="#eceae7"/);
-  assert.match(preview, /highlightColor="#f9f8f6"/);
-  assert.match(preview, /duration=\{2\.8\}/);
-  assert.match(preview, /sites-skeleton-search-placeholder/);
-  assert.match(packageJson, /"react-loading-skeleton": "3\.5\.0"/);
-
-  const shellIndex = preview.indexOf('className="sites-skeleton-shell"');
-  const statusIndex = preview.indexOf('className="sites-skeleton-status"');
-  assert.ok(shellIndex >= 0 && statusIndex > shellIndex);
-  assert.match(css, /position:\s*fixed/);
-  assert.match(css, /inset:\s*0/);
-  assert.match(css, /opacity:\s*0\.52/);
-  assert.match(css, /prefers-reduced-motion:\s*reduce/);
-  assert.doesNotMatch(css, /#020617|canvas|pets|progress/i);
-  assert.doesNotMatch(
-    preview,
-    /loading-spinner|status-mark|status-progress|canvas|cookie|random/i,
-  );
-
-  assert.match(page, /export const metadata:\s*Metadata/);
-  assert.match(page, /"codex-preview": "development"/);
-  assert.match(page, /<SkeletonPreview \/>/);
-  assert.match(layout, /title:\s*"Starter Project"/);
-  assert.doesNotMatch(layout, /codex-preview|_sites-preview|themeColor|\bViewport\b/);
-  assert.doesNotMatch(css, /(^|\s)(html|body)\s*\{/m);
-
-  await assert.rejects(
-    access(new URL("public/_sites-preview", templateRoot)),
-  );
+test("the language switcher offers every locale", async () => {
+  const html = await (await render("/")).text();
+  for (const href of ["/", "/et", "/en"]) {
+    assert.match(html, new RegExp(`href="${href}" hrefLang=`, "i"), `switcher missing ${href}`);
+  }
 });
