@@ -21,6 +21,14 @@ export function SiteShell({ locale, children }: { locale: Locale; children: Reac
 }
 
 /**
+ * Social platforms cache the preview image by its URL and will not re-download
+ * a path they have already fetched — Telegram kept serving an old card even
+ * after re-reading the page. Replacing the picture therefore means giving it a
+ * new filename here, not just overwriting the file.
+ */
+const socialCard = "/og-card.jpg";
+
+/**
  * Per-page metadata including the `hreflang` set, which tells search engines
  * that the three locales are translations of one page rather than duplicates.
  */
@@ -45,13 +53,13 @@ export function pageMetadata(locale: Locale, page: "/" | "/schedule"): Metadata 
       url: localePath(locale, page),
       title: copy.title,
       description: page === "/" ? dict.meta.home.ogDescription : copy.description,
-      images: ["/og.jpg"],
+      images: [socialCard],
     },
     twitter: {
       card: "summary_large_image",
       title: copy.title,
       description: page === "/" ? dict.meta.home.ogDescription : copy.description,
-      images: ["/og.jpg"],
+      images: [socialCard],
     },
   };
 }
