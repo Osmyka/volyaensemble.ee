@@ -28,8 +28,13 @@ jobs:
           node-version: 22
           cache: npm
 
+      # `npm ci` cannot install this lock file on Linux: @rolldown/binding-
+      # wasm32-wasi pins @emnapi/core and @emnapi/runtime at 1.10.0, and
+      # neither is recorded. Regenerating on Windows does not help — npm 11
+      # then prunes every non-Windows binary, which breaks Linux outright.
+      # `npm install` reconciles the gap and still honours the pinned versions.
       - name: Install dependencies
-        run: npm ci
+        run: npm install --no-audit --no-fund
 
       - name: Lint
         run: npm run lint
