@@ -15,6 +15,8 @@ export const en: Dictionary = {
     },
   },
   nav: {
+    home: "Home",
+    mobileNav: "Main navigation",
     about: "About us",
     schedule: "Schedule",
     gallery: "Gallery",

@@ -3,6 +3,7 @@ import "./schedule-overrides.css";
 import { addresses, links } from "../i18n/contacts";
 import { localePath, type Locale } from "../i18n/config";
 import type { Dictionary } from "../i18n/types";
+import { BottomNav } from "../mobile/BottomNav";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { lines } from "./text";
 
@@ -85,6 +86,8 @@ export function SchedulePage({ locale, dict }: { locale: Locale; dict: Dictionar
         <div><span>02</span><h2>{dict.schedulePage.detailVocal}</h2><p>{lines(dict.schedulePage.vocalFrequency)}</p></div>
         <a className="button dark" href={links.joinForm} target="_blank" rel="noreferrer">{dict.schedulePage.cta} ↗</a>
       </section>
+
+      <BottomNav locale={locale} dict={dict} page="/schedule" />
     </main>
   );
 }

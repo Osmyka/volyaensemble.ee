@@ -4,6 +4,7 @@ import { Fragment, useState } from "react";
 import { addresses, links, organisation, teacherNames, telHref } from "../i18n/contacts";
 import { localePath, type Locale } from "../i18n/config";
 import type { Dictionary } from "../i18n/types";
+import { BottomNav } from "../mobile/BottomNav";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { lines, withNumber } from "./text";
 
@@ -73,6 +74,8 @@ export function HomePage({ locale, dict }: { locale: Locale; dict: Dictionary })
       <section className="join" id="join"><div className="wrap join-inner"><div className="section-label">{dict.join.label}</div><h2>{dict.join.headingTop}<br /><em>{dict.join.headingEm}</em></h2><p>{dict.join.text}</p><a className="button yellow" href={links.joinForm} target="_blank" rel="noreferrer">{dict.join.cta} <span>↗</span></a><div className="join-mark">VOLYA<br /><small>{lines(dict.join.markCaption)}</small></div></div></section>
 
       <footer className="footer wrap" id="contact"><div className="footer-brand"><a className="brand" href="#top"><img src="/logo-volya.webp" alt="VOLYA" width={960} height={386} loading="lazy" decoding="async" /></a><p>{lines(dict.footer.tagline)}</p></div><div className="footer-contact"><small>{dict.footer.contactsTitle}</small><a href={`mailto:${links.email}`}>{links.email} ↗</a>{links.phones.map(phone => <a key={phone} href={telHref(phone)}>{phone} ↗</a>)}<a href={links.telegram} target="_blank" rel="noreferrer">{dict.footer.telegram} ↗</a><p>{organisation.name}<br />{organisation.registryCode}</p></div><div><small>{dict.footer.navigationTitle}</small>{nav.map(item => <a key={item.href} href={item.href}>{item.label}</a>)}</div><div><small>{dict.footer.followTitle}</small><a href={links.instagram} target="_blank" rel="noreferrer">Instagram ↗</a><a href={links.facebook} target="_blank" rel="noreferrer">Facebook ↗</a><a href={`mailto:${links.email}`}>{dict.footer.email} ↗</a></div><div className="footer-legal">{lines(dict.footer.legal)}<br /><br />{dict.footer.madeWith}</div></footer>
+
+      <BottomNav locale={locale} dict={dict} page="/" />
     </main>
   );
 }
