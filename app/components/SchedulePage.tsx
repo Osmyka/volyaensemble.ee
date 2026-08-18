@@ -4,6 +4,7 @@ import { addresses, links } from "../i18n/contacts";
 import { localePath, type Locale } from "../i18n/config";
 import type { Dictionary } from "../i18n/types";
 import { BottomNav } from "../mobile/BottomNav";
+import { ActionLink } from "./ActionLink";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { lines } from "./text";
 
@@ -63,7 +64,7 @@ export function SchedulePage({ locale, dict }: { locale: Locale; dict: Dictionar
             centred. */}
         <div className="schedule-nav-actions">
           <LanguageSwitcher locale={locale} page="/schedule" dict={dict} />
-          <a className="schedule-join" href={links.joinForm} target="_blank" rel="noreferrer">{dict.nav.join} ↗</a>
+          <ActionLink className="schedule-join" variant="button" tone="gold" href={links.joinForm} external>{dict.nav.join}</ActionLink>
         </div>
       </header>
       <section className="schedule-intro">
@@ -84,7 +85,7 @@ export function SchedulePage({ locale, dict }: { locale: Locale; dict: Dictionar
       <section className="schedule-details">
         <div><span>01</span><h2>{dict.schedulePage.detailChoreography}</h2><p>{lines(dict.schedulePage.choreographyFrequency)}</p></div>
         <div><span>02</span><h2>{dict.schedulePage.detailVocal}</h2><p>{lines(dict.schedulePage.vocalFrequency)}</p></div>
-        <a className="button dark" href={links.joinForm} target="_blank" rel="noreferrer">{dict.schedulePage.cta} ↗</a>
+        <ActionLink variant="button" tone="navy" href={links.joinForm} external>{dict.schedulePage.cta}</ActionLink>
       </section>
 
       <BottomNav locale={locale} dict={dict} page="/schedule" />

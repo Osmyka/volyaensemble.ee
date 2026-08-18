@@ -1,125 +1,97 @@
-/* Language switcher. `.lang` keeps its existing divider from globals.css. */
-.lang {
-  position: relative;
+/* Compact language switcher, sitting with the theme toggle in `.nav-tools`. */
+
+.navlinks {
+  margin-right: 24px;
 }
 
-.lang-toggle {
+.nav-tools {
   display: flex;
   align-items: center;
-  gap: 6px;
-  background: none;
-  border: 0;
-  padding: 0;
-  cursor: pointer;
-  font: inherit;
-  font-size: 13px;
-  font-weight: 600;
-  color: inherit;
+  gap: 10px;
+  flex: 0 0 auto;
 }
 
-.lang-menu {
-  display: none;
-  position: absolute;
-  top: calc(100% + 12px);
-  left: 0;
-  z-index: 30;
+.nav-tools .theme-toggle {
+  margin-right: 0;
+}
+
+.lang {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 3px;
+  background: #2c4868;
+  border: 1px solid #4e6b89;
+  border-radius: 999px;
+}
+
+.lang ul {
+  display: flex;
+  align-items: center;
+  gap: 2px;
   margin: 0;
-  padding: 6px;
+  padding: 0;
   list-style: none;
-  min-width: 78px;
-  background: var(--cream);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  box-shadow: 0 14px 34px rgba(21, 26, 36, 0.14);
 }
 
-.lang-menu.open {
-  display: block;
-}
-
-.lang-menu a {
-  display: block;
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--ink);
+.lang a {
+  display: grid;
+  place-items: center;
+  min-width: 32px;
+  height: 28px;
+  padding: 0 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  color: rgba(237, 243, 250, 0.72);
   text-decoration: none;
+  transition: background 0.18s ease, color 0.18s ease;
 }
 
-.lang-menu a:hover {
-  background: rgba(21, 26, 36, 0.06);
-}
-
-/* The language the visitor is already reading. */
-.lang-menu a[aria-current="true"] {
-  color: var(--blue);
-}
-
-/* In the mobile drawer the nav stacks, so the menu flows inline instead of
-   overlaying content it would otherwise cover. */
-@media (max-width: 800px) {
-  .navlinks .lang {
-    border-left: 0;
-    padding-left: 0;
-  }
-
-  .navlinks .lang-menu {
-    position: static;
-    box-shadow: none;
-    margin-top: 8px;
-  }
-
-  .navlinks .lang-menu.open {
-    display: flex;
-    gap: 4px;
-  }
-}
-
-.dark-mode .lang-menu {
-  background: #1b2940;
-  border-color: #32465f;
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.4);
-}
-
-.dark-mode .lang-menu a {
+.lang a:hover {
   color: #edf3fa;
-}
-
-.dark-mode .lang-menu a:hover {
   background: rgba(237, 243, 250, 0.08);
 }
 
-.dark-mode .lang-menu a[aria-current="true"] {
-  color: #86a7ce;
+.lang a:focus-visible {
+  outline: 2px solid #d6b85f;
+  outline-offset: 2px;
 }
 
-/* Schedule page header sits on the dark navy bar. */
-/* The header is `space-between`, so the switcher just takes its own slot. */
-.schedule-nav .lang {
-  border-left: 0;
-  padding-left: 0;
+/* The language the visitor is already reading. */
+.lang a[aria-current="true"] {
+  background: #d6b85f;
+  color: #203754;
 }
 
-.schedule-nav .lang-toggle {
-  color: #edf3fa;
+.lang a[aria-current="true"]:hover {
+  background: #d6b85f;
+  color: #203754;
 }
 
-.schedule-nav .lang-menu {
-  background: #203754;
-  border-color: rgba(214, 184, 95, 0.4);
-  left: auto;
-  right: 0;
+/* Schedule page header is the same navy bar. */
+.schedule-nav .lang a {
+  color: rgba(237, 243, 250, 0.72);
+  font-size: 11px;
+  font-weight: 700;
 }
 
-.schedule-nav .lang-menu a {
-  color: #edf3fa;
+.schedule-nav .lang a[aria-current="true"] {
+  color: #203754;
 }
 
-.schedule-nav .lang-menu a:hover {
-  background: rgba(237, 243, 250, 0.1);
-}
+@media (max-width: 800px) {
+  .nav-tools {
+    margin-left: auto;
+    margin-right: 4px;
+    gap: 8px;
+  }
 
-.schedule-nav .lang-menu a[aria-current="true"] {
-  color: #d6b85f;
+  .lang a {
+    min-width: 28px;
+    height: 26px;
+    padding: 0 6px;
+    font-size: 10px;
+  }
 }

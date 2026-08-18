@@ -26,7 +26,6 @@ export const et: Dictionary = {
     contact: "Kontakt",
     join: "Liitu",
     brandHome: "VOLYA avalehele",
-    openMenu: "Ava menüü",
     languageLabel: "Keel",
     toggleTheme: "Vaheta teemat",
     themeDark: "Tume",

@@ -150,3 +150,18 @@ test("the language switcher offers every locale", async () => {
     assert.match(html, new RegExp(`href="${href}" hrefLang=`, "i"), `switcher missing ${href}`);
   }
 });
+
+test("the header has no hamburger drawer on the home page", async () => {
+  const html = await (await render("/")).text();
+  assert.doesNotMatch(html, /class="menu"/);
+  assert.doesNotMatch(html, /class="lang-toggle"/);
+  assert.match(html, /class="nav-tools"/);
+});
+
+test("action links replace the old arrow characters", async () => {
+  for (const path of ["/", "/et", "/en", "/schedule"]) {
+    const html = await (await render(path)).text();
+    assert.doesNotMatch(visibleText(html), /↗/, `stale ↗ left on ${path}`);
+    assert.match(html, /class="action-link/, `no action links on ${path}`);
+  }
+});
