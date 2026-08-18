@@ -18,6 +18,8 @@ export const et: Dictionary = {
     },
   },
   nav: {
+    home: "Avaleht",
+    mobileNav: "Põhinavigatsioon",
     about: "Ansamblist",
     schedule: "Ajakava",
     gallery: "Galerii",

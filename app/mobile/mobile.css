@@ -1,0 +1,209 @@
+/*
+ * Phone navigation bar.
+ *
+ * Visibility is decided by viewport width alone, never by user agent — one
+ * HTML document serves every device so the CDN can cache it. The
+ * `[data-platform]` blocks at the bottom only correct behaviours that really do
+ * differ between iOS Safari and Android Chrome.
+ */
+
+.tabbar {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  .tabbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 60;
+    display: block;
+    background: #203754;
+    border-top: 1px solid rgba(214, 184, 95, 0.45);
+    /* Clears the iOS home indicator and Android's gesture pill. The fallback
+       keeps the bar usable in browsers without env(). */
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    /* The site scrolls under the bar, so it needs to stay legible over
+       photographs as well as flat backgrounds. */
+    backdrop-filter: blur(12px);
+    box-shadow: 0 -10px 30px rgba(9, 17, 31, 0.28);
+  }
+
+  .tabbar ul {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    align-items: stretch;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    /* 56px keeps every target at or above the 44px both platforms recommend. */
+    min-height: 56px;
+    padding: 8px 2px 6px;
+    color: rgba(237, 243, 250, 0.72);
+    text-decoration: none;
+    /* Chrome paints a grey flash on tap; the :active rule below replaces it. */
+    -webkit-tap-highlight-color: transparent;
+    /* Stops the browser waiting to see whether a tap is a double-tap zoom. */
+    touch-action: manipulation;
+    transition: color 0.18s ease;
+  }
+
+  .tab-icon {
+    display: flex;
+    width: 24px;
+    height: 24px;
+  }
+
+  .tab-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    line-height: 1;
+    /* Estonian labels are the longest; keep them on one line. */
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .tab:active {
+    color: #fff;
+  }
+
+  .tab.is-active {
+    color: #f1d36a;
+  }
+
+  /* A short bar above the icon reads as "you are here" without another colour.
+     It has to be brighter than the bar's own gold top border, or the two merge
+     into one line and the indicator disappears. */
+  .tab.is-active::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 28px;
+    height: 3px;
+    border-radius: 0 0 3px 3px;
+    background: #f1d36a;
+  }
+
+  /* A faint wash widens the target visually, so the active tab still reads at a
+     glance when the indicator is clipped by a rounded display corner. */
+  .tab.is-active {
+    background: rgba(241, 211, 106, 0.09);
+  }
+
+  .tabbar li {
+    position: relative;
+    display: flex;
+  }
+
+  .tabbar li > .tab {
+    flex: 1;
+  }
+
+  /* The join action is the one thing we want people to press. */
+  .tab-cta .tab-icon {
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    margin-top: -3px;
+    border-radius: 50%;
+    background: #d6b85f;
+    color: #203754;
+  }
+
+  .tab-cta .tab-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .tab-cta {
+    color: #f1d36a;
+  }
+
+  .tab-cta.is-active::before {
+    display: none;
+  }
+
+  /* Keep the footer clear of the bar. */
+  .site,
+  .schedule-page {
+    padding-bottom: calc(62px + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* Anchored sections must not land underneath the sticky header. */
+  :target {
+    scroll-margin-top: 88px;
+  }
+}
+
+/* Wide phones in landscape have almost no vertical room — drop the labels
+   rather than the whole bar. */
+@media (max-width: 800px) and (max-height: 430px) {
+  .tab-label {
+    display: none;
+  }
+
+  .tab {
+    min-height: 46px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tab {
+    transition: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * iOS Safari
+ *
+ * Safari's bottom toolbar slides away as you scroll and the viewport grows
+ * under it, so a bar pinned with `bottom: 0` can end up behind the home
+ * indicator. The extra inset keeps the labels clear of it, and momentum
+ * scrolling is re-enabled for the page behind the bar.
+ * ------------------------------------------------------------------------ */
+@media (max-width: 800px) {
+  [data-platform="ios"] .tabbar {
+    padding-bottom: max(env(safe-area-inset-bottom, 0px), 6px);
+  }
+
+  /* Installed to the home screen there is no browser chrome, so the indicator
+     needs the full inset and the bar can afford more height. */
+  [data-platform="ios"][data-standalone="true"] .tabbar {
+    padding-bottom: max(env(safe-area-inset-bottom, 0px), 14px);
+  }
+
+  [data-platform="ios"] body {
+    /* Prevents the whole page bouncing past the tab bar on overscroll. */
+    overscroll-behavior-y: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Android Chrome
+ *
+ * Chrome tints its address bar from `theme-color`, so the top of the screen
+ * already matches the header; the bar below only needs the gesture-pill inset,
+ * which Chrome reports as a smaller value than iOS.
+ * ------------------------------------------------------------------------ */
+@media (max-width: 800px) {
+  [data-platform="android"] .tabbar {
+    padding-bottom: max(env(safe-area-inset-bottom, 0px), 4px);
+  }
+
+  [data-platform="android"] .tab:active {
+    background: rgba(237, 243, 250, 0.08);
+  }
+}

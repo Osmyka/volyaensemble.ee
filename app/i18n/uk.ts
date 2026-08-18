@@ -15,6 +15,8 @@ export const uk: Dictionary = {
     },
   },
   nav: {
+    home: "Головна",
+    mobileNav: "Основна навігація",
     about: "Про ансамбль",
     schedule: "Розклад",
     gallery: "Галерея",

@@ -13,6 +13,10 @@ export interface Dictionary {
     schedule: { title: string; description: string };
   };
   nav: {
+    /** Phone tab bar only — the desktop header has no "home" entry. */
+    home: string;
+    /** Accessible name for the phone tab bar. */
+    mobileNav: string;
     about: string;
     schedule: string;
     gallery: string;

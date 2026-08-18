@@ -75,6 +75,44 @@ test("schedule pages link back to their own locale's home", async () => {
 });
 
 /**
+ * The tab bar ships in every document and is revealed by a media query, so one
+ * cached page can serve phones and desktops alike. If it ever became
+ * conditional on the user agent, these would fail.
+ */
+test("the tab bar is server-rendered for every locale", async () => {
+  for (const route of routes) {
+    const html = await (await render(route.path)).text();
+    assert.match(html, /<nav class="tabbar"/, `no tab bar on ${route.path}`);
+    assert.equal(
+      (html.match(/class="tab(?:[ "])/g) ?? []).length,
+      5,
+      `expected five tabs on ${route.path}`,
+    );
+  }
+});
+
+test("tab bar links stay inside the visitor's locale", async () => {
+  // On the home page the section tabs scroll; elsewhere they must carry a path,
+  // because the schedule page has no #gallery to scroll to.
+  const home = await (await render("/et")).text();
+  assert.match(home, /href="#gallery"/);
+  assert.match(home, /href="#contact"/);
+  assert.match(home, /href="\/et\/schedule"/);
+
+  const schedule = await (await render("/et/schedule")).text();
+  assert.match(schedule, /href="\/et#gallery"/, "gallery tab lost its locale path");
+  assert.match(schedule, /href="\/et#contact"/, "contact tab lost its locale path");
+});
+
+test("the viewport opts into safe-area insets", async () => {
+  const html = await (await render("/")).text();
+  // Without viewport-fit=cover, env(safe-area-inset-*) reports 0 on iPhones and
+  // the bar would sit under the home indicator.
+  assert.match(html, /viewport-fit=cover/);
+  assert.match(html, /<meta name="theme-color" content="#203754"/);
+});
+
+/**
  * Copy baked into a stylesheet is invisible to the HTML checks above and no
  * translation can reach it, which is exactly how Ukrainian teacher names and
  * headings ended up on the English page. Text belongs in the dictionaries.
