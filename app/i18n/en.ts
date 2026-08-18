@@ -23,7 +23,6 @@ export const en: Dictionary = {
     contact: "Contact",
     join: "Join us",
     brandHome: "VOLYA home",
-    openMenu: "Open menu",
     languageLabel: "Language",
     toggleTheme: "Toggle theme",
     themeDark: "Dark",

@@ -24,7 +24,6 @@ export interface Dictionary {
     /** Header CTA and the aria-label on the logo. */
     join: string;
     brandHome: string;
-    openMenu: string;
     languageLabel: string;
     toggleTheme: string;
     themeDark: string;

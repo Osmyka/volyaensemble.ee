@@ -23,7 +23,6 @@ export const uk: Dictionary = {
     contact: "Контакти",
     join: "Приєднатися",
     brandHome: "VOLYA на головну",
-    openMenu: "Відкрити меню",
     languageLabel: "Мова",
     toggleTheme: "Перемкнути тему",
     themeDark: "Темна",
