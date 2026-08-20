@@ -17,11 +17,3 @@ export function lines(value: string): ReactNode {
 export function withNumber(value: string, n: number): string {
   return value.replace("{n}", String(n));
 }
-
-/** Substitutes `{name}`-style tokens used in merch order subject/body lines. */
-export function withTokens(value: string, tokens: Record<string, string>): string {
-  return Object.entries(tokens).reduce(
-    (text, [key, replacement]) => text.replaceAll(`{${key}}`, replacement),
-    value,
-  );
-}

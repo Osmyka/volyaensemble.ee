@@ -35,8 +35,8 @@ conventions:
 - `\n` marks a deliberate line break and renders as `<br>`. Keep the breaks
   where the design needs them; they are not paragraph separators.
 - `{n}` in `gallery.photoAlt` is replaced with the photo number.
-- `{name}` and `{size}` in merch order subject/body lines are filled in when
-  a visitor picks a piece.
+- `merchPage.mail` holds the labels of the order e-mail. The values beside them
+  come from the order form, so the labels must not end in a colon.
 
 ## Never put copy in CSS
 

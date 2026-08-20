@@ -7,6 +7,19 @@
  * phone numbers and the registry code are identical in every language and
  * live in `app/i18n/contacts.ts`.
  */
+/**
+ * One merch piece. `orderNoun` completes "Order …" in the dialog title;
+ * `variantTitle` names the colour picker for pieces that have one.
+ */
+export interface MerchProduct {
+  name: string;
+  description: string;
+  alt: string;
+  orderNoun: string;
+  variantTitle?: string;
+  variants?: Record<string, string>;
+}
+
 export interface Dictionary {
   meta: {
     home: { title: string; description: string; ogDescription: string };
@@ -22,7 +35,7 @@ export interface Dictionary {
     schedule: string;
     gallery: string;
     contact: string;
-    /** Footer and merch-page label; the homepage entry uses `hero.merchCta`. */
+    /** Header, footer and the phone tab bar. */
     merch: string;
     /** Header CTA and the aria-label on the logo. */
     join: string;
@@ -36,8 +49,6 @@ export interface Dictionary {
     eyebrow: string;
     text: string;
     joinCta: string;
-    /** Homepage merch entry — sits in the hero, not in the header. */
-    merchCta: string;
     videoLabel: string;
     countValue: string;
     countCaption: string;
@@ -147,29 +158,67 @@ export interface Dictionary {
   };
   merchPage: {
     back: string;
-    label: string;
+    /** Hero eyebrow: section number on the left, city on the right. */
+    eyebrow: string;
+    eyebrowPlace: string;
     headingTop: string;
     headingEm: string;
     text: string;
-    /** Oversized faded word behind the intro. Decorative. */
-    watermark: string;
-    sizesLabel: string;
-    oneSize: string;
+    scrollCue: string;
+    collectionLabel: string;
+    collectionTitle: string;
+    collectionText: string;
+    orderLabel: string;
+    orderTitle: string;
+    orderText: string;
     orderCta: string;
-    orderSubject: string;
-    orderBody: string;
-    /** Used for pieces with no size chips, so `{size}` is left out. */
-    orderBodyOneSize: string;
-    pickupTitle: string;
-    pickup: string;
-    support: string;
-    contactTitle: string;
-    contactText: string;
+    /** The order dialog, opened by picking a piece from the grid. */
+    modal: {
+      label: string;
+      headingTop: string;
+      close: string;
+      selectedProduct: string;
+      bodyTypeLegend: string;
+      /** T-shirts ask for a cut, everything else for a size category. */
+      shirtTypeLegend: string;
+      bodyTypes: { men: string; women: string; kids: string };
+      styleLegend: string;
+      styles: { zip: string; plain: string };
+      sizeLabel: string;
+      sizePlaceholder: string;
+      sizeGuideCta: string;
+      quantityLabel: string;
+      participantLabel: string;
+      emailLabel: string;
+      detailsLabel: string;
+      submit: string;
+    };
+    sizeGuide: {
+      label: string;
+      headingTop: string;
+      headingEm: string;
+      imageAlt: string;
+    };
+    /** Labels for the order e-mail. `{token}` values are filled from the form. */
+    mail: {
+      subject: string;
+      product: string;
+      colour: string;
+      style: string;
+      participant: string;
+      bodyType: string;
+      size: string;
+      quantity: string;
+      contact: string;
+      details: string;
+      notSpecified: string;
+    };
     products: {
-      tee: { name: string; blurb: string; alt: string };
-      hoodie: { name: string; blurb: string; alt: string };
-      tote: { name: string; blurb: string; alt: string };
-      cap: { name: string; blurb: string; alt: string };
+      tshirt: MerchProduct & { variants: { black: string; white: string; lilac: string } };
+      hoodie: MerchProduct & { variants: { black: string; blue: string } };
+      backpack: MerchProduct & { variants: { blue: string; black: string } };
+      tote: MerchProduct;
+      cap: MerchProduct;
     };
   };
 }

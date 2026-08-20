@@ -1,20 +1,27 @@
 import "./schedule.css";
 import "./schedule-overrides.css";
 import "./merch.css";
-import { merchItems } from "../merch/catalog";
+import { merchMailto } from "../merch/catalog";
 import { links } from "../i18n/contacts";
 import { localePath, type Locale } from "../i18n/config";
 import type { Dictionary } from "../i18n/types";
 import { BottomNav } from "../mobile/BottomNav";
 import { ActionLink } from "./ActionLink";
 import { LanguageSwitcher } from "./LanguageSwitcher";
-import { MerchCard } from "./MerchCard";
+import { MerchShop } from "./MerchShop";
 
+/**
+ * The shop page. Chrome matches the schedule subpage — back link, logo,
+ * language switcher — and the sections below follow the merch prototype:
+ * a gold hero, the collection grid, then the ordering note.
+ */
 export function MerchPage({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+  const copy = dict.merchPage;
+
   return (
     <main className="merch-page">
       <header className="schedule-nav">
-        <a href={localePath(locale, "/")} className="back">← {dict.merchPage.back}</a>
+        <a href={localePath(locale, "/")} className="back">← {copy.back}</a>
         <img src="/logo-volya.webp" alt="VOLYA" width={960} height={386} />
         <div className="schedule-nav-actions">
           <LanguageSwitcher locale={locale} page="/merch" dict={dict} />
@@ -24,33 +31,38 @@ export function MerchPage({ locale, dict }: { locale: Locale; dict: Dictionary }
         </div>
       </header>
 
-      <section className="merch-intro">
-        <span className="merch-watermark" aria-hidden="true">{dict.merchPage.watermark}</span>
-        <div className="section-label">{dict.merchPage.label}</div>
-        <h1>{dict.merchPage.headingTop}<br /><em>{dict.merchPage.headingEm}</em></h1>
-        <p>{dict.merchPage.text}</p>
+      <section className="shop-hero">
+        <span className="shop-hero-mark" aria-hidden="true">✦</span>
+        <p className="eyebrow"><span>{copy.eyebrow}</span><i /><span>{copy.eyebrowPlace}</span></p>
+        <h1>{copy.headingTop}<br /><em>{copy.headingEm}</em></h1>
+        <p className="shop-hero-text">{copy.text}</p>
+        <a className="scroll-cue" href="#products"><span aria-hidden="true">↓</span> {copy.scrollCue}</a>
       </section>
 
-      <section className="merch-grid" aria-label={dict.nav.merch}>
-        {merchItems.map(item => (
-          <MerchCard key={item.id} item={item} dict={dict} />
-        ))}
+      <section className="products-section" id="products" aria-label={dict.nav.merch}>
+        <div className="section-intro">
+          <p className="section-number">{copy.collectionLabel}</p>
+          <h2>{copy.collectionTitle}</h2>
+          <p>{copy.collectionText}</p>
+        </div>
+        <MerchShop dict={dict} />
       </section>
 
-      <section className="merch-contact">
+      <section className="order-note">
         <div>
-          <span>01</span>
-          <h2>{dict.merchPage.contactTitle}</h2>
-          <p>{dict.merchPage.contactText}</p>
+          <p className="section-number">{copy.orderLabel}</p>
+          <h2>{copy.orderTitle}</h2>
         </div>
-        <div>
-          <span>02</span>
-          <h2>{dict.merchPage.pickupTitle}</h2>
-          <p>{dict.merchPage.pickup} {dict.merchPage.support}</p>
-        </div>
-        <div className="merch-contact-actions">
-          <ActionLink variant="button" tone="navy" href={`mailto:${links.email}`}>{links.email}</ActionLink>
-          <ActionLink variant="button" tone="gold" href={links.telegram} external>{dict.footer.telegram}</ActionLink>
+        <div className="order-copy">
+          <p>{copy.orderText}</p>
+          <div className="order-actions">
+            <ActionLink variant="button" tone="gold" href={merchMailto(links.email, copy.mail.subject, "")}>
+              {copy.orderCta}
+            </ActionLink>
+            <ActionLink variant="button" tone="navy" href={links.telegram} external>
+              {dict.footer.telegram}
+            </ActionLink>
+          </div>
         </div>
       </section>
 
