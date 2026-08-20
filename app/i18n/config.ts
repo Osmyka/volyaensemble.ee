@@ -21,12 +21,15 @@ export const localeTags: Record<Locale, string> = {
   en: "en",
 };
 
+/** Pages that exist in every locale. */
+export type SitePage = "/" | "/schedule" | "/merch";
+
 /**
  * Path for `page` in `locale`. The default locale has no prefix, so
  * localePath("uk", "/schedule") is "/schedule" and localePath("et", "/schedule")
  * is "/et/schedule".
  */
-export function localePath(locale: Locale, page: "/" | "/schedule"): string {
+export function localePath(locale: Locale, page: SitePage): string {
   const prefix = locale === defaultLocale ? "" : `/${locale}`;
   if (page === "/") return prefix || "/";
   return `${prefix}${page}`;

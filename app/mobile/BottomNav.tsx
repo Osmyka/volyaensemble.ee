@@ -1,7 +1,7 @@
 "use client";
 
 import { usePlatform } from "../platform/usePlatform";
-import type { Locale } from "../i18n/config";
+import type { Locale, SitePage } from "../i18n/config";
 import type { Dictionary } from "../i18n/types";
 import { ContactIcon, GalleryIcon, HomeIcon, JoinIcon, ScheduleIcon } from "./icons";
 import { buildTabs, type TabId } from "./tabs";
@@ -30,7 +30,7 @@ export function BottomNav({
 }: {
   locale: Locale;
   dict: Dictionary;
-  page: "/" | "/schedule";
+  page: SitePage;
 }) {
   usePlatform();
 
@@ -39,6 +39,7 @@ export function BottomNav({
   const activeSection = useActiveSection(sections, page === "/");
 
   const isActive = (id: TabId) => {
+    if (page === "/merch") return false;
     if (page === "/schedule") return id === "schedule";
     if (id === "home") return activeSection === "top" || activeSection === null;
     const tab = tabs.find(entry => entry.id === id);

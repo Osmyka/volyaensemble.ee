@@ -1,4 +1,4 @@
-import { localeNames, localePath, localeTags, locales, type Locale } from "../i18n/config";
+import { localeNames, localePath, localeTags, locales, type Locale, type SitePage } from "../i18n/config";
 import type { Dictionary } from "../i18n/types";
 
 /**
@@ -12,7 +12,7 @@ export function LanguageSwitcher({
   dict,
 }: {
   locale: Locale;
-  page: "/" | "/schedule";
+  page: SitePage;
   dict: Dictionary;
 }) {
   return (

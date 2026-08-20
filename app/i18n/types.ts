@@ -11,6 +11,7 @@ export interface Dictionary {
   meta: {
     home: { title: string; description: string; ogDescription: string };
     schedule: { title: string; description: string };
+    merch: { title: string; description: string };
   };
   nav: {
     /** Phone tab bar only — the desktop header has no "home" entry. */
@@ -21,6 +22,8 @@ export interface Dictionary {
     schedule: string;
     gallery: string;
     contact: string;
+    /** Footer and merch-page label; the homepage entry uses `hero.merchCta`. */
+    merch: string;
     /** Header CTA and the aria-label on the logo. */
     join: string;
     brandHome: string;
@@ -33,6 +36,8 @@ export interface Dictionary {
     eyebrow: string;
     text: string;
     joinCta: string;
+    /** Homepage merch entry — sits in the hero, not in the header. */
+    merchCta: string;
     videoLabel: string;
     countValue: string;
     countCaption: string;
@@ -139,5 +144,29 @@ export interface Dictionary {
     choreographyFrequency: string;
     vocalFrequency: string;
     cta: string;
+  };
+  merchPage: {
+    back: string;
+    label: string;
+    headingTop: string;
+    headingEm: string;
+    text: string;
+    /** Oversized faded word behind the intro. Decorative. */
+    watermark: string;
+    sizesLabel: string;
+    oneSize: string;
+    orderCta: string;
+    orderSubject: string;
+    orderBody: string;
+    pickup: string;
+    support: string;
+    contactTitle: string;
+    contactText: string;
+    products: {
+      tee: { name: string; blurb: string; alt: string };
+      hoodie: { name: string; blurb: string; alt: string };
+      tote: { name: string; blurb: string; alt: string };
+      cap: { name: string; blurb: string; alt: string };
+    };
   };
 }

@@ -18,11 +18,11 @@ hidden in CSS `content` any more.
 
 Ukrainian owns the bare paths; the others are prefixed.
 
-| Locale | Home | Schedule |
-| --- | --- | --- |
-| uk | `/` | `/schedule` |
-| et | `/et` | `/et/schedule` |
-| en | `/en` | `/en/schedule` |
+| Locale | Home | Schedule | Merch |
+| --- | --- | --- | --- |
+| uk | `/` | `/schedule` | `/merch` |
+| et | `/et` | `/et/schedule` | `/et/merch` |
+| en | `/en` | `/en/schedule` | `/en/merch` |
 
 Each page emits `hreflang` links for all three plus `x-default` pointing at
 Ukrainian, so search engines treat them as translations rather than duplicates.
@@ -35,6 +35,8 @@ conventions:
 - `\n` marks a deliberate line break and renders as `<br>`. Keep the breaks
   where the design needs them; they are not paragraph separators.
 - `{n}` in `gallery.photoAlt` is replaced with the photo number.
+- `{name}` and `{size}` in merch order subject/body lines are filled in when
+  a visitor picks a piece.
 
 ## Never put copy in CSS
 
@@ -58,8 +60,9 @@ file that lacks it, so no language can silently fall behind.
    `localeNames` and a tag in `localeTags`.
 2. Copy `uk.ts` to `<code>.ts` and translate it.
 3. Register it in `index.ts`.
-4. Create `app/(<code>)/layout.tsx` plus `app/(<code>)/<code>/page.tsx` and
-   `app/(<code>)/<code>/schedule/page.tsx`, mirroring the `(et)` group.
+4. Create `app/(<code>)/layout.tsx` plus `app/(<code>)/<code>/page.tsx`,
+   `app/(<code>)/<code>/schedule/page.tsx` and `app/(<code>)/<code>/merch/page.tsx`,
+   mirroring the `(et)` group.
 
 Each locale needs its own route group because the group's layout is what sets
 `<html lang>`.

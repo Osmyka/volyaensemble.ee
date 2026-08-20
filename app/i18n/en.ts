@@ -13,6 +13,11 @@ export const en: Dictionary = {
       description:
         "Choreography and vocals for children and young people aged 6 to 25 in Tallinn. The first class is free.",
     },
+    merch: {
+      title: "Our merch — VOLYA",
+      description:
+        "VOLYA ensemble T-shirts, hoodies, tote bags and caps. Order by email or Telegram and pick up in Tallinn.",
+    },
   },
   nav: {
     home: "Home",
@@ -21,6 +26,7 @@ export const en: Dictionary = {
     schedule: "Schedule",
     gallery: "Gallery",
     contact: "Contact",
+    merch: "Merch",
     join: "Join us",
     brandHome: "VOLYA home",
     languageLabel: "Language",
@@ -32,6 +38,7 @@ export const en: Dictionary = {
     eyebrow: "UKRAINIAN SONG AND DANCE ENSEMBLE",
     text: "One of the largest Ukrainian creative groups in the Baltics, running under the Ukrainian Youth Association in Estonia.",
     joinCta: "Join VOLYA!",
+    merchCta: "Our merch",
     videoLabel: "VOLYA. 3 aastat koos",
     countValue: "60+",
     countCaption: "children and teens\nin our family",
@@ -144,5 +151,44 @@ export const en: Dictionary = {
     choreographyFrequency: "2–3 times a week\n1.5 hours",
     vocalFrequency: "2 times a week\n1–1.5 hours",
     cta: "Sign up for a class",
+  },
+  merchPage: {
+    back: "Back to home",
+    label: "MERCH / 2026",
+    headingTop: "Wear.",
+    headingEm: "Freedom.",
+    text: "Pieces with the ensemble logo — for rehearsal, the stage and every day. Write to us and we will confirm stock and size.",
+    watermark: "MERCH",
+    sizesLabel: "Size",
+    oneSize: "One size",
+    orderCta: "Order",
+    orderSubject: "Merch order: {name}",
+    orderBody: "Hi! I would like to order {name}, size {size}.",
+    pickup: "Pick-up in Tallinn after we confirm the order.",
+    support: "Proceeds go towards costumes, rehearsals and performances.",
+    contactTitle: "How to order",
+    contactText: "Pick a piece and a size — the email will already name it. Or write to us on Telegram.",
+    products: {
+      tee: {
+        name: "VOLYA T-shirt",
+        blurb: "A soft cotton cut with the logo on the front.",
+        alt: "T-shirt with the VOLYA ensemble logo",
+      },
+      hoodie: {
+        name: "VOLYA hoodie",
+        blurb: "A warm hoodie for rehearsal and the city.",
+        alt: "Hoodie with the VOLYA ensemble logo",
+      },
+      tote: {
+        name: "VOLYA tote",
+        blurb: "A sturdy bag for scores, kit and the day.",
+        alt: "Tote bag with the VOLYA ensemble logo",
+      },
+      cap: {
+        name: "VOLYA cap",
+        blurb: "A cap with the ensemble mark.",
+        alt: "Cap with the VOLYA ensemble logo",
+      },
+    },
   },
 };

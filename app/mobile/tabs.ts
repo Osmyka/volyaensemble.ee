@@ -1,5 +1,5 @@
 import { links } from "../i18n/contacts";
-import { localePath, type Locale } from "../i18n/config";
+import { localePath, type Locale, type SitePage } from "../i18n/config";
 import type { Dictionary } from "../i18n/types";
 
 export type TabId = "home" | "schedule" | "gallery" | "contact" | "join";
@@ -18,10 +18,10 @@ export interface Tab {
  * hit on a phone. "Schedule" points at the full timetable page rather than the
  * summary section — on a phone that is what people actually came for.
  *
- * Hash tabs need an absolute path because the schedule page has no such
- * sections to scroll to.
+ * Hash tabs need an absolute path because the schedule and merch pages have
+ * no such sections to scroll to.
  */
-export function buildTabs(locale: Locale, dict: Dictionary, page: "/" | "/schedule"): Tab[] {
+export function buildTabs(locale: Locale, dict: Dictionary, page: SitePage): Tab[] {
   const home = localePath(locale, "/");
   const onHome = page === "/";
   const hash = (id: string) => (onHome ? `#${id}` : `${home}#${id}`);
