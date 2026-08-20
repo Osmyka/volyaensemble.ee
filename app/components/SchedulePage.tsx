@@ -5,6 +5,7 @@ import { localePath, type Locale } from "../i18n/config";
 import type { Dictionary } from "../i18n/types";
 import { BottomNav } from "../mobile/BottomNav";
 import { ActionLink } from "./ActionLink";
+import { JoinButton } from "./JoinButton";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { lines } from "./text";
 
@@ -64,7 +65,7 @@ export function SchedulePage({ locale, dict }: { locale: Locale; dict: Dictionar
             centred. */}
         <div className="schedule-nav-actions">
           <LanguageSwitcher locale={locale} page="/schedule" dict={dict} />
-          <ActionLink className="schedule-join" variant="button" tone="gold" href={links.joinForm} external>{dict.nav.join}</ActionLink>
+          <JoinButton className="schedule-join" label={dict.nav.join} />
         </div>
       </header>
       <section className="schedule-intro">

@@ -6,6 +6,7 @@ import { localePath, type Locale } from "../i18n/config";
 import type { Dictionary } from "../i18n/types";
 import { BottomNav } from "../mobile/BottomNav";
 import { ActionLink, LinkMark } from "./ActionLink";
+import { JoinButton } from "./JoinButton";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { lines, withNumber } from "./text";
 
@@ -34,7 +35,7 @@ export function HomePage({ locale, dict }: { locale: Locale; dict: Dictionary })
         <div className="nav-tools">
           <button className="theme-toggle" onClick={() => setDarkTheme(!darkTheme)} aria-label={dict.nav.toggleTheme}><span>{darkTheme ? "☼" : "☾"}</span><small>{darkTheme ? dict.nav.themeLight : dict.nav.themeDark}</small></button>
           <LanguageSwitcher locale={locale} page="/" dict={dict} />
-          <ActionLink className="nav-cta" variant="button" tone="gold" href={links.joinForm} external>{dict.nav.join}</ActionLink>
+          <JoinButton className="nav-cta" label={dict.nav.join} />
         </div>
       </nav>
 

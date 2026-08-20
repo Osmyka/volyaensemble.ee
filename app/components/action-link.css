@@ -332,9 +332,46 @@
     flex-wrap: wrap;
     gap: 16px;
   }
+}
 
-  /* `.action-link { display: inline-flex }` would otherwise revive the header CTA. */
-  .nav .action-link.nav-cta {
+/*
+ * Header call to action. The sunflower mark is desktop-hidden; on a phone it
+ * is the whole button, because the header has room for a disc and not for a
+ * label. Both pages' headers use the same rules, so the button looks the same
+ * everywhere on the site.
+ */
+.join-cta .join-cta-mark {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  .action-link.join-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    width: 40px;
+    height: 40px;
+    min-height: 0;
+    padding: 0;
+    border-radius: 50%;
+    background: #d6b85f;
+    color: #203754;
+  }
+
+  .join-cta .join-cta-mark {
+    display: flex;
+  }
+
+  .join-cta .join-cta-mark svg {
+    width: 21px;
+    height: 21px;
+  }
+
+  /* The label stays in the markup for the desktop layout; the `aria-label` on
+     the link is what a screen reader announces here. */
+  .join-cta .action-link-label,
+  .join-cta .action-mark {
     display: none;
   }
 }

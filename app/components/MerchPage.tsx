@@ -7,6 +7,7 @@ import { localePath, type Locale } from "../i18n/config";
 import type { Dictionary } from "../i18n/types";
 import { BottomNav } from "../mobile/BottomNav";
 import { ActionLink } from "./ActionLink";
+import { JoinButton } from "./JoinButton";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { MerchShop } from "./MerchShop";
 
@@ -25,9 +26,7 @@ export function MerchPage({ locale, dict }: { locale: Locale; dict: Dictionary }
         <img src="/logo-volya.webp" alt="VOLYA" width={960} height={386} />
         <div className="schedule-nav-actions">
           <LanguageSwitcher locale={locale} page="/merch" dict={dict} />
-          <ActionLink className="schedule-join" variant="button" tone="gold" href={links.joinForm} external>
-            {dict.nav.join}
-          </ActionLink>
+          <JoinButton className="schedule-join" label={dict.nav.join} />
         </div>
       </header>
 

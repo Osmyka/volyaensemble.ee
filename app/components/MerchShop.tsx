@@ -12,6 +12,7 @@ import {
 } from "../merch/catalog";
 import { links } from "../i18n/contacts";
 import type { Dictionary } from "../i18n/types";
+import { LinkMark } from "./ActionLink";
 
 /**
  * The shop: a grid of pieces, the order dialog behind each one, and the size
@@ -32,25 +33,23 @@ export function MerchShop({ dict }: { dict: Dictionary }) {
         {merchItems.map(entry => {
           const product = copy.products[entry.id];
           return (
-            <article
-              key={entry.id}
-              className={entry.featured ? "product-card featured" : "product-card"}
-            >
-              {/* The whole card is the target, but only the heading link is
-                  focusable — a nested button would double every tab stop. */}
+            <article key={entry.id} className="product-card">
+              {/* The whole card is the target, but only the heading carries the
+                  button — a nested one would double every tab stop. */}
               <div className="product-image">
                 <img src={entry.image} alt={product.alt} loading="lazy" width={800} height={800} />
               </div>
               <div className="product-meta">
-                <div>
-                  <h3>
-                    <button type="button" onClick={() => setOpenId(entry.id)}>
-                      {product.name}
-                    </button>
-                  </h3>
-                  <p>{product.description}</p>
-                </div>
-                <strong className="price">{entry.price}</strong>
+                <h3>
+                  <button type="button" onClick={() => setOpenId(entry.id)}>
+                    {product.name}
+                  </button>
+                </h3>
+                <p>{product.description}</p>
+                <p className="product-price">
+                  <strong className="price">{entry.price}</strong>
+                  <span className="order-hint">{copy.modal.headingTop}<LinkMark /></span>
+                </p>
               </div>
             </article>
           );
@@ -126,7 +125,13 @@ function OrderDialog({
 
   return (
     <div className="merch-modal">
-      <div className="modal-backdrop" onClick={onClose} />
+      {/* A real button, so the backdrop closes on Enter and Space too. */}
+      <button
+        className="modal-backdrop"
+        type="button"
+        aria-label={modal.close}
+        onClick={onClose}
+      />
       <section
         className="order-modal"
         role="dialog"
@@ -230,7 +235,7 @@ function OrderDialog({
                 </select>
               </label>
               <button className="size-guide-button" type="button" onClick={() => setGuideOpen(true)}>
-                {modal.sizeGuideCta} ↗
+                {modal.sizeGuideCta}
               </button>
 
               <label>
@@ -259,7 +264,8 @@ function OrderDialog({
             <textarea name="details" rows={3} />
           </label>
           <button className="merch-submit" type="submit">
-            {modal.submit} <span aria-hidden="true">↗</span>
+            {modal.submit}
+            <LinkMark />
           </button>
         </form>
       </section>
@@ -283,7 +289,12 @@ function SizeGuide({
 
   return (
     <div className="merch-modal size-modal">
-      <div className="modal-backdrop" onClick={onClose} />
+      <button
+        className="modal-backdrop"
+        type="button"
+        aria-label={copy.modal.close}
+        onClick={onClose}
+      />
       <section
         className="size-modal-card"
         role="dialog"
