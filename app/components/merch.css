@@ -1,0 +1,361 @@
+/*
+ * Merch page. Colours follow the navy / gold language of the schedule subpage
+ * rather than inventing a shop palette.
+ */
+
+.merch-page {
+  min-height: 100vh;
+  background: #f7f5ef;
+  color: #203754;
+  padding: 0 32px 90px;
+}
+
+.merch-intro {
+  position: relative;
+  max-width: 1256px;
+  margin: 0 auto;
+  padding: 85px 0 48px;
+}
+
+.merch-intro h1 {
+  font-size: clamp(62px, 8vw, 108px);
+  line-height: 0.88;
+  letter-spacing: -6px;
+  margin: 25px 0;
+}
+
+.merch-intro h1 em {
+  font-family: "Playfair Display", serif;
+  color: #56779b;
+}
+
+.merch-intro p {
+  max-width: 480px;
+  color: #6d7d91;
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.merch-watermark {
+  position: absolute;
+  right: 0;
+  top: 28px;
+  font-size: 92px;
+  font-weight: 700;
+  letter-spacing: -6px;
+  color: #2346b8;
+  opacity: 0.045;
+  pointer-events: none;
+  user-select: none;
+}
+
+.merch-grid {
+  max-width: 1256px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+
+.merch-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 16px 22px;
+  background: #fff;
+  border: 1px solid #dbe4ec;
+  border-radius: 28px;
+  box-shadow: 0 16px 40px rgba(55, 83, 111, 0.07);
+}
+
+.merch-card h2 {
+  margin: 8px 4px 0;
+  font-size: 24px;
+  letter-spacing: -0.6px;
+}
+
+.merch-card > p {
+  margin: 0 4px;
+  color: #6d7d91;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.merch-card .action-link--button {
+  align-self: flex-start;
+  margin: 8px 4px 0;
+}
+
+.merch-sizes {
+  margin: 4px;
+}
+
+.merch-sizes [role="radiogroup"] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.merch-sizes > span {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: #56779b;
+}
+
+.merch-sizes button {
+  min-width: 42px;
+  height: 34px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid #dbe4ec;
+  background: #fff;
+  color: #203754;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.merch-sizes button.is-selected,
+.merch-sizes button:hover {
+  background: #203754;
+  color: #edf3fa;
+  border-color: #203754;
+}
+
+.merch-sizes button:focus-visible {
+  outline: 2px solid #d6b85f;
+  outline-offset: 2px;
+}
+
+.merch-onesize {
+  margin: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: #56779b;
+}
+
+.merch-shot {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 22px;
+}
+
+.merch-shot--tee {
+  background: #e8eef4;
+}
+
+.merch-shot--hoodie {
+  background: #dce6ef;
+}
+
+.merch-shot--tote {
+  background: #f3ead0;
+}
+
+.merch-shot--cap {
+  background: #e4ecf3;
+}
+
+.merch-garment {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 58%;
+  aspect-ratio: 4 / 5;
+  background: #203754;
+  border-radius: 12px 12px 18px 18px;
+}
+
+.merch-shot--tee .merch-garment::before,
+.merch-shot--tee .merch-garment::after {
+  content: "";
+  position: absolute;
+  top: 8%;
+  width: 28%;
+  height: 22%;
+  background: #203754;
+  border-radius: 10px;
+}
+
+.merch-shot--tee .merch-garment::before {
+  left: -22%;
+  transform: rotate(18deg);
+}
+
+.merch-shot--tee .merch-garment::after {
+  right: -22%;
+  transform: rotate(-18deg);
+}
+
+.merch-shot--hoodie .merch-garment {
+  background: #182942;
+  border-radius: 40px 40px 18px 18px;
+}
+
+.merch-shot--hoodie .merch-garment::before {
+  content: "";
+  position: absolute;
+  top: -6%;
+  left: 18%;
+  right: 18%;
+  height: 22%;
+  background: #132033;
+  border-radius: 50% 50% 0 0;
+}
+
+.merch-shot--tote .merch-garment {
+  width: 52%;
+  aspect-ratio: 3 / 4;
+  background: #203754;
+  border: 1.5px solid #d6b85f;
+}
+
+.merch-shot--tote .merch-garment::before,
+.merch-shot--tote .merch-garment::after {
+  content: "";
+  position: absolute;
+  top: -14%;
+  width: 22%;
+  height: 22%;
+  border: 1.5px solid #d6b85f;
+  border-bottom: 0;
+  border-radius: 12px 12px 0 0;
+}
+
+.merch-shot--tote .merch-garment::before {
+  left: 12%;
+}
+
+.merch-shot--tote .merch-garment::after {
+  right: 12%;
+}
+
+.merch-shot--cap .merch-garment {
+  width: 64%;
+  aspect-ratio: 2 / 1;
+  border-radius: 50% 50% 8px 8px;
+}
+
+.merch-shot--cap .merch-garment::after {
+  content: "";
+  position: absolute;
+  bottom: -18%;
+  left: 8%;
+  width: 70%;
+  height: 28%;
+  background: #203754;
+  border-radius: 0 40px 40px 0;
+}
+
+.merch-garment img {
+  position: relative;
+  z-index: 1;
+  width: 62%;
+  height: auto;
+  margin-top: 8%;
+}
+
+.merch-shot--tote .merch-garment img,
+.merch-shot--cap .merch-garment img {
+  margin-top: 0;
+  width: 58%;
+}
+
+.merch-contact {
+  max-width: 1256px;
+  margin: 48px auto 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 20px;
+  align-items: center;
+}
+
+.merch-contact > :not(.merch-contact-actions) {
+  padding: 24px 28px;
+  background: #fff;
+  border: 1px solid #dbe4ec;
+  border-radius: 20px;
+}
+
+.merch-contact span {
+  font-size: 11px;
+  color: #56779b;
+}
+
+.merch-contact h2 {
+  font-size: 22px;
+  margin: 20px 0 8px;
+  line-height: 1.25;
+}
+
+.merch-contact p {
+  margin: 0;
+  color: #738299;
+  line-height: 1.5;
+}
+
+.merch-contact-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.merch-contact-actions .action-link--button {
+  white-space: nowrap;
+}
+
+@media (max-width: 800px) {
+  .merch-page {
+    padding: 0 20px 60px;
+  }
+
+  .merch-intro {
+    padding: 58px 0 36px;
+  }
+
+  .merch-intro h1 {
+    font-size: 62px;
+  }
+
+  .merch-watermark {
+    font-size: 54px;
+    letter-spacing: -3px;
+    top: 18px;
+  }
+
+  .merch-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .merch-contact {
+    display: block;
+  }
+
+  .merch-contact > :not(.merch-contact-actions) {
+    margin-bottom: 12px;
+  }
+
+  .merch-contact-actions {
+    gap: 12px;
+  }
+
+  .merch-contact-actions .action-link--button {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .merch-card .action-link--button {
+    width: calc(100% - 8px);
+    justify-content: space-between;
+  }
+}

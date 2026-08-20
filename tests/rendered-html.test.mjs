@@ -16,6 +16,9 @@ const routes = [
   { path: "/schedule", lang: "uk", title: "Розклад занять — VOLYA", home: "/" },
   { path: "/et/schedule", lang: "et", title: "Tundide ajakava — VOLYA", home: "/et" },
   { path: "/en/schedule", lang: "en", title: "Class schedule — VOLYA", home: "/en" },
+  { path: "/merch", lang: "uk", title: "Наш мерч — VOLYA", home: "/" },
+  { path: "/et/merch", lang: "et", title: "Meie merch — VOLYA", home: "/et" },
+  { path: "/en/merch", lang: "en", title: "Our merch — VOLYA", home: "/en" },
 ];
 
 const cyrillic = /[Ѐ-ӿ]/;
@@ -63,8 +66,8 @@ test("non-Ukrainian locales contain no untranslated copy", async () => {
   }
 });
 
-test("schedule pages link back to their own locale's home", async () => {
-  for (const route of routes.filter(entry => entry.path.endsWith("/schedule"))) {
+test("subpages link back to their own locale's home", async () => {
+  for (const route of routes.filter(entry => /\/(schedule|merch)$/.test(entry.path))) {
     const html = await (await render(route.path)).text();
     assert.match(
       html,
@@ -93,7 +96,7 @@ test("the tab bar is server-rendered for every locale", async () => {
 
 test("tab bar links stay inside the visitor's locale", async () => {
   // On the home page the section tabs scroll; elsewhere they must carry a path,
-  // because the schedule page has no #gallery to scroll to.
+  // because the schedule and merch pages have no #gallery to scroll to.
   const home = await (await render("/et")).text();
   assert.match(home, /href="#gallery"/);
   assert.match(home, /href="#contact"/);
@@ -158,8 +161,21 @@ test("the header has no hamburger drawer on the home page", async () => {
   assert.match(html, /class="nav-tools"/);
 });
 
+test("the merch entry sits in the hero, not the header", async () => {
+  const uk = await (await render("/")).text();
+  assert.match(uk, /class="action-link[^"]*merch-entry/);
+  const nav = uk.match(/<nav class="nav wrap">[\s\S]*?<\/nav>/);
+  assert.ok(nav, "missing header nav");
+  assert.doesNotMatch(nav[0], /merch-entry/, "merch button leaked into the header");
+  assert.match(uk, /href="\/merch"/);
+
+  const et = await (await render("/et")).text();
+  assert.match(et, /href="\/et\/merch"/);
+  assert.doesNotMatch(visibleText(et), /Наш мерч/);
+});
+
 test("action links replace the old arrow characters", async () => {
-  for (const path of ["/", "/et", "/en", "/schedule"]) {
+  for (const path of ["/", "/et", "/en", "/schedule", "/merch"]) {
     const html = await (await render(path)).text();
     assert.doesNotMatch(visibleText(html), /↗/, `stale ↗ left on ${path}`);
     assert.match(html, /class="action-link/, `no action links on ${path}`);

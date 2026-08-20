@@ -8,7 +8,7 @@ import "../mobile/mobile.css";
 import "../theme-fixes.css";
 import "./action-link.css";
 import { getDictionary } from "../i18n";
-import { localePath, localeTags, locales, type Locale } from "../i18n/config";
+import { localePath, localeTags, locales, type Locale, type SitePage } from "../i18n/config";
 
 /**
  * Each locale gets its own root layout inside a route group so the `lang`
@@ -50,9 +50,9 @@ const socialCard = "/og-card.jpg";
  * Per-page metadata including the `hreflang` set, which tells search engines
  * that the three locales are translations of one page rather than duplicates.
  */
-export function pageMetadata(locale: Locale, page: "/" | "/schedule"): Metadata {
+export function pageMetadata(locale: Locale, page: SitePage): Metadata {
   const dict = getDictionary(locale);
-  const copy = page === "/" ? dict.meta.home : dict.meta.schedule;
+  const copy = page === "/" ? dict.meta.home : page === "/schedule" ? dict.meta.schedule : dict.meta.merch;
   const languages = Object.fromEntries(
     locales.map(candidate => [localeTags[candidate], localePath(candidate, page)]),
   );

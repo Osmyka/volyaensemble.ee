@@ -16,6 +16,11 @@ export const et: Dictionary = {
       description:
         "Koreograafia ja vokaal 6–25aastastele lastele ja noortele Tallinnas. Esimene tund on tasuta.",
     },
+    merch: {
+      title: "Meie merch — VOLYA",
+      description:
+        "Ansambli VOLYA T-särgid, pusad, riidest kotid ja nokamütsid. Telli e-posti või Telegrami teel ja tule järele Tallinnas.",
+    },
   },
   nav: {
     home: "Avaleht",
@@ -24,6 +29,7 @@ export const et: Dictionary = {
     schedule: "Ajakava",
     gallery: "Galerii",
     contact: "Kontakt",
+    merch: "Merch",
     join: "Liitu",
     brandHome: "VOLYA avalehele",
     languageLabel: "Keel",
@@ -35,6 +41,7 @@ export const et: Dictionary = {
     eyebrow: "UKRAINA LAULU- JA TANTSUANSAMBEL",
     text: "Üks suuremaid ukraina loomekollektiive Baltikumis, mis tegutseb Ukraina Noorsoo Liidu juures Eestis.",
     joinCta: "Liitu Volyaga!",
+    merchCta: "Meie merch",
     videoLabel: "VOLYA. 3 aastat koos",
     countValue: "60+",
     countCaption: "last ja noort\nmeie peres",
@@ -147,5 +154,46 @@ export const et: Dictionary = {
     choreographyFrequency: "2–3 korda nädalas\n1,5 tundi",
     vocalFrequency: "2 korda nädalas\n1–1,5 tundi",
     cta: "Registreeru tundi",
+  },
+  merchPage: {
+    back: "Avalehele",
+    label: "MERCH / 2026",
+    headingTop: "Kanna.",
+    headingEm: "Vabadust.",
+    text: "Asjad ansambli logoga — prooviks, lavale ja igaks päevaks. Kirjuta meile, kinnitame olemasolu ja suuruse.",
+    watermark: "MERCH",
+    sizesLabel: "Suurus",
+    oneSize: "Üks suurus",
+    orderCta: "Telli",
+    orderSubject: "Merchi tellimus: {name}",
+    orderBody: "Tere! Soovin tellida {name}, suurus {size}.",
+    orderBodyOneSize: "Tere! Soovin tellida {name}.",
+    pickupTitle: "Kättesaamine",
+    pickup: "Järeletulek Tallinnas pärast kinnitust.",
+    support: "Tulu läheb kostüümidele, proovidele ja esinemistele.",
+    contactTitle: "Kuidas tellida",
+    contactText: "Vali ese ja suurus — kiri nimetab selle juba. Või kirjuta Telegramis.",
+    products: {
+      tee: {
+        name: "VOLYA T-särk",
+        blurb: "Pehme puuvillane lõige, logo ees.",
+        alt: "T-särk ansambli VOLYA logoga",
+      },
+      hoodie: {
+        name: "VOLYA pusa",
+        blurb: "Soe pusa prooviks ja linna.",
+        alt: "Pusa ansambli VOLYA logoga",
+      },
+      tote: {
+        name: "VOLYA kott",
+        blurb: "Tugev kott nootidele, vormile ja päevaks.",
+        alt: "Riidest kott ansambli VOLYA logoga",
+      },
+      cap: {
+        name: "VOLYA nokamüts",
+        blurb: "Nokamüts ansambli märgiga.",
+        alt: "Nokamüts ansambli VOLYA logoga",
+      },
+    },
   },
 };
