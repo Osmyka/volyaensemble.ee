@@ -164,6 +164,8 @@ export const en: Dictionary = {
     orderCta: "Order",
     orderSubject: "Merch order: {name}",
     orderBody: "Hi! I would like to order {name}, size {size}.",
+    orderBodyOneSize: "Hi! I would like to order {name}.",
+    pickupTitle: "Pick-up",
     pickup: "Pick-up in Tallinn after we confirm the order.",
     support: "Proceeds go towards costumes, rehearsals and performances.",
     contactTitle: "How to order",

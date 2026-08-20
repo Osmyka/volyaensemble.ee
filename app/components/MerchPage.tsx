@@ -1,69 +1,14 @@
-"use client";
-
-import { useState } from "react";
 import "./schedule.css";
 import "./schedule-overrides.css";
 import "./merch.css";
-import { merchItems, merchMailto, type MerchMock } from "../merch/catalog";
+import { merchItems } from "../merch/catalog";
 import { links } from "../i18n/contacts";
 import { localePath, type Locale } from "../i18n/config";
 import type { Dictionary } from "../i18n/types";
 import { BottomNav } from "../mobile/BottomNav";
 import { ActionLink } from "./ActionLink";
 import { LanguageSwitcher } from "./LanguageSwitcher";
-import { withTokens } from "./text";
-
-function MerchShot({ kind, alt }: { kind: MerchMock; alt: string }) {
-  return (
-    <div className={`merch-shot merch-shot--${kind}`} role="img" aria-label={alt}>
-      <div className="merch-garment">
-        <img src="/logo-volya.webp" alt="" width={960} height={386} />
-      </div>
-    </div>
-  );
-}
-
-function MerchCard({
-  item,
-  dict,
-}: {
-  item: (typeof merchItems)[number];
-  dict: Dictionary;
-}) {
-  const product = dict.merchPage.products[item.id];
-  const [size, setSize] = useState(item.sizes[0] ?? dict.merchPage.oneSize);
-  const subject = withTokens(dict.merchPage.orderSubject, { name: product.name });
-  const body = withTokens(dict.merchPage.orderBody, { name: product.name, size });
-
-  return (
-    <article className="merch-card">
-      <MerchShot kind={item.mock} alt={product.alt} />
-      <h2>{product.name}</h2>
-      <p>{product.blurb}</p>
-      {item.sizes.length > 0 ? (
-        <fieldset className="merch-sizes">
-          <legend>{dict.merchPage.sizesLabel}</legend>
-          {item.sizes.map(option => (
-            <button
-              type="button"
-              key={option}
-              className={option === size ? "is-selected" : undefined}
-              aria-pressed={option === size}
-              onClick={() => setSize(option)}
-            >
-              {option}
-            </button>
-          ))}
-        </fieldset>
-      ) : (
-        <p className="merch-onesize">{dict.merchPage.oneSize}</p>
-      )}
-      <ActionLink variant="button" tone="navy" href={merchMailto(links.email, subject, body)}>
-        {dict.merchPage.orderCta}
-      </ActionLink>
-    </article>
-  );
-}
+import { MerchCard } from "./MerchCard";
 
 export function MerchPage({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   return (
@@ -100,8 +45,8 @@ export function MerchPage({ locale, dict }: { locale: Locale; dict: Dictionary }
         </div>
         <div>
           <span>02</span>
-          <h2>{dict.merchPage.pickup}</h2>
-          <p>{dict.merchPage.support}</p>
+          <h2>{dict.merchPage.pickupTitle}</h2>
+          <p>{dict.merchPage.pickup} {dict.merchPage.support}</p>
         </div>
         <div className="merch-contact-actions">
           <ActionLink variant="button" tone="navy" href={`mailto:${links.email}`}>{links.email}</ActionLink>

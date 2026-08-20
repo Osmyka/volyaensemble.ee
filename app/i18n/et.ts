@@ -167,6 +167,8 @@ export const et: Dictionary = {
     orderCta: "Telli",
     orderSubject: "Merchi tellimus: {name}",
     orderBody: "Tere! Soovin tellida {name}, suurus {size}.",
+    orderBodyOneSize: "Tere! Soovin tellida {name}.",
+    pickupTitle: "Kättesaamine",
     pickup: "Järeletulek Tallinnas pärast kinnitust.",
     support: "Tulu läheb kostüümidele, proovidele ja esinemistele.",
     contactTitle: "Kuidas tellida",

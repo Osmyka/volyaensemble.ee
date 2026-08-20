@@ -158,6 +158,9 @@ export interface Dictionary {
     orderCta: string;
     orderSubject: string;
     orderBody: string;
+    /** Used for pieces with no size chips, so `{size}` is left out. */
+    orderBodyOneSize: string;
+    pickupTitle: string;
     pickup: string;
     support: string;
     contactTitle: string;

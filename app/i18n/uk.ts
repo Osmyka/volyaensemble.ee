@@ -164,6 +164,8 @@ export const uk: Dictionary = {
     orderCta: "Замовити",
     orderSubject: "Замовлення мерчу: {name}",
     orderBody: "Привіт! Хочу замовити {name}, розмір {size}.",
+    orderBodyOneSize: "Привіт! Хочу замовити {name}.",
+    pickupTitle: "Отримання",
     pickup: "Самовивіз у Таллінні після підтвердження.",
     support: "Кошти йдуть на костюми, репетиції та виступи ансамблю.",
     contactTitle: "Як замовити",

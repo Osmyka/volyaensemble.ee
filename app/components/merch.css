@@ -87,16 +87,17 @@
 }
 
 .merch-sizes {
+  margin: 4px;
+}
+
+.merch-sizes [role="radiogroup"] {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin: 4px;
-  padding: 0;
-  border: 0;
 }
 
-.merch-sizes legend {
-  width: 100%;
+.merch-sizes > span {
+  display: block;
   margin-bottom: 8px;
   font-size: 11px;
   font-weight: 700;
@@ -264,7 +265,6 @@
 
 .merch-shot--tote .merch-garment img,
 .merch-shot--cap .merch-garment img {
-  filter: none;
   margin-top: 0;
   width: 58%;
 }
@@ -314,7 +314,7 @@
 
 @media (max-width: 800px) {
   .merch-page {
-    padding: 0 20px 110px;
+    padding: 0 20px 60px;
   }
 
   .merch-intro {
