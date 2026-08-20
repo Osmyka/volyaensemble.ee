@@ -1,6 +1,6 @@
 /*
  * Merch page. The layout follows the shop prototype — gold hero, three-column
- * collection grid with a wide featured card, dark ordering band, order dialog —
+ * collection grid, dark ordering band, order dialog —
  * but the colours are the site's own navy / gold / paper, not the prototype's
  * pure yellow, so the page sits next to the schedule subpage without a seam.
  */
@@ -139,14 +139,25 @@
   line-height: 1.5;
 }
 
+/*
+ * The catalogue grid, built the way a shop grid has to be: every card is the
+ * same shape whatever it holds, and the track list is `auto-fill`, so adding a
+ * piece to `catalog.ts` needs no CSS at all.
+ */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  /* Equal rows, so a long description in one row cannot make its cards taller
+     than the row below. */
+  grid-auto-rows: 1fr;
   gap: 20px;
+  align-items: stretch;
 }
 
 .product-card {
   position: relative;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   background: #fff;
   border: 1px solid #dbe4ec;
@@ -159,41 +170,49 @@
   box-shadow: 0 18px 35px rgba(32, 55, 84, 0.1);
 }
 
-/* The T-shirt takes two columns, as in the prototype. */
-.product-card.featured {
-  grid-column: span 2;
-}
-
+/*
+ * A square media box with the photograph contained inside it. The ratio owns
+ * the height — a percentage `max-height` does not resolve against a grid item,
+ * which is what let the photographs spill out of their cards — so every shot
+ * lands on the same footprint no matter how it was cropped.
+ */
 .product-image {
-  display: grid;
-  place-items: center;
-  height: 270px;
-  padding: 14px;
-  background: #e9eef2;
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: #eef2f6;
 }
 
-.product-card.featured .product-image {
-  height: 360px;
-}
-
+/*
+ * Absolutely positioned and filling the box, with the breathing room as padding
+ * so `object-fit` still works against the content box. Percentages resolve here
+ * because the containing block's height is definite — as a flow-level child of
+ * an `aspect-ratio` box it would not, which is what let the tall shots grow
+ * past their cards.
+ */
 .product-image img {
-  max-width: 88%;
-  max-height: 88%;
-  width: auto;
-  height: auto;
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 22px;
   object-fit: contain;
+  object-position: center;
 }
 
 .product-meta {
   display: flex;
-  justify-content: space-between;
-  gap: 15px;
-  padding: 20px 21px 23px;
+  flex: 1;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 21px 22px;
 }
 
 .product-meta h3 {
-  margin: 0 0 7px;
-  font-size: 20px;
+  margin: 0;
+  font-size: 19px;
+  line-height: 1.2;
 }
 
 /*
@@ -222,18 +241,49 @@
   outline-offset: 3px;
 }
 
-.product-meta p {
+/* Descriptions run to different lengths; three lines keeps the price row of
+   every card on the same line as its neighbours'. */
+.product-meta > p:not(.product-price) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
   margin: 0;
-  max-width: 230px;
   color: #6d7d91;
   font-size: 13px;
-  line-height: 1.4;
+  line-height: 1.45;
+}
+
+/* Pinned to the foot of the card, so prices line up across the row. The
+   `.product-meta p` selector above outranks a bare `.product-price`. */
+.product-meta .product-price {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 4px;
 }
 
 .price {
   font-size: 20px;
   font-weight: 700;
   white-space: nowrap;
+}
+
+.product-price .order-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #56779b;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.product-price .action-mark svg {
+  width: 12px;
+  height: 12px;
 }
 
 /* Ordering band --------------------------------------------------------- */
@@ -607,25 +657,29 @@
   }
 
   .product-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
   }
 
-  .product-card.featured {
-    grid-column: auto;
-  }
-
-  .product-image,
-  .product-card.featured .product-image {
-    height: 250px;
+  .product-image img {
+    padding: 14px;
   }
 
   .product-meta {
-    padding: 18px;
+    gap: 8px;
+    padding: 14px 15px 16px;
+  }
+
+  .product-meta h3 {
+    font-size: 16px;
   }
 
   .product-meta p {
-    max-width: none;
+    font-size: 12px;
+  }
+
+  .price {
+    font-size: 18px;
   }
 
   .order-note {

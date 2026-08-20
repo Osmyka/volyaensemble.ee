@@ -27,8 +27,6 @@ export interface MerchItem {
   price: string;
   image: string;
   sizing: "shirt" | "none";
-  /** Takes the wide cell in the grid. At most one piece should set it. */
-  featured?: boolean;
   variants?: readonly { id: string; image: string }[];
   styles?: readonly ("zip" | "plain")[];
   sizeGuide?: Record<BodyType, string>;
@@ -38,8 +36,6 @@ export const merchItems: readonly MerchItem[] = [
   {
     id: "tshirt",
     price: "€10",
-    /* The T-shirt is the piece everyone comes for, so it takes the wide cell. */
-    featured: true,
     image: "/merch/tshirt-white.webp",
     sizing: "shirt",
     variants: [

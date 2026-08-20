@@ -182,7 +182,7 @@ test("the merch page prices every piece and offers the size chart", async () => 
     assert.ok(visibleText(html).includes(price), `no ${price} on the merch page`);
   }
   assert.match(html, /\/merch\/tshirt-white\.webp/);
-  assert.match(html, /class="product-card featured"/);
+  assert.equal((html.match(/class="product-card"/g) ?? []).length, 5, "expected five cards");
 });
 
 test("action links replace the old arrow characters", async () => {
