@@ -3,7 +3,7 @@
 import { usePlatform } from "../platform/usePlatform";
 import type { Locale, SitePage } from "../i18n/config";
 import type { Dictionary } from "../i18n/types";
-import { ContactIcon, GalleryIcon, HomeIcon, JoinIcon, MerchIcon, ScheduleIcon } from "./icons";
+import { ContactIcon, GalleryIcon, HomeIcon, MerchIcon, ScheduleIcon } from "./icons";
 import { buildTabs, type TabId } from "./tabs";
 import { useActiveSection } from "./useActiveSection";
 
@@ -13,7 +13,6 @@ const icons: Record<TabId, () => React.JSX.Element> = {
   merch: MerchIcon,
   gallery: GalleryIcon,
   contact: ContactIcon,
-  join: JoinIcon,
 };
 
 /**
@@ -57,9 +56,8 @@ export function BottomNav({
             <li key={tab.id}>
               <a
                 href={tab.href}
-                className={["tab", tab.id === "join" && "tab-cta", active && "is-active"].filter(Boolean).join(" ")}
+                className={["tab", active && "is-active"].filter(Boolean).join(" ")}
                 aria-current={active ? "page" : undefined}
-                {...(tab.external ? { target: "_blank", rel: "noreferrer" } : {})}
               >
                 <span className="tab-icon"><Icon /></span>
                 <span className="tab-label">{tab.label}</span>

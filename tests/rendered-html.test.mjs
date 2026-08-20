@@ -88,8 +88,8 @@ test("the tab bar is server-rendered for every locale", async () => {
     assert.match(html, /<nav class="tabbar"/, `no tab bar on ${route.path}`);
     assert.equal(
       (html.match(/class="tab(?:[ "])/g) ?? []).length,
-      6,
-      `expected six tabs on ${route.path}`,
+      5,
+      `expected five tabs on ${route.path}`,
     );
   }
 });
@@ -170,10 +170,19 @@ test("the header and the tab bar both carry merch", async () => {
   const tabbar = uk.match(/<nav class="tabbar"[\s\S]*?<\/nav>/);
   assert.ok(tabbar, "missing tab bar");
   assert.match(tabbar[0], /href="\/merch"/, "merch missing from the tab bar");
+  // The tab bar carries destinations only; the join action lives in the header.
+  assert.doesNotMatch(tabbar[0], /forms\.gle/, "the join action leaked into the tab bar");
 
   const et = await (await render("/et")).text();
   assert.match(et, /href="\/et\/merch"/);
   assert.doesNotMatch(visibleText(et), /Мерч/);
+});
+
+test("every page's header carries the join action", async () => {
+  for (const path of ["/", "/et", "/en", "/schedule", "/merch", "/en/merch"]) {
+    const html = await (await render(path)).text();
+    assert.match(html, /class="[^"]*join-cta/, `no header join button on ${path}`);
+  }
 });
 
 test("the merch page prices every piece and offers the size chart", async () => {

@@ -32,7 +32,7 @@
 
   .tabbar ul {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     align-items: stretch;
     margin: 0;
     padding: 0;
@@ -47,7 +47,7 @@
     gap: 4px;
     /* 56px keeps every target at or above the 44px both platforms recommend. */
     min-height: 56px;
-    padding: 8px 1px 6px;
+    padding: 8px 2px 6px;
     color: rgba(237, 243, 250, 0.72);
     text-decoration: none;
     /* Chrome paints a grey flash on tap; the :active rule below replaces it. */
@@ -64,9 +64,7 @@
   }
 
   .tab-label {
-    /* Six tabs across a 360px phone leave ~60px each; 9.5px keeps the longest
-       Estonian label on one line inside that. */
-    font-size: 9.5px;
+    font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.2px;
     line-height: 1;
@@ -111,31 +109,6 @@
 
   .tabbar li > .tab {
     flex: 1;
-  }
-
-  /* The join action is the one thing we want people to press. */
-  .tab-cta .tab-icon {
-    align-items: center;
-    justify-content: center;
-    width: 34px;
-    height: 34px;
-    margin-top: -3px;
-    border-radius: 50%;
-    background: #d6b85f;
-    color: #203754;
-  }
-
-  .tab-cta .tab-icon svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  .tab-cta {
-    color: #f1d36a;
-  }
-
-  .tab-cta.is-active::before {
-    display: none;
   }
 
   /* Keep the footer clear of the bar. */
