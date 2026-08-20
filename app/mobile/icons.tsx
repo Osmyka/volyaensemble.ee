@@ -64,6 +64,16 @@ export function ContactIcon() {
   );
 }
 
+/** A tote bag — the shop. */
+export function MerchIcon() {
+  return (
+    <svg {...base}>
+      <path d="M5.4 8.2h13.2l1 11.1a1.6 1.6 0 0 1-1.6 1.7H6a1.6 1.6 0 0 1-1.6-1.7Z" />
+      <path d="M8.8 10.4V7.2a3.2 3.2 0 0 1 6.4 0v3.2" />
+    </svg>
+  );
+}
+
 /** Sunflower, echoing the logo — the join call to action. */
 export function JoinIcon() {
   return (

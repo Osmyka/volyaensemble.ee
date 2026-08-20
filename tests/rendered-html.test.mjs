@@ -88,8 +88,8 @@ test("the tab bar is server-rendered for every locale", async () => {
     assert.match(html, /<nav class="tabbar"/, `no tab bar on ${route.path}`);
     assert.equal(
       (html.match(/class="tab(?:[ "])/g) ?? []).length,
-      5,
-      `expected five tabs on ${route.path}`,
+      6,
+      `expected six tabs on ${route.path}`,
     );
   }
 });
@@ -161,17 +161,28 @@ test("the header has no hamburger drawer on the home page", async () => {
   assert.match(html, /class="nav-tools"/);
 });
 
-test("the merch entry sits in the hero, not the header", async () => {
+test("the header and the tab bar both carry merch", async () => {
   const uk = await (await render("/")).text();
-  assert.match(uk, /class="action-link[^"]*merch-entry/);
   const nav = uk.match(/<nav class="nav wrap">[\s\S]*?<\/nav>/);
   assert.ok(nav, "missing header nav");
-  assert.doesNotMatch(nav[0], /merch-entry/, "merch button leaked into the header");
-  assert.match(uk, /href="\/merch"/);
+  assert.match(nav[0], /href="\/merch"/, "merch missing from the header");
+
+  const tabbar = uk.match(/<nav class="tabbar"[\s\S]*?<\/nav>/);
+  assert.ok(tabbar, "missing tab bar");
+  assert.match(tabbar[0], /href="\/merch"/, "merch missing from the tab bar");
 
   const et = await (await render("/et")).text();
   assert.match(et, /href="\/et\/merch"/);
-  assert.doesNotMatch(visibleText(et), /Наш мерч/);
+  assert.doesNotMatch(visibleText(et), /Мерч/);
+});
+
+test("the merch page prices every piece and offers the size chart", async () => {
+  const html = await (await render("/merch")).text();
+  for (const price of ["€10", "€25", "€20", "€15"]) {
+    assert.ok(visibleText(html).includes(price), `no ${price} on the merch page`);
+  }
+  assert.match(html, /\/merch\/tshirt-white\.webp/);
+  assert.match(html, /class="product-card featured"/);
 });
 
 test("action links replace the old arrow characters", async () => {

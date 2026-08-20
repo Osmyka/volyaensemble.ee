@@ -3,13 +3,14 @@
 import { usePlatform } from "../platform/usePlatform";
 import type { Locale, SitePage } from "../i18n/config";
 import type { Dictionary } from "../i18n/types";
-import { ContactIcon, GalleryIcon, HomeIcon, JoinIcon, ScheduleIcon } from "./icons";
+import { ContactIcon, GalleryIcon, HomeIcon, JoinIcon, MerchIcon, ScheduleIcon } from "./icons";
 import { buildTabs, type TabId } from "./tabs";
 import { useActiveSection } from "./useActiveSection";
 
 const icons: Record<TabId, () => React.JSX.Element> = {
   home: HomeIcon,
   schedule: ScheduleIcon,
+  merch: MerchIcon,
   gallery: GalleryIcon,
   contact: ContactIcon,
   join: JoinIcon,
@@ -39,7 +40,7 @@ export function BottomNav({
   const activeSection = useActiveSection(sections, page === "/");
 
   const isActive = (id: TabId) => {
-    if (page === "/merch") return false;
+    if (page === "/merch") return id === "merch";
     if (page === "/schedule") return id === "schedule";
     if (id === "home") return activeSection === "top" || activeSection === null;
     const tab = tabs.find(entry => entry.id === id);

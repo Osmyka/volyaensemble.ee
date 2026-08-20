@@ -14,11 +14,12 @@ export function HomePage({ locale, dict }: { locale: Locale; dict: Dictionary })
   const schedulePath = localePath(locale, "/schedule");
   const merchPath = localePath(locale, "/merch");
 
-  // Section anchors are shared by header and footer. Merch is footer-only so
-  // it stays out of the header.
+  // Header and footer navigate to the same entries; one list keeps them
+  // aligned. Merch is the one destination that is a page, not an anchor.
   const nav = [
     { label: dict.nav.about, href: "#about" },
     { label: dict.nav.schedule, href: "#schedule" },
+    { label: dict.nav.merch, href: merchPath },
     { label: dict.nav.gallery, href: "#gallery" },
     { label: dict.nav.contact, href: "#contact" },
   ];
@@ -39,7 +40,6 @@ export function HomePage({ locale, dict }: { locale: Locale; dict: Dictionary })
 
       <section className="hero wrap" id="top">
         <div className="hero-copy">
-          <ActionLink className="merch-entry" variant="chip" href={merchPath}>{dict.hero.merchCta}</ActionLink>
           <p className="eyebrow"><span className="dot" /> {dict.hero.eyebrow}</p>
           <img className="hero-brand" src="/logo-volya.webp" alt="VOLYA" width={960} height={386} />
           <p className="hero-text">{dict.hero.text}</p>
@@ -97,7 +97,6 @@ export function HomePage({ locale, dict }: { locale: Locale; dict: Dictionary })
         <div>
           <small>{dict.footer.navigationTitle}</small>
           {nav.map(item => <a key={item.href} href={item.href}>{item.label}</a>)}
-          <a href={merchPath}>{dict.nav.merch}</a>
         </div>
         <div>
           <small>{dict.footer.followTitle}</small>
