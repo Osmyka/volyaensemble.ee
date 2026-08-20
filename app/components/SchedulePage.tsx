@@ -7,6 +7,7 @@ import { BottomNav } from "../mobile/BottomNav";
 import { ActionLink } from "./ActionLink";
 import { JoinButton } from "./JoinButton";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { ThemeShell, ThemeToggle } from "../theme/theme";
 import { lines } from "./text";
 
 const times = Array.from({ length: 21 }, (_, i) => `${String(10 + Math.floor(i / 2)).padStart(2, "0")}:${i % 2 ? "30" : "00"}`);
@@ -57,13 +58,14 @@ export function SchedulePage({ locale, dict }: { locale: Locale; dict: Dictionar
   };
 
   return (
-    <main className="schedule-page">
+    <ThemeShell className="schedule-page">
       <header className="schedule-nav">
         <a href={localePath(locale, "/")} className="back">← {dict.schedulePage.back}</a>
         <img src="/logo-volya.webp" alt="VOLYA" width={960} height={386} />
         {/* Grouped so the header keeps three flex children and the logo stays
             centred. */}
         <div className="schedule-nav-actions">
+          <ThemeToggle label={dict.nav.toggleTheme} lightLabel={dict.nav.themeLight} darkLabel={dict.nav.themeDark} />
           <LanguageSwitcher locale={locale} page="/schedule" dict={dict} />
           <JoinButton className="schedule-join" label={dict.nav.join} />
         </div>
@@ -90,6 +92,6 @@ export function SchedulePage({ locale, dict }: { locale: Locale; dict: Dictionar
       </section>
 
       <BottomNav locale={locale} dict={dict} page="/schedule" />
-    </main>
+    </ThemeShell>
   );
 }

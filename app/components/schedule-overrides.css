@@ -4,3 +4,108 @@
 .full-schedule .slot{margin:4px 0;border-radius:8px;min-height:58px;padding:8px 6px;display:flex;flex-direction:column;justify-content:center;gap:4px}.full-schedule .slot b{font-size:10px}.full-schedule .slot small{font-size:9px;font-weight:500}.full-schedule .slot.dance{background:#dce8f1;color:#416887}.full-schedule .slot.vocal{background:#efe5c3;color:#836b39}.full-schedule td:has(.slot){padding:0 3px;background:#fff}
 /* The label used to be hidden and replaced by CSS `content`, which hard-coded
    Ukrainian text into the stylesheet. It now comes from the dictionary. */
+
+/*
+ * Dark theme -------------------------------------------------------------
+ *
+ * The same palette as the home and merch pages: #0f1727 ground, #1a2940
+ * panels, #334a66 hairlines, #edf3fa text, #b7c3d2 secondary copy, #f1d36a
+ * gold. The timetable keeps its two class colours — they are how a reader
+ * tells dance from vocal at a glance — but at the darker end of their ranges.
+ */
+
+.schedule-page.dark-mode {
+  background: #0f1727;
+  color: #edf3fa;
+}
+
+.dark-mode .schedule-nav {
+  background: #101d2f;
+}
+
+.dark-mode .schedule-intro h1 {
+  color: #edf3fa;
+}
+
+.dark-mode .schedule-intro h1 em,
+.schedule-page.dark-mode .section-label {
+  color: #86a7ce;
+}
+
+.dark-mode .schedule-intro p {
+  color: #b7c3d2;
+}
+
+.dark-mode .legend-dance {
+  background: #24405f;
+  color: #b9d2ea;
+}
+
+.dark-mode .legend-vocal {
+  background: #4a4636;
+  color: #e6cf94;
+}
+
+/* The card holding the timetable. */
+.dark-mode .full-schedule {
+  background: #1a2940;
+  border-color: #334a66;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+}
+
+.dark-mode .table-note {
+  color: #9fb0c4;
+}
+
+.dark-mode .table-note span {
+  color: #a7c0de;
+}
+
+.dark-mode .full-schedule th,
+.dark-mode .full-schedule td {
+  border-color: #2b3f5a;
+}
+
+/* The first column and the header row stay put while the table scrolls, so
+   their backgrounds have to be opaque or the cells show through. */
+.dark-mode .full-schedule thead th,
+.dark-mode .full-schedule thead th:first-child {
+  background: #16233a;
+  color: #9fb0c4;
+}
+
+.dark-mode .full-schedule tbody th {
+  background: #1a2940;
+  color: #a7c0de;
+}
+
+.dark-mode .full-schedule td:has(.slot) {
+  background: #1a2940;
+}
+
+.dark-mode .full-schedule .slot.dance {
+  background: #24405f;
+  color: #cfe0f1;
+}
+
+.dark-mode .full-schedule .slot.vocal {
+  background: #4a4636;
+  color: #eddcb0;
+}
+
+.dark-mode .schedule-details > div {
+  background: #1a2940;
+  border-color: #334a66;
+}
+
+.dark-mode .schedule-details span {
+  color: #86a7ce;
+}
+
+.dark-mode .schedule-details h2 {
+  color: #edf3fa;
+}
+
+.dark-mode .schedule-details p {
+  color: #b7c3d2;
+}
