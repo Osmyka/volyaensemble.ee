@@ -126,7 +126,13 @@ function OrderDialog({
 
   return (
     <div className="merch-modal">
-      <div className="modal-backdrop" onClick={onClose} />
+      {/* A real button, so the backdrop closes on Enter and Space too. */}
+      <button
+        className="modal-backdrop"
+        type="button"
+        aria-label={modal.close}
+        onClick={onClose}
+      />
       <section
         className="order-modal"
         role="dialog"
@@ -283,7 +289,12 @@ function SizeGuide({
 
   return (
     <div className="merch-modal size-modal">
-      <div className="modal-backdrop" onClick={onClose} />
+      <button
+        className="modal-backdrop"
+        type="button"
+        aria-label={copy.modal.close}
+        onClick={onClose}
+      />
       <section
         className="size-modal-card"
         role="dialog"

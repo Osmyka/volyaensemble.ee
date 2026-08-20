@@ -283,7 +283,9 @@
   position: fixed;
   inset: 0;
   z-index: 70;
+  border: 0;
   background: rgba(12, 25, 40, 0.66);
+  cursor: pointer;
 }
 
 .order-modal {
