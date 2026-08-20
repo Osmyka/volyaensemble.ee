@@ -4,3 +4,16 @@
 .full-schedule .slot{margin:4px 0;border-radius:8px;min-height:58px;padding:8px 6px;display:flex;flex-direction:column;justify-content:center;gap:4px}.full-schedule .slot b{font-size:10px}.full-schedule .slot small{font-size:9px;font-weight:500}.full-schedule .slot.dance{background:#dce8f1;color:#416887}.full-schedule .slot.vocal{background:#efe5c3;color:#836b39}.full-schedule td:has(.slot){padding:0 3px;background:#fff}
 /* The label used to be hidden and replaced by CSS `content`, which hard-coded
    Ukrainian text into the stylesheet. It now comes from the dictionary. */
+
+/*
+ * Below ~520px the subpage chrome runs out of room: back link, logo, language
+ * switcher and the join button together need about 460px of content width. The
+ * join button is the one part that is already repeated — the phone tab bar
+ * carries it as its call to action — so it steps aside here rather than
+ * pushing the bar off the screen.
+ */
+@media (max-width: 520px) {
+  .schedule-nav .schedule-join {
+    display: none;
+  }
+}
