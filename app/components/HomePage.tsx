@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { addresses, links, organisation, teacherNames, telHref } from "../i18n/contacts";
 import { localePath, type Locale } from "../i18n/config";
 import type { Dictionary } from "../i18n/types";
@@ -9,9 +9,9 @@ import { ActionLink, LinkMark } from "./ActionLink";
 import { JoinButton } from "./JoinButton";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { lines, withNumber } from "./text";
+import { ThemeShell, ThemeToggle } from "../theme/theme";
 
 export function HomePage({ locale, dict }: { locale: Locale; dict: Dictionary }) {
-  const [darkTheme, setDarkTheme] = useState(false);
   const schedulePath = localePath(locale, "/schedule");
   const merchPath = localePath(locale, "/merch");
 
@@ -26,14 +26,14 @@ export function HomePage({ locale, dict }: { locale: Locale; dict: Dictionary })
   ];
 
   return (
-    <main className={darkTheme ? "site dark-mode" : "site"}>
+    <ThemeShell className="site">
       <nav className="nav wrap">
         <a className="brand" href="#top" aria-label={dict.nav.brandHome}><img src="/logo-volya.webp" alt="VOLYA" width={960} height={386} /></a>
         <div className="navlinks">
           {nav.map(item => <a key={item.href} href={item.href}>{item.label}</a>)}
         </div>
         <div className="nav-tools">
-          <button className="theme-toggle" onClick={() => setDarkTheme(!darkTheme)} aria-label={dict.nav.toggleTheme}><span>{darkTheme ? "☼" : "☾"}</span><small>{darkTheme ? dict.nav.themeLight : dict.nav.themeDark}</small></button>
+          <ThemeToggle label={dict.nav.toggleTheme} lightLabel={dict.nav.themeLight} darkLabel={dict.nav.themeDark} />
           <LanguageSwitcher locale={locale} page="/" dict={dict} />
           <JoinButton className="nav-cta" label={dict.nav.join} />
         </div>
@@ -111,6 +111,6 @@ export function HomePage({ locale, dict }: { locale: Locale; dict: Dictionary })
       </footer>
 
       <BottomNav locale={locale} dict={dict} page="/" />
-    </main>
+    </ThemeShell>
   );
 }
