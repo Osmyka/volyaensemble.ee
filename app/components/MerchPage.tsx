@@ -31,7 +31,7 @@ export function MerchPage({ locale, dict }: { locale: Locale; dict: Dictionary }
 
       <section className="products-section" id="products" aria-label={dict.nav.merch}>
         <h2>{copy.collectionTitle}</h2>
-        <MerchShop dict={dict} />
+        <MerchShop locale={locale} dict={dict} />
       </section>
 
       <section className="order-note">

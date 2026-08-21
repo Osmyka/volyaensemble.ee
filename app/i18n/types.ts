@@ -186,6 +186,11 @@ export interface Dictionary {
       emailLabel: string;
       detailsLabel: string;
       submit: string;
+      /** The order form's states: in flight, accepted, and fallen back to mail. */
+      sending: string;
+      sent: string;
+      sentNote: string;
+      failed: string;
     };
     sizeGuide: {
       label: string;

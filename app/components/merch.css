@@ -511,6 +511,33 @@
   background: #c9a747;
 }
 
+.merch-submit:disabled {
+  cursor: default;
+  opacity: 0.75;
+}
+
+/* The honeypot: reachable to a bot reading the markup, invisible to everyone
+   else, and out of the tab order. */
+.merch-trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.merch-status {
+  margin: 0;
+  color: #56779b;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.merch-status--failed {
+  color: #8f6a2f;
+}
+
 /* Size chart ------------------------------------------------------------ */
 
 .size-modal .modal-backdrop {
@@ -803,8 +830,13 @@
   color: #8ea0b6;
 }
 
-.dark-mode .size-guide-button {
+.dark-mode .size-guide-button,
+.dark-mode .merch-status {
   color: #a7c0de;
+}
+
+.dark-mode .merch-status--failed {
+  color: #e6cf94;
 }
 
 .dark-mode .size-tabs button {

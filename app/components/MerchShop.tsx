@@ -11,6 +11,7 @@ import {
   type MerchItem,
 } from "../merch/catalog";
 import { links } from "../i18n/contacts";
+import type { Locale } from "../i18n/config";
 import type { Dictionary } from "../i18n/types";
 import { LinkMark } from "./ActionLink";
 
@@ -22,7 +23,7 @@ import { LinkMark } from "./ActionLink";
  * There is no shop back end. The dialog collects what the ensemble needs to
  * know and hands it to the visitor's mail client, exactly as the prototype did.
  */
-export function MerchShop({ dict }: { dict: Dictionary }) {
+export function MerchShop({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const copy = dict.merchPage;
   const [openId, setOpenId] = useState<MerchItem["id"] | null>(null);
   const item = merchItems.find(entry => entry.id === openId) ?? null;
@@ -56,17 +57,21 @@ export function MerchShop({ dict }: { dict: Dictionary }) {
         })}
       </div>
 
-      {item && <OrderDialog item={item} dict={dict} onClose={() => setOpenId(null)} />}
+      {item && (
+        <OrderDialog item={item} locale={locale} dict={dict} onClose={() => setOpenId(null)} />
+      )}
     </>
   );
 }
 
 function OrderDialog({
   item,
+  locale,
   dict,
   onClose,
 }: {
   item: MerchItem;
+  locale: Locale;
   dict: Dictionary;
   onClose: () => void;
 }) {
@@ -86,6 +91,7 @@ function OrderDialog({
   const [namedSize, setNamedSize] = useState<string>(namedSizes?.[0] ?? "");
   const [quantity, setQuantity] = useState("1");
   const [guideOpen, setGuideOpen] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "failed">("idle");
 
   // Escape closes the topmost layer, and the page behind the dialog must not
   // scroll away under it.
@@ -107,20 +113,63 @@ function OrderDialog({
   const orNotSpecified = (value: string) => value || missing;
   const variantLabel = variant ? product.variants?.[variant] ?? "" : "";
 
-  const submit = (event: React.FormEvent<HTMLFormElement>) => {
+  /**
+   * The order goes to the spreadsheet through our own endpoint. If that fails —
+   * the sheet is unreachable, the visitor is offline — the mail client opens
+   * with the same order in it, so nothing is lost on the way.
+   */
+  const submit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    const order = {
+      product: item.id,
+      productName: `${product.name} — ${item.price}`,
+      variant: variantLabel,
+      bodyType: asksForSize ? modal.bodyTypes[bodyType] : "",
+      style: style ? modal.styles[style as "zip" | "plain"] : "",
+      size: asksForSize
+        ? size
+        : namedSize
+          ? product.sizeChoices?.[namedSize]?.name ?? namedSize
+          : "",
+      quantity: asksForSize || namedSize ? quantity : "",
+      participant: String(data.get("participant") ?? ""),
+      contact: String(data.get("contact") ?? ""),
+      details: String(data.get("details") ?? ""),
+      locale,
+      website: String(data.get("website") ?? ""),
+    };
+
+    setStatus("sending");
+    try {
+      const response = await fetch("/api/order", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(order),
+      });
+      if (!response.ok) throw new Error(String(response.status));
+      const result = (await response.json()) as { ok?: boolean };
+      if (!result.ok) throw new Error("rejected");
+      setStatus("sent");
+      return;
+    } catch {
+      setStatus("failed");
+      openMail(order);
+    }
+  };
+
+  /** The order as an e-mail, used when the endpoint could not take it. */
+  const openMail = (order: Record<string, string>) => {
     const lines = [
-      `${copy.mail.product}: ${product.name} — ${item.price}`,
-      variantLabel && `${copy.mail.colour}: ${variantLabel}`,
-      style && `${copy.mail.style}: ${modal.styles[style as "zip" | "plain"]}`,
-      `${copy.mail.participant}: ${orNotSpecified(String(data.get("participant") ?? ""))}`,
-      asksForSize && `${copy.mail.bodyType}: ${modal.bodyTypes[bodyType]}`,
-      asksForSize && `${copy.mail.size}: ${orNotSpecified(size)}`,
-      namedSize && `${copy.mail.size}: ${product.sizeChoices?.[namedSize]?.name ?? namedSize}`,
-      (asksForSize || namedSize) && `${copy.mail.quantity}: ${quantity}`,
-      `${copy.mail.contact}: ${String(data.get("contact") ?? "")}`,
-      `${copy.mail.details}: ${orNotSpecified(String(data.get("details") ?? ""))}`,
+      `${copy.mail.product}: ${order.productName}`,
+      order.variant && `${copy.mail.colour}: ${order.variant}`,
+      order.style && `${copy.mail.style}: ${order.style}`,
+      `${copy.mail.participant}: ${orNotSpecified(order.participant)}`,
+      order.bodyType && `${copy.mail.bodyType}: ${order.bodyType}`,
+      order.size && `${copy.mail.size}: ${order.size}`,
+      order.quantity && `${copy.mail.quantity}: ${order.quantity}`,
+      `${copy.mail.contact}: ${order.contact}`,
+      `${copy.mail.details}: ${orNotSpecified(order.details)}`,
     ].filter(Boolean);
 
     window.location.href = merchMailto(links.email, copy.mail.subject, lines.join("\n"));
@@ -288,10 +337,16 @@ function OrderDialog({
             {modal.detailsLabel}
             <textarea name="details" rows={3} />
           </label>
-          <button className="merch-submit" type="submit">
-            {modal.submit}
-            <LinkMark />
+
+          {/* Off-screen and unlabelled: a person never fills this in. */}
+          <input className="merch-trap" type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+
+          <button className="merch-submit" type="submit" disabled={status === "sending" || status === "sent"}>
+            {status === "sending" ? modal.sending : status === "sent" ? modal.sent : modal.submit}
+            {status === "sent" ? null : <LinkMark />}
           </button>
+          {status === "sent" && <p className="merch-status">{modal.sentNote}</p>}
+          {status === "failed" && <p className="merch-status merch-status--failed">{modal.failed}</p>}
         </form>
       </section>
 

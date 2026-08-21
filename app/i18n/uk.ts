@@ -177,6 +177,10 @@ export const uk: Dictionary = {
       emailLabel: "Email",
       detailsLabel: "Додати деталі замовлення",
       submit: "Надіслати запит",
+      sending: "Надсилаємо…",
+      sent: "Заявку надіслано",
+      sentNote: "Ми отримали заявку й звʼяжемося з тобою.",
+      failed: "Не вдалося надіслати автоматично — відкриваємо лист.",
     },
     sizeGuide: {
       label: "РОЗМІРНА СІТКА",

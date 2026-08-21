@@ -180,6 +180,10 @@ export const et: Dictionary = {
       emailLabel: "E-post",
       detailsLabel: "Lisa tellimuse detailid",
       submit: "Saada päring",
+      sending: "Saadame…",
+      sent: "Päring saadetud",
+      sentNote: "Saime päringu kätte ja võtame sinuga ühendust.",
+      failed: "Automaatne saatmine ebaõnnestus — avame kirja.",
     },
     sizeGuide: {
       label: "SUURUSTABEL",

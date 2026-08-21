@@ -177,6 +177,10 @@ export const en: Dictionary = {
       emailLabel: "Email",
       detailsLabel: "Add order details",
       submit: "Send the request",
+      sending: "Sending…",
+      sent: "Request sent",
+      sentNote: "We have your request and will get back to you.",
+      failed: "Could not send it automatically — opening an e-mail instead.",
     },
     sizeGuide: {
       label: "SIZE CHART",
