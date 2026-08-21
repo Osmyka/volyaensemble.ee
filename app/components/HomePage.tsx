@@ -6,10 +6,9 @@ import { localePath, type Locale } from "../i18n/config";
 import type { Dictionary } from "../i18n/types";
 import { BottomNav } from "../mobile/BottomNav";
 import { ActionLink, LinkMark } from "./ActionLink";
-import { JoinButton } from "./JoinButton";
-import { LanguageSwitcher } from "./LanguageSwitcher";
+import { SiteHeader } from "./SiteHeader";
 import { lines, withNumber } from "./text";
-import { ThemeShell, ThemeToggle } from "../theme/theme";
+import { ThemeShell } from "../theme/theme";
 
 export function HomePage({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const schedulePath = localePath(locale, "/schedule");
@@ -27,17 +26,7 @@ export function HomePage({ locale, dict }: { locale: Locale; dict: Dictionary })
 
   return (
     <ThemeShell className="site">
-      <nav className="nav wrap">
-        <a className="brand" href="#top" aria-label={dict.nav.brandHome}><img src="/logo-volya.webp" alt="VOLYA" width={960} height={386} /></a>
-        <div className="navlinks">
-          {nav.map(item => <a key={item.href} href={item.href}>{item.label}</a>)}
-        </div>
-        <div className="nav-tools">
-          <ThemeToggle label={dict.nav.toggleTheme} lightLabel={dict.nav.themeLight} darkLabel={dict.nav.themeDark} />
-          <LanguageSwitcher locale={locale} page="/" dict={dict} />
-          <JoinButton className="nav-cta" label={dict.nav.join} />
-        </div>
-      </nav>
+      <SiteHeader locale={locale} dict={dict} page="/" />
 
       <section className="hero wrap" id="top">
         <div className="hero-copy">

@@ -134,7 +134,6 @@ export const uk: Dictionary = {
     madeWith: "Зроблено з любовʼю в Таллінні ✦",
   },
   schedulePage: {
-    back: "На головну",
     label: "РОЗКЛАД / 2026",
     headingTop: "Знайди свій",
     headingEm: "ритм.",
@@ -152,7 +151,6 @@ export const uk: Dictionary = {
     cta: "Записатися на заняття",
   },
   merchPage: {
-    back: "На головну",
     eyebrow: "03 / VOLYA SHOP",
     eyebrowPlace: "ТАЛЛІНН",
     headingTop: "Мерч",

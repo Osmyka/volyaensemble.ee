@@ -134,7 +134,6 @@ export const en: Dictionary = {
     madeWith: "Made with love in Tallinn ✦",
   },
   schedulePage: {
-    back: "Back to home",
     label: "SCHEDULE / 2026",
     headingTop: "Find your",
     headingEm: "rhythm.",
@@ -152,7 +151,6 @@ export const en: Dictionary = {
     cta: "Sign up for a class",
   },
   merchPage: {
-    back: "Back to home",
     eyebrow: "03 / VOLYA SHOP",
     eyebrowPlace: "TALLINN",
     headingTop: "VOLYA",

@@ -139,7 +139,6 @@ export interface Dictionary {
     madeWith: string;
   };
   schedulePage: {
-    back: string;
     label: string;
     headingTop: string;
     headingEm: string;
@@ -157,7 +156,6 @@ export interface Dictionary {
     cta: string;
   };
   merchPage: {
-    back: string;
     /** Hero eyebrow: section number on the left, city on the right. */
     eyebrow: string;
     eyebrowPlace: string;

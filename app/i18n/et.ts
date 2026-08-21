@@ -137,7 +137,6 @@ export const et: Dictionary = {
     madeWith: "Tehtud armastusega Tallinnas ✦",
   },
   schedulePage: {
-    back: "Avalehele",
     label: "AJAKAVA / 2026",
     headingTop: "Leia oma",
     headingEm: "rütm.",
@@ -155,7 +154,6 @@ export const et: Dictionary = {
     cta: "Registreeru tundi",
   },
   merchPage: {
-    back: "Avalehele",
     eyebrow: "03 / VOLYA SHOP",
     eyebrowPlace: "TALLINN",
     headingTop: "VOLYA",

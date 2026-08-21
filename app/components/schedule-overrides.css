@@ -1,6 +1,6 @@
-.schedule-nav{width:calc(100% + 64px);max-width:none;margin:0 0 0 -32px;padding:0 32px;background:#203754;border-bottom:2px solid #d6b85f}.schedule-nav a{color:#edf3fa}/* Three equal-weight columns keep the logo optically centred regardless of how
+/* Three equal-weight columns keep the logo optically centred regardless of how
    wide the back link and the right-hand actions are. */
-.schedule-nav{display:grid;grid-template-columns:1fr auto 1fr;align-items:center}.schedule-nav .back{justify-self:start}.schedule-nav-actions{justify-self:end;display:flex;align-items:center;gap:22px}.schedule-join{background:#d6b85f;color:#203754;border-radius:999px;padding:14px 20px}@media(max-width:800px){.schedule-nav{width:calc(100% + 40px);margin-left:-20px;padding:0 20px}.schedule-nav-actions{gap:12px}.schedule-join{padding:10px 13px}}
+
 .full-schedule .slot{margin:4px 0;border-radius:8px;min-height:58px;padding:8px 6px;display:flex;flex-direction:column;justify-content:center;gap:4px}.full-schedule .slot b{font-size:10px}.full-schedule .slot small{font-size:9px;font-weight:500}.full-schedule .slot.dance{background:#dce8f1;color:#416887}.full-schedule .slot.vocal{background:#efe5c3;color:#836b39}.full-schedule td:has(.slot){padding:0 3px;background:#fff}
 /* The label used to be hidden and replaced by CSS `content`, which hard-coded
    Ukrainian text into the stylesheet. It now comes from the dictionary. */
@@ -17,10 +17,6 @@
 .schedule-page.dark-mode {
   background: #0f1727;
   color: #edf3fa;
-}
-
-.dark-mode .schedule-nav {
-  background: #101d2f;
 }
 
 .dark-mode .schedule-intro h1 {

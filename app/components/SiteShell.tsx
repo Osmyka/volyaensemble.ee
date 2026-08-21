@@ -7,6 +7,7 @@ import "../mobile/mobile.css";
 // Last, so its corrections win over the accumulated overrides in logo.css.
 import "../theme-fixes.css";
 import "./action-link.css";
+import "./site-header.css";
 import { getDictionary } from "../i18n";
 import { localePath, localeTags, locales, type Locale, type SitePage } from "../i18n/config";
 

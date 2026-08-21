@@ -3,14 +3,13 @@ import "./schedule-overrides.css";
 import "./merch.css";
 import { merchMailto } from "../merch/catalog";
 import { links } from "../i18n/contacts";
-import { localePath, type Locale } from "../i18n/config";
+import type { Locale } from "../i18n/config";
 import type { Dictionary } from "../i18n/types";
 import { BottomNav } from "../mobile/BottomNav";
 import { ActionLink } from "./ActionLink";
-import { JoinButton } from "./JoinButton";
-import { LanguageSwitcher } from "./LanguageSwitcher";
 import { MerchShop } from "./MerchShop";
-import { ThemeShell, ThemeToggle } from "../theme/theme";
+import { SiteHeader } from "./SiteHeader";
+import { ThemeShell } from "../theme/theme";
 
 /**
  * The shop page. Chrome matches the schedule subpage — back link, logo,
@@ -22,15 +21,7 @@ export function MerchPage({ locale, dict }: { locale: Locale; dict: Dictionary }
 
   return (
     <ThemeShell className="merch-page">
-      <header className="schedule-nav">
-        <a href={localePath(locale, "/")} className="back">← {copy.back}</a>
-        <img src="/logo-volya.webp" alt="VOLYA" width={960} height={386} />
-        <div className="schedule-nav-actions">
-          <ThemeToggle label={dict.nav.toggleTheme} lightLabel={dict.nav.themeLight} darkLabel={dict.nav.themeDark} />
-          <LanguageSwitcher locale={locale} page="/merch" dict={dict} />
-          <JoinButton className="schedule-join" label={dict.nav.join} />
-        </div>
-      </header>
+      <SiteHeader locale={locale} dict={dict} page="/merch" />
 
       <section className="shop-hero">
         <span className="shop-hero-mark" aria-hidden="true">✦</span>

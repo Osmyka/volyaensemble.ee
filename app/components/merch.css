@@ -11,19 +11,6 @@
   color: #203754;
 }
 
-/*
- * `schedule-overrides.css` widens the chrome by 64px to bleed out of the
- * schedule page's own gutters. This page has none — the hero is full-bleed —
- * so the bleed is undone here and the gutters live on the bar itself.
- */
-.merch-page .schedule-nav {
-  box-sizing: border-box;
-  width: 100%;
-  max-width: none;
-  margin: 0;
-  padding: 0 32px;
-}
-
 /* Hero ------------------------------------------------------------------ */
 
 .shop-hero {
@@ -608,12 +595,6 @@
 }
 
 @media (max-width: 800px) {
-  .merch-page .schedule-nav {
-    width: 100%;
-    margin: 0;
-    padding: 0 20px;
-  }
-
   .shop-hero {
     min-height: 390px;
     padding: 52px 24px 58px;
@@ -744,10 +725,6 @@
 .merch-page.dark-mode {
   background: #0f1727;
   color: #edf3fa;
-}
-
-.dark-mode .schedule-nav {
-  background: #101d2f;
 }
 
 /* The hero's gold band would glare against the dark page, so it becomes the
