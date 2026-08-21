@@ -68,7 +68,23 @@ Add the spreadsheet id to `SHEETS` in the Apps Script file, keyed by the same
 id the catalogue uses, then **Deploy → Manage deployments → edit → Version:
 New**. Editing the file alone changes nothing: the old version keeps serving.
 
-## Columns
+## Columns per sheet
+
+Verified against the live sheets:
+
+| Product | Columns after the timestamp |
+| --- | --- |
+| tshirt | Варіант футболки · Тип футболки · Розмір · Кількість · Імʼя · Email · Деталі |
+| hoodie | Варіант кофти або худі · Тип кофти · Розмірна категорія · Розмір · Кількість · Імʼя · Email · Деталі |
+| backpack | Колір рюкзака · Імʼя · Email · Деталі |
+| tote | Імʼя · Email · Деталі |
+| cap | Колір · Розмір · Імʼя · Email · Деталі |
+
+The form always sends everything it collected; a sheet simply takes the parts
+it has columns for. Adding «Кількість» to the cap, backpack or tote sheet is
+enough to start recording quantity there — no code change.
+
+## How columns are matched
 
 The script fills each column by reading the sheet's own header row, so the
 columns may sit in any order and a sheet may leave some out. A heading it does
