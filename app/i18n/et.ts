@@ -230,7 +230,7 @@ export const et: Dictionary = {
         alt: "Seljakott ansambli VOLYA logoga",
         orderNoun: "seljakoti.",
         variantTitle: "Seljakoti värv",
-        variants: { blue: "Helesinine", black: "Must" },
+        variants: { blue: "Sinine", black: "Must" },
       },
       tote: {
         name: "VOLYA riidekott",
@@ -243,6 +243,8 @@ export const et: Dictionary = {
         description: "Lastele või täiskasvanutele. 100% puuvill, reguleeritav kinnitus.",
         alt: "Nokamüts ansambli VOLYA logoga",
         orderNoun: "nokamütsi.",
+        variantTitle: "Nokamütsi värv",
+        variants: { black: "Must", white: "Valge" },
       },
     },
   },

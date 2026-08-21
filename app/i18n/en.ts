@@ -227,7 +227,7 @@ export const en: Dictionary = {
         alt: "Backpack with the VOLYA ensemble logo",
         orderNoun: "a backpack.",
         variantTitle: "Backpack colour",
-        variants: { blue: "Light blue", black: "Black" },
+        variants: { blue: "Blue", black: "Black" },
       },
       tote: {
         name: "VOLYA tote",
@@ -240,6 +240,8 @@ export const en: Dictionary = {
         description: "For children or adults. 100% cotton, adjustable strap.",
         alt: "Cap with the VOLYA ensemble logo",
         orderNoun: "a cap.",
+        variantTitle: "Cap colour",
+        variants: { black: "Black", white: "White" },
       },
     },
   },

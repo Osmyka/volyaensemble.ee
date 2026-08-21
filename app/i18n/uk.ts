@@ -227,7 +227,7 @@ export const uk: Dictionary = {
         alt: "Рюкзак з логотипом ансамблю VOLYA",
         orderNoun: "рюкзак.",
         variantTitle: "Колір рюкзака",
-        variants: { blue: "Блакитний", black: "Чорний" },
+        variants: { blue: "Синій", black: "Чорний" },
       },
       tote: {
         name: "Шопер VOLYA",
@@ -240,6 +240,8 @@ export const uk: Dictionary = {
         description: "Дитяча або доросла. 100% бавовна, регульована застібка.",
         alt: "Кепка з логотипом ансамблю VOLYA",
         orderNoun: "кепку.",
+        variantTitle: "Колір кепки",
+        variants: { black: "Чорна", white: "Біла" },
       },
     },
   },

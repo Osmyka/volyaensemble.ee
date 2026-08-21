@@ -218,7 +218,7 @@ export interface Dictionary {
       hoodie: MerchProduct & { variants: { black: string; blue: string } };
       backpack: MerchProduct & { variants: { blue: string; black: string } };
       tote: MerchProduct;
-      cap: MerchProduct;
+      cap: MerchProduct & { variants: { black: string; white: string } };
     };
   };
 }
