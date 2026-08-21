@@ -36,7 +36,6 @@ export function MerchPage({ locale, dict }: { locale: Locale; dict: Dictionary }
 
       <section className="order-note">
         <div>
-          <p className="section-number">{copy.orderLabel}</p>
           <h2>{copy.orderTitle}</h2>
         </div>
         <div className="order-copy">

@@ -155,7 +155,6 @@ export const en: Dictionary = {
     headingEm: "merch.",
     text: "VOLYA merch — for rehearsals, for walks and for every moment worth living together.",
     collectionTitle: "Pick yours.",
-    orderLabel: "02 / HOW TO ORDER",
     orderTitle: "Seen something you like?",
     orderText: "Write to us with what you would like to order. We will confirm the size and stock, and arrange the hand-over in Tallinn.",
     orderCta: "Order merch",

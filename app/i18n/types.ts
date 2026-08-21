@@ -162,7 +162,6 @@ export interface Dictionary {
     headingEm: string;
     text: string;
     collectionTitle: string;
-    orderLabel: string;
     orderTitle: string;
     orderText: string;
     orderCta: string;

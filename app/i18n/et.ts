@@ -158,7 +158,6 @@ export const et: Dictionary = {
     headingEm: "merch.",
     text: "VOLYA merch — proovideks, jalutuskäikudeks ja kõigiks hetkedeks, mida tahaks koos elada.",
     collectionTitle: "Vali oma.",
-    orderLabel: "02 / KUIDAS TELLIDA",
     orderTitle: "Meeldis midagi?",
     orderText: "Kirjuta meile, mida täpselt soovid tellida. Täpsustame suuruse ja olemasolu ning lepime Tallinnas üleandmise kokku.",
     orderCta: "Telli merch",
