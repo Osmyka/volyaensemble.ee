@@ -1,28 +1,18 @@
 "use client";
 
 import { Fragment } from "react";
-import { addresses, links, organisation, teacherNames, telHref } from "../i18n/contacts";
+import { addresses, links, teacherNames } from "../i18n/contacts";
 import { localePath, type Locale } from "../i18n/config";
 import type { Dictionary } from "../i18n/types";
 import { BottomNav } from "../mobile/BottomNav";
 import { ActionLink, LinkMark } from "./ActionLink";
+import { SiteFooter } from "./SiteFooter";
 import { SiteHeader } from "./SiteHeader";
 import { lines, withNumber } from "./text";
 import { ThemeShell } from "../theme/theme";
 
 export function HomePage({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const schedulePath = localePath(locale, "/schedule");
-  const merchPath = localePath(locale, "/merch");
-
-  // Header and footer navigate to the same entries; one list keeps them
-  // aligned. Merch is the one destination that is a page, not an anchor.
-  const nav = [
-    { label: dict.nav.about, href: "#about" },
-    { label: dict.nav.schedule, href: "#schedule" },
-    { label: dict.nav.merch, href: merchPath },
-    { label: dict.nav.gallery, href: "#gallery" },
-    { label: dict.nav.contact, href: "#contact" },
-  ];
 
   return (
     <ThemeShell className="site">
@@ -70,39 +60,7 @@ export function HomePage({ locale, dict }: { locale: Locale; dict: Dictionary })
 
       <section className="join" id="join"><div className="wrap join-inner"><div className="section-label">{dict.join.label}</div><h2>{dict.join.headingTop}<br /><em>{dict.join.headingEm}</em></h2><p>{dict.join.text}</p><ActionLink variant="button" tone="light" href={links.joinForm} external>{dict.join.cta}</ActionLink><div className="join-mark">VOLYA<br /><small>{lines(dict.join.markCaption)}</small></div></div></section>
 
-      <footer className="footer wrap" id="contact">
-        <div className="footer-brand">
-          <a className="brand" href="#top"><img src="/logo-volya.webp" alt="VOLYA" width={960} height={386} loading="lazy" decoding="async" /></a>
-          <p>{lines(dict.footer.tagline)}</p>
-        </div>
-        <div className="footer-contact">
-          <small>{dict.footer.contactsTitle}</small>
-          <div className="footer-actions">
-            <ActionLink variant="chip" href={`mailto:${links.email}`}>{links.email}</ActionLink>
-            {links.phones.map(phone => <ActionLink variant="chip" href={telHref(phone)} key={phone}>{phone}</ActionLink>)}
-            <ActionLink variant="chip" href={links.telegram} external>{dict.footer.telegram}</ActionLink>
-          </div>
-        </div>
-        <div>
-          <small>{dict.footer.navigationTitle}</small>
-          {nav.map(item => <a key={item.href} href={item.href}>{item.label}</a>)}
-        </div>
-        <div>
-          <small>{dict.footer.followTitle}</small>
-          <div className="footer-actions">
-            <ActionLink variant="chip" href={links.instagram} external>Instagram</ActionLink>
-            <ActionLink variant="chip" href={links.facebook} external>Facebook</ActionLink>
-          </div>
-        </div>
-        {/* Copyright, the legal entity behind the ensemble, and the sign-off. */}
-        <div className="footer-legal">
-          {lines(dict.footer.legal)}
-          <br /><br />
-          {organisation.name}<br />{organisation.registryCode}
-          <br /><br />
-          {dict.footer.madeWith}
-        </div>
-      </footer>
+      <SiteFooter locale={locale} dict={dict} page="/" />
 
       <BottomNav locale={locale} dict={dict} page="/" />
     </ThemeShell>

@@ -5,6 +5,7 @@ import type { Locale } from "../i18n/config";
 import type { Dictionary } from "../i18n/types";
 import { BottomNav } from "../mobile/BottomNav";
 import { ActionLink } from "./ActionLink";
+import { SiteFooter } from "./SiteFooter";
 import { SiteHeader } from "./SiteHeader";
 import { ThemeShell } from "../theme/theme";
 import { lines } from "./text";
@@ -79,6 +80,8 @@ export function SchedulePage({ locale, dict }: { locale: Locale; dict: Dictionar
         <div><span>02</span><h2>{dict.schedulePage.detailVocal}</h2><p>{lines(dict.schedulePage.vocalFrequency)}</p></div>
         <ActionLink variant="button" tone="navy" href={links.joinForm} external>{dict.schedulePage.cta}</ActionLink>
       </section>
+
+      <SiteFooter locale={locale} dict={dict} page="/schedule" />
 
       <BottomNav locale={locale} dict={dict} page="/schedule" />
     </ThemeShell>

@@ -9,7 +9,8 @@
   min-height: 100vh;
   background: #f7f5ef;
   color: #203754;
-  padding: 0 0 90px;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 /*
@@ -219,34 +220,43 @@
   height: 12px;
 }
 
-/* Ordering band --------------------------------------------------------- */
+/* Closing card --------------------------------------------------------- */
 
+/*
+ * The page ends the way the home page does: a light card in the page's own
+ * measure, then the footer. A dark band here would have collided with the dark
+ * footer directly beneath it.
+ */
 .order-note {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 50px;
-  margin-top: 60px;
-  padding: 84px 10vw;
-  background: #203754;
-  color: #edf3fa;
+  /* The measure the home page's closing card uses — the header's box, not the
+     narrower one the sections above sit in. */
+  width: min(1320px, 100%);
+  margin: 60px auto 0;
 }
 
-.merch-page .order-note .section-number {
-  color: #d6b85f;
+.order-note-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 52px;
+  padding: 52px 54px;
+  background: #edf5fb;
+  border: 1px solid #dbe7f1;
+  border-radius: 28px;
+  box-shadow: 0 18px 55px rgba(67, 99, 130, 0.07);
 }
 
 .order-note h2 {
-  margin-top: 34px;
+  margin: 0 0 14px;
+  font-size: clamp(34px, 3.4vw, 48px);
+  line-height: 1;
+  letter-spacing: -1.5px;
 }
 
-.order-copy {
-  align-self: end;
-  max-width: 420px;
-}
-
-.order-copy p {
-  margin: 0 0 26px;
-  color: #c9d3df;
+.order-note p {
+  max-width: 460px;
+  margin: 0;
+  color: #6d7d91;
   font-size: 16px;
   line-height: 1.55;
 }
@@ -603,7 +613,8 @@
 
 @media (max-width: 800px) {
   .merch-page {
-    padding: 0 0 60px;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .merch-intro,
@@ -651,13 +662,20 @@
   }
 
   .order-note {
+    margin-top: 40px;
+  }
+
+  .order-note-inner {
     display: block;
-    padding: 58px 24px 100px;
+    padding: 32px 24px;
   }
 
   .order-note h2 {
-    margin: 20px 0 30px;
-    font-size: 50px;
+    font-size: 34px;
+  }
+
+  .order-note .order-actions {
+    margin-top: 24px;
   }
 
   .order-actions .action-link--button {
@@ -731,6 +749,7 @@
 }
 
 .dark-mode .merch-intro p,
+.dark-mode .order-note p,
 .dark-mode .product-meta > p:not(.product-price) {
   color: #b7c3d2;
 }
@@ -755,13 +774,10 @@
   color: #a7c0de;
 }
 
-.dark-mode .order-note {
-  background: #16233a;
-  border-top: 1px solid #334a66;
-}
-
-.merch-page.dark-mode .order-note .section-number {
-  color: #f1d36a;
+.dark-mode .order-note-inner {
+  background: #1a2940;
+  border-color: #334a66;
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.3);
 }
 
 /* Dialogs --------------------------------------------------------------- */

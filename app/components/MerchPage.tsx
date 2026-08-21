@@ -8,6 +8,7 @@ import type { Dictionary } from "../i18n/types";
 import { BottomNav } from "../mobile/BottomNav";
 import { ActionLink } from "./ActionLink";
 import { MerchShop } from "./MerchShop";
+import { SiteFooter } from "./SiteFooter";
 import { SiteHeader } from "./SiteHeader";
 import { ThemeShell } from "../theme/theme";
 
@@ -34,22 +35,25 @@ export function MerchPage({ locale, dict }: { locale: Locale; dict: Dictionary }
         <MerchShop locale={locale} dict={dict} />
       </section>
 
+      {/* The same closing card the home page ends on, before the same footer. */}
       <section className="order-note">
-        <div>
-          <h2>{copy.orderTitle}</h2>
-        </div>
-        <div className="order-copy">
-          <p>{copy.orderText}</p>
+        <div className="order-note-inner">
+          <div>
+            <h2>{copy.orderTitle}</h2>
+            <p>{copy.orderText}</p>
+          </div>
           <div className="order-actions">
-            <ActionLink variant="button" tone="gold" href={merchMailto(links.email, copy.mail.subject, "")}>
+            <ActionLink variant="button" tone="navy" href={merchMailto(links.email, copy.mail.subject, "")}>
               {copy.orderCta}
             </ActionLink>
-            <ActionLink variant="button" tone="navy" href={links.telegram} external>
+            <ActionLink variant="button" tone="light" href={links.telegram} external>
               {dict.footer.telegram}
             </ActionLink>
           </div>
         </div>
       </section>
+
+      <SiteFooter locale={locale} dict={dict} page="/merch" />
 
       <BottomNav locale={locale} dict={dict} page="/merch" />
     </ThemeShell>
