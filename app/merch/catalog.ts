@@ -27,6 +27,11 @@ export interface MerchItem {
   price: string;
   image: string;
   sizing: "shirt" | "none";
+  /**
+   * Named sizes, for a piece that comes in a couple of cuts rather than a run
+   * of chart sizes. Each id needs an entry in the product's `sizeChoices`.
+   */
+  sizeChoices?: readonly string[];
   variants?: readonly { id: string; image: string }[];
   styles?: readonly ("zip" | "plain")[];
   sizeGuide?: Record<BodyType, string>;
@@ -47,7 +52,7 @@ export const merchItems: readonly MerchItem[] = [
   {
     id: "hoodie",
     price: "€25",
-    image: "/merch/hoodie-black-full.webp",
+    image: "/merch/hoodie-black.webp",
     sizing: "shirt",
     /* Zip or no zip is a hoodie-only question. */
     styles: ["zip", "plain"],
@@ -57,22 +62,32 @@ export const merchItems: readonly MerchItem[] = [
       kids: "/merch/hoodie-kids-zip.webp",
     },
     variants: [
-      { id: "black", image: "/merch/hoodie-black-full.webp" },
+      { id: "black", image: "/merch/hoodie-black.webp" },
       { id: "blue", image: "/merch/hoodie-blue.webp" },
     ],
   },
   {
     id: "backpack",
     price: "€20",
-    image: "/merch/backpack-volya.webp",
+    image: "/merch/backpack-blue.webp",
     sizing: "none",
     variants: [
-      { id: "blue", image: "/merch/backpack-volya.webp" },
+      { id: "blue", image: "/merch/backpack-blue.webp" },
       { id: "black", image: "/merch/backpack-black.webp" },
     ],
   },
-  { id: "tote", price: "€15", image: "/merch/tote-volya.webp", sizing: "none" },
-  { id: "cap", price: "€15", image: "/merch/cap-volya.webp", sizing: "none" },
+  { id: "tote", price: "€15", image: "/merch/tote-black.webp", sizing: "none" },
+  {
+    id: "cap",
+    price: "€15",
+    image: "/merch/cap-black.webp",
+    sizing: "none",
+    sizeChoices: ["kids", "adult"],
+    variants: [
+      { id: "black", image: "/merch/cap-black.webp" },
+      { id: "white", image: "/merch/cap-white.webp" },
+    ],
+  },
 ];
 
 export const sizeGuides: Record<BodyType, string> = {

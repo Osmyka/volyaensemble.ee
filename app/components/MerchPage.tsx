@@ -3,48 +3,35 @@ import "./schedule-overrides.css";
 import "./merch.css";
 import { merchMailto } from "../merch/catalog";
 import { links } from "../i18n/contacts";
-import { localePath, type Locale } from "../i18n/config";
+import type { Locale } from "../i18n/config";
 import type { Dictionary } from "../i18n/types";
 import { BottomNav } from "../mobile/BottomNav";
 import { ActionLink } from "./ActionLink";
-import { JoinButton } from "./JoinButton";
-import { LanguageSwitcher } from "./LanguageSwitcher";
 import { MerchShop } from "./MerchShop";
+import { SiteHeader } from "./SiteHeader";
+import { ThemeShell } from "../theme/theme";
 
 /**
- * The shop page. Chrome matches the schedule subpage — back link, logo,
- * language switcher — and the sections below follow the merch prototype:
- * a gold hero, the collection grid, then the ordering note.
+ * The shop page, laid out like the schedule subpage: the same intro block, the
+ * same card treatment on the grid below it, then the ordering band.
  */
 export function MerchPage({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const copy = dict.merchPage;
 
   return (
-    <main className="merch-page">
-      <header className="schedule-nav">
-        <a href={localePath(locale, "/")} className="back">← {copy.back}</a>
-        <img src="/logo-volya.webp" alt="VOLYA" width={960} height={386} />
-        <div className="schedule-nav-actions">
-          <LanguageSwitcher locale={locale} page="/merch" dict={dict} />
-          <JoinButton className="schedule-join" label={dict.nav.join} />
-        </div>
-      </header>
+    <ThemeShell className="merch-page">
+      <SiteHeader locale={locale} dict={dict} page="/merch" />
 
-      <section className="shop-hero">
-        <span className="shop-hero-mark" aria-hidden="true">✦</span>
-        <p className="eyebrow"><span>{copy.eyebrow}</span><i /><span>{copy.eyebrowPlace}</span></p>
+      {/* Same shape as the schedule subpage: label, heading, one line of copy. */}
+      <section className="merch-intro">
+        <div className="section-label">{copy.label}</div>
         <h1>{copy.headingTop}<br /><em>{copy.headingEm}</em></h1>
-        <p className="shop-hero-text">{copy.text}</p>
-        <a className="scroll-cue" href="#products"><span aria-hidden="true">↓</span> {copy.scrollCue}</a>
+        <p>{copy.text}</p>
       </section>
 
       <section className="products-section" id="products" aria-label={dict.nav.merch}>
-        <div className="section-intro">
-          <p className="section-number">{copy.collectionLabel}</p>
-          <h2>{copy.collectionTitle}</h2>
-          <p>{copy.collectionText}</p>
-        </div>
-        <MerchShop dict={dict} />
+        <h2>{copy.collectionTitle}</h2>
+        <MerchShop locale={locale} dict={dict} />
       </section>
 
       <section className="order-note">
@@ -66,6 +53,6 @@ export function MerchPage({ locale, dict }: { locale: Locale; dict: Dictionary }
       </section>
 
       <BottomNav locale={locale} dict={dict} page="/merch" />
-    </main>
+    </ThemeShell>
   );
 }

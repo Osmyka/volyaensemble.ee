@@ -1,12 +1,12 @@
 import "./schedule.css";
 import "./schedule-overrides.css";
 import { addresses, links } from "../i18n/contacts";
-import { localePath, type Locale } from "../i18n/config";
+import type { Locale } from "../i18n/config";
 import type { Dictionary } from "../i18n/types";
 import { BottomNav } from "../mobile/BottomNav";
 import { ActionLink } from "./ActionLink";
-import { JoinButton } from "./JoinButton";
-import { LanguageSwitcher } from "./LanguageSwitcher";
+import { SiteHeader } from "./SiteHeader";
+import { ThemeShell } from "../theme/theme";
 import { lines } from "./text";
 
 const times = Array.from({ length: 21 }, (_, i) => `${String(10 + Math.floor(i / 2)).padStart(2, "0")}:${i % 2 ? "30" : "00"}`);
@@ -57,17 +57,8 @@ export function SchedulePage({ locale, dict }: { locale: Locale; dict: Dictionar
   };
 
   return (
-    <main className="schedule-page">
-      <header className="schedule-nav">
-        <a href={localePath(locale, "/")} className="back">← {dict.schedulePage.back}</a>
-        <img src="/logo-volya.webp" alt="VOLYA" width={960} height={386} />
-        {/* Grouped so the header keeps three flex children and the logo stays
-            centred. */}
-        <div className="schedule-nav-actions">
-          <LanguageSwitcher locale={locale} page="/schedule" dict={dict} />
-          <JoinButton className="schedule-join" label={dict.nav.join} />
-        </div>
-      </header>
+    <ThemeShell className="schedule-page">
+      <SiteHeader locale={locale} dict={dict} page="/schedule" />
       <section className="schedule-intro">
         <div className="section-label">{dict.schedulePage.label}</div>
         <h1>{dict.schedulePage.headingTop}<br /><em>{dict.schedulePage.headingEm}</em></h1>
@@ -90,6 +81,6 @@ export function SchedulePage({ locale, dict }: { locale: Locale; dict: Dictionar
       </section>
 
       <BottomNav locale={locale} dict={dict} page="/schedule" />
-    </main>
+    </ThemeShell>
   );
 }

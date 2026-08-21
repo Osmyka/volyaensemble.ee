@@ -1,0 +1,74 @@
+/*
+ * The one header, shared by every page.
+ *
+ * It stays put while the page scrolls. Phones are the exception: the tab bar at
+ * the foot already carries the navigation, and a pinned bar would eat a tenth
+ * of a short screen.
+ *
+ * This file loads after `concept.css`, which sets `.nav { position: relative }`
+ * — same specificity, so the order is what decides.
+ */
+
+@media (min-width: 801px) {
+  .nav {
+    position: sticky;
+    top: 0;
+    /* Above the page, below the order dialog and its backdrop. */
+    z-index: 50;
+  }
+
+  /* Anchored sections must clear the pinned bar rather than hide under it. */
+  :target,
+  section[id] {
+    scroll-margin-top: 104px;
+  }
+}
+
+/*
+ * Between a phone and a wide desktop the five entries, the theme label, the
+ * language switcher and the join button no longer fit at full spacing, so the
+ * bar tightens rather than spilling over the edge.
+ */
+@media (min-width: 801px) and (max-width: 1150px) {
+  .nav {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .navlinks {
+    gap: 20px;
+    margin-right: 20px;
+    font-size: 12px;
+  }
+
+  .nav-tools {
+    gap: 12px;
+  }
+
+  /* The moon and sun read on their own; the word beside them does not fit. */
+  .nav .theme-toggle small {
+    display: none;
+  }
+}
+
+/*
+ * The schedule page carries its own side gutters, so the bar has to bleed past
+ * them to meet the window edges the way it does on the other pages.
+ */
+.schedule-page > .nav {
+  width: calc(100% + 64px);
+  max-width: none;
+  margin-left: -32px;
+}
+
+@media (max-width: 800px) {
+  .schedule-page > .nav {
+    width: calc(100% + 40px);
+    margin-left: -20px;
+  }
+}
+
+/* The page this entry points at. */
+.navlinks a.is-current {
+  color: #f1d36a;
+}

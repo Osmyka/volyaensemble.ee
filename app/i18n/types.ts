@@ -18,6 +18,8 @@ export interface MerchProduct {
   orderNoun: string;
   variantTitle?: string;
   variants?: Record<string, string>;
+  /** Named sizes: a label, and the line of detail under it. */
+  sizeChoices?: Record<string, { name: string; note: string }>;
 }
 
 export interface Dictionary {
@@ -133,13 +135,11 @@ export interface Dictionary {
     navigationTitle: string;
     followTitle: string;
     telegram: string;
-    email: string;
     organisation: string;
     legal: string;
     madeWith: string;
   };
   schedulePage: {
-    back: string;
     label: string;
     headingTop: string;
     headingEm: string;
@@ -157,17 +157,11 @@ export interface Dictionary {
     cta: string;
   };
   merchPage: {
-    back: string;
-    /** Hero eyebrow: section number on the left, city on the right. */
-    eyebrow: string;
-    eyebrowPlace: string;
+    label: string;
     headingTop: string;
     headingEm: string;
     text: string;
-    scrollCue: string;
-    collectionLabel: string;
     collectionTitle: string;
-    collectionText: string;
     orderLabel: string;
     orderTitle: string;
     orderText: string;
@@ -192,6 +186,11 @@ export interface Dictionary {
       emailLabel: string;
       detailsLabel: string;
       submit: string;
+      /** The order form's states: in flight, accepted, and fallen back to mail. */
+      sending: string;
+      sent: string;
+      sentNote: string;
+      failed: string;
     };
     sizeGuide: {
       label: string;
@@ -218,7 +217,10 @@ export interface Dictionary {
       hoodie: MerchProduct & { variants: { black: string; blue: string } };
       backpack: MerchProduct & { variants: { blue: string; black: string } };
       tote: MerchProduct;
-      cap: MerchProduct;
+      cap: MerchProduct & {
+        variants: { black: string; white: string };
+        sizeChoices: { kids: { name: string; note: string }; adult: { name: string; note: string } };
+      };
     };
   };
 }

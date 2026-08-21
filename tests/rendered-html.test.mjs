@@ -66,14 +66,33 @@ test("non-Ukrainian locales contain no untranslated copy", async () => {
   }
 });
 
+// The logo is the way back: subpages carry no separate "back" link.
 test("subpages link back to their own locale's home", async () => {
   for (const route of routes.filter(entry => /\/(schedule|merch)$/.test(entry.path))) {
     const html = await (await render(route.path)).text();
     assert.match(
       html,
-      new RegExp(`<a href="${route.home}" class="back"`),
-      `wrong back link on ${route.path}`,
+      new RegExp(`<a class="brand" href="${route.home}"`),
+      `wrong logo link on ${route.path}`,
     );
+  }
+});
+
+test("every page carries the same header navigation", async () => {
+  for (const route of routes) {
+    const html = await (await render(route.path)).text();
+    const nav = html.match(/<div class="navlinks">[\s\S]*?<\/div>/);
+    assert.ok(nav, `no header navigation on ${route.path}`);
+    assert.equal(
+      (nav[0].match(/<a /g) ?? []).length,
+      5,
+      `expected five header entries on ${route.path}`,
+    );
+    // Section entries must carry the path when the page has no such section.
+    if (route.path !== route.home) {
+      const gallery = route.home === "/" ? "/#gallery" : `${route.home}#gallery`;
+      assert.match(nav[0], new RegExp(`href="${gallery}"`), `bare hash on ${route.path}`);
+    }
   }
 });
 
