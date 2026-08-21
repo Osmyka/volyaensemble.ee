@@ -6,18 +6,26 @@
  * sheet can have its columns in any order, and adding or removing one needs no
  * change here — only a header the list below knows about.
  *
+ * A web app deployed for "Anyone" is reachable by anyone who learns its URL,
+ * so a shared token is required on every write: the address alone is not a
+ * credential. The token lives in Script Properties, never in this file.
+ *
  * ── Setting it up ────────────────────────────────────────────────────────────
  * 1. Open any of the five spreadsheets → Extensions → Apps Script.
  * 2. Replace the contents of Code.gs with this file and Save.
- * 3. Deploy → New deployment → type "Web app".
+ * 3. Project Settings (the gear) → Script Properties → Add script property:
+ *      Property: ORDERS_TOKEN
+ *      Value:    a long random string, the same one the Worker will hold
+ * 4. Deploy → New deployment → type "Web app".
  *      Execute as:      Me
  *      Who has access:  Anyone
  *    Authorise when Google asks — the script writes as you, which is why the
- *    spreadsheets need no sharing changes.
- * 4. Copy the deployment URL (https://script.google.com/macros/s/…/exec) and
+ *    spreadsheets need no sharing changes. The only permission it should ask
+ *    for is access to spreadsheets.
+ * 5. Copy the deployment URL (https://script.google.com/macros/s/…/exec) and
  *    hand it to the site: it goes into the Worker secret ORDERS_WEBHOOK_URL,
  *    never into the browser.
- * 5. Re-deploy (Deploy → Manage deployments → edit → Version: New) after any
+ * 6. Re-deploy (Deploy → Manage deployments → edit → Version: New) after any
  *    change to this file, or the old version keeps running.
  */
 
@@ -73,6 +81,12 @@ function normalise(heading) {
 function doPost(request) {
   try {
     var order = JSON.parse(request.postData.contents);
+
+    // Without a matching token the request is a stranger who found the URL.
+    var expected = PropertiesService.getScriptProperties().getProperty("ORDERS_TOKEN");
+    if (!expected) return reply({ ok: false, error: "no token configured" });
+    if (order.token !== expected) return reply({ ok: false, error: "forbidden" });
+
     var id = SHEETS[order.product];
     if (!id) return reply({ ok: false, error: "unknown product" });
 

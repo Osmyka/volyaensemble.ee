@@ -11,6 +11,11 @@ interface Env {
    * the sheets cannot be filled with junk by anyone who reads the page source.
    */
   ORDERS_WEBHOOK_URL?: string;
+  /**
+   * Shared with the Apps Script. A web app open to "Anyone" trusts whoever
+   * knows its URL, so the token is what actually authorises a write.
+   */
+  ORDERS_TOKEN?: string;
   IMAGES: {
     input(stream: ReadableStream): {
       transform(options: Record<string, unknown>): {
@@ -81,13 +86,15 @@ async function handleOrder(request: Request, env: Env): Promise<Response> {
 
   // Checked after validation, so a misconfigured deployment still rejects
   // nonsense rather than answering "unconfigured" to everything.
-  if (!env.ORDERS_WEBHOOK_URL) return json({ ok: false, error: "unconfigured" }, 503);
+  if (!env.ORDERS_WEBHOOK_URL || !env.ORDERS_TOKEN) {
+    return json({ ok: false, error: "unconfigured" }, 503);
+  }
 
   const response = await fetch(env.ORDERS_WEBHOOK_URL, {
     method: "POST",
     // Apps Script rejects a preflight, and text/plain avoids provoking one.
     headers: { "content-type": "text/plain;charset=utf-8" },
-    body: JSON.stringify(order),
+    body: JSON.stringify({ ...order, token: env.ORDERS_TOKEN }),
   });
 
   if (!response.ok) return json({ ok: false, error: "upstream" }, 502);
