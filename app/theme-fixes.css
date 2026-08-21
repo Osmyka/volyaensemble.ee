@@ -202,3 +202,14 @@
     right: 20px;
   }
 }
+
+/*
+ * The oversized VOLYA behind the hero copy is a faint navy on paper. Left as
+ * it is, the dark theme paints navy on navy and the word disappears into the
+ * background — it becomes a pale wash instead, at the same weight the light
+ * theme gives it.
+ */
+.dark-mode .hero::before {
+  color: #edf3fa;
+  opacity: 0.07;
+}
