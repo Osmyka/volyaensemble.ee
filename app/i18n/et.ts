@@ -14,7 +14,7 @@ export const et: Dictionary = {
     schedule: {
       title: "Tundide ajakava — VOLYA",
       description:
-        "Koreograafia ja vokaal 6–25aastastele lastele ja noortele Tallinnas. Esimene tund on tasuta.",
+        "Koreograafia ja vokaal 5–25aastastele lastele ja noortele Tallinnas. Esimene tund on tasuta.",
     },
     merch: {
       title: "Meie merch — VOLYA",
@@ -58,7 +58,7 @@ export const et: Dictionary = {
     headingTop: "Me oleme enamat",
     headingEm: "kui ansambel.",
     lead: "VOLYA on koht, kus ukraina kultuur kõlab kaasaegselt, julgelt ja ehedalt. Me laulame, tantsime, sõbrustame ja kasvame koos.",
-    muted: "2023. aastal Tallinnas asutatud ansambel ühendab ligi 60 last ja noort vanuses 6–25 aastat.",
+    muted: "2023. aastal Tallinnas asutatud ansambel ühendab ligi 60 last ja noort vanuses 5–25 aastat.",
     link: "Meie lugu",
     values: [
       { number: "01", title: "Traditsioon", text: "Mäletame, kust me tuleme." },
@@ -139,7 +139,7 @@ export const et: Dictionary = {
     label: "AJAKAVA / 2026",
     headingTop: "Leia oma",
     headingEm: "rütm.",
-    text: "Koreograafia ja vokaal 6–25aastastele lastele ja noortele. Esimene tund on tasuta.",
+    text: "Koreograafia ja vokaal 5–25aastastele lastele ja noortele. Esimene tund on tasuta.",
     legendDance: "Koreograafia",
     legendVocal: "Vokaal",
     tableNote: "Keri tabelit telefonis horisontaalselt",

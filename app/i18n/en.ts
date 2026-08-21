@@ -11,7 +11,7 @@ export const en: Dictionary = {
     schedule: {
       title: "Class schedule — VOLYA",
       description:
-        "Choreography and vocals for children and young people aged 6 to 25 in Tallinn. The first class is free.",
+        "Choreography and vocals for children and young people aged 5 to 25 in Tallinn. The first class is free.",
     },
     merch: {
       title: "Our merch — VOLYA",
@@ -55,7 +55,7 @@ export const en: Dictionary = {
     headingTop: "We are more",
     headingEm: "than an ensemble.",
     lead: "VOLYA is a place where Ukrainian culture sounds modern, bold and genuine. We sing, dance, make friends and grow together.",
-    muted: "Founded in Tallinn in 2023, the ensemble brings together around 60 children and young people aged 6 to 25.",
+    muted: "Founded in Tallinn in 2023, the ensemble brings together around 60 children and young people aged 5 to 25.",
     link: "Our story",
     values: [
       { number: "01", title: "Tradition", text: "We remember where we come from." },
@@ -136,7 +136,7 @@ export const en: Dictionary = {
     label: "SCHEDULE / 2026",
     headingTop: "Find your",
     headingEm: "rhythm.",
-    text: "Choreography and vocals for children and young people aged 6 to 25. The first class is free.",
+    text: "Choreography and vocals for children and young people aged 5 to 25. The first class is free.",
     legendDance: "Choreography",
     legendVocal: "Vocals",
     tableNote: "Scroll the table sideways on your phone",
