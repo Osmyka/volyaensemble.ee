@@ -105,3 +105,28 @@
 .dark-mode .schedule-details p {
   color: #b7c3d2;
 }
+/*
+ * The page's own side gutters made the header narrower here than on the home
+ * page. The sections carry their measure instead, so the bar sits in exactly
+ * the same box on every page.
+ */
+.schedule-page {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.schedule-intro,
+.full-schedule,
+.schedule-details {
+  width: min(1256px, calc(100% - 64px));
+  max-width: none;
+  margin-inline: auto;
+}
+
+@media (max-width: 800px) {
+  .schedule-intro,
+  .full-schedule,
+  .schedule-details {
+    width: min(1256px, calc(100% - 40px));
+  }
+}
