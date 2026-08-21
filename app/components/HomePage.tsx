@@ -82,7 +82,6 @@ export function HomePage({ locale, dict }: { locale: Locale; dict: Dictionary })
             {links.phones.map(phone => <ActionLink variant="chip" href={telHref(phone)} key={phone}>{phone}</ActionLink>)}
             <ActionLink variant="chip" href={links.telegram} external>{dict.footer.telegram}</ActionLink>
           </div>
-          <p>{organisation.name}<br />{organisation.registryCode}</p>
         </div>
         <div>
           <small>{dict.footer.navigationTitle}</small>
@@ -95,7 +94,14 @@ export function HomePage({ locale, dict }: { locale: Locale; dict: Dictionary })
             <ActionLink variant="chip" href={links.facebook} external>Facebook</ActionLink>
           </div>
         </div>
-        <div className="footer-legal">{lines(dict.footer.legal)}<br /><br />{dict.footer.madeWith}</div>
+        {/* Copyright, the legal entity behind the ensemble, and the sign-off. */}
+        <div className="footer-legal">
+          {lines(dict.footer.legal)}
+          <br /><br />
+          {organisation.name}<br />{organisation.registryCode}
+          <br /><br />
+          {dict.footer.madeWith}
+        </div>
       </footer>
 
       <BottomNav locale={locale} dict={dict} page="/" />
