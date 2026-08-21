@@ -792,10 +792,10 @@
   box-shadow: 0 18px 35px rgba(0, 0, 0, 0.35);
 }
 
-/* Product shots are cut out on white, so their stage stays light — a dark one
-   would ring every photograph with a bright halo. */
+/* The shots have no background of their own, so the stage can go dark. It sits
+   a step above the card, or the black pieces would disappear into it. */
 .dark-mode .product-image {
-  background: #dde5ec;
+  background: #24344c;
 }
 
 .dark-mode .product-price .order-hint {
@@ -848,9 +848,9 @@
   border-color: #f1d36a;
 }
 
-/* Variant thumbnails are the same cut-outs as the cards. */
+/* Variant thumbnails sit on the same stage as the cards. */
 .dark-mode .variant img {
-  background: #dde5ec;
+  background: #24344c;
   border-radius: 10px;
 }
 
