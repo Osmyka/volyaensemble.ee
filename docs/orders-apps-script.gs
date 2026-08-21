@@ -33,8 +33,8 @@
 var SHEETS = {
   tshirt: "1nL7QBtGeY2pHM1kqn5l3X9pT8nyLPusfxv2Pt6rcAgg",
   hoodie: "1BeDSPPwH_XDEApa_pj1QU7LCnwrf8NLWyaXL_wuyoSg",
-  backpack: "1FtOkMj_ZGyKVTsPIOvDaYKX7euqzNwxD-quDADkCiXk",
-  tote: "1n2-2oW1K1pg5niaN8cGOHFzqN8styn_IzoQsXto_9UA",
+  backpack: "1FtOkMj_ZGyKVTsPI0vDaYKX7euqzNwxD-quDADkCiXk",
+  tote: "1n2-2oW1K1pg5niaN8cG0HFzqN8styn_IzoQsXto_9UA",
   cap: "1Yz963bPj7wA7Zj8G6SBpT4_JiTgTVWeaqnKRjlXSmqM",
 };
 
