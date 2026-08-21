@@ -18,6 +18,8 @@ export interface MerchProduct {
   orderNoun: string;
   variantTitle?: string;
   variants?: Record<string, string>;
+  /** Named sizes: a label, and the line of detail under it. */
+  sizeChoices?: Record<string, { name: string; note: string }>;
 }
 
 export interface Dictionary {
@@ -216,7 +218,10 @@ export interface Dictionary {
       hoodie: MerchProduct & { variants: { black: string; blue: string } };
       backpack: MerchProduct & { variants: { blue: string; black: string } };
       tote: MerchProduct;
-      cap: MerchProduct & { variants: { black: string; white: string } };
+      cap: MerchProduct & {
+        variants: { black: string; white: string };
+        sizeChoices: { kids: { name: string; note: string }; adult: { name: string; note: string } };
+      };
     };
   };
 }

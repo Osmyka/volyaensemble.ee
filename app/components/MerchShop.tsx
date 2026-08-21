@@ -77,11 +77,13 @@ function OrderDialog({
   const styles = item.styles;
   const guides = item.sizeGuide ?? sizeGuides;
   const asksForSize = item.sizing === "shirt";
+  const namedSizes = item.sizeChoices;
 
   const [variant, setVariant] = useState<string>(variants?.[0]?.id ?? "");
   const [style, setStyle] = useState<string>(styles?.[0] ?? "");
   const [bodyType, setBodyType] = useState<BodyType>("men");
   const [size, setSize] = useState("");
+  const [namedSize, setNamedSize] = useState<string>(namedSizes?.[0] ?? "");
   const [quantity, setQuantity] = useState("1");
   const [guideOpen, setGuideOpen] = useState(false);
 
@@ -115,7 +117,8 @@ function OrderDialog({
       `${copy.mail.participant}: ${orNotSpecified(String(data.get("participant") ?? ""))}`,
       asksForSize && `${copy.mail.bodyType}: ${modal.bodyTypes[bodyType]}`,
       asksForSize && `${copy.mail.size}: ${orNotSpecified(size)}`,
-      asksForSize && `${copy.mail.quantity}: ${quantity}`,
+      namedSize && `${copy.mail.size}: ${product.sizeChoices?.[namedSize]?.name ?? namedSize}`,
+      (asksForSize || namedSize) && `${copy.mail.quantity}: ${quantity}`,
       `${copy.mail.contact}: ${String(data.get("contact") ?? "")}`,
       `${copy.mail.details}: ${orNotSpecified(String(data.get("details") ?? ""))}`,
     ].filter(Boolean);
@@ -238,17 +241,39 @@ function OrderDialog({
                 {modal.sizeGuideCta}
               </button>
 
-              <label>
-                {modal.quantityLabel}
-                <input
-                  type="number"
-                  name="quantity"
-                  min="1"
-                  value={quantity}
-                  onChange={event => setQuantity(event.target.value)}
-                />
-              </label>
             </>
+          )}
+
+          {namedSizes && (
+            <fieldset className="merch-choice merch-choice--stacked">
+              <legend>{modal.sizeLabel}</legend>
+              {namedSizes.map(option => (
+                <label key={option} className="choice choice--detailed">
+                  <input
+                    type="radio"
+                    name="named-size"
+                    value={option}
+                    checked={option === namedSize}
+                    onChange={() => setNamedSize(option)}
+                  />
+                  <strong>{product.sizeChoices?.[option]?.name}</strong>
+                  <small>{product.sizeChoices?.[option]?.note}</small>
+                </label>
+              ))}
+            </fieldset>
+          )}
+
+          {(asksForSize || namedSizes) && (
+            <label>
+              {modal.quantityLabel}
+              <input
+                type="number"
+                name="quantity"
+                min="1"
+                value={quantity}
+                onChange={event => setQuantity(event.target.value)}
+              />
+            </label>
           )}
 
           <label>

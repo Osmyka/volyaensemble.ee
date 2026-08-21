@@ -27,6 +27,11 @@ export interface MerchItem {
   price: string;
   image: string;
   sizing: "shirt" | "none";
+  /**
+   * Named sizes, for a piece that comes in a couple of cuts rather than a run
+   * of chart sizes. Each id needs an entry in the product's `sizeChoices`.
+   */
+  sizeChoices?: readonly string[];
   variants?: readonly { id: string; image: string }[];
   styles?: readonly ("zip" | "plain")[];
   sizeGuide?: Record<BodyType, string>;
@@ -77,6 +82,7 @@ export const merchItems: readonly MerchItem[] = [
     price: "€15",
     image: "/merch/cap-black.webp",
     sizing: "none",
+    sizeChoices: ["kids", "adult"],
     variants: [
       { id: "black", image: "/merch/cap-black.webp" },
       { id: "white", image: "/merch/cap-white.webp" },

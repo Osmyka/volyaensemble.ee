@@ -243,6 +243,16 @@ export const et: Dictionary = {
         orderNoun: "nokamütsi.",
         variantTitle: "Nokamütsi värv",
         variants: { black: "Must", white: "Valge" },
+        sizeChoices: {
+          kids: {
+            name: "Lastele",
+            note: "Viiepaneeliline nokamüts 100% kergest puuvillast, lastesuuruses. Takjakinnitusega.",
+          },
+          adult: {
+            name: "Täiskasvanule",
+            note: "Viiepaneeliline nokamüts, kõva nokk, 100% tihe puuvill, 340 g/m², metallkinnitus.",
+          },
+        },
       },
     },
   },

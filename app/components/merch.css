@@ -448,6 +448,39 @@
   font-weight: 600;
 }
 
+/* A size that needs a sentence of explanation gets its own row. */
+.merch-choice--stacked {
+  display: grid;
+  gap: 10px;
+}
+
+/* The radio spans both rows so the note lines up under its own label. The
+   selector outranks `.order-modal .choice`, which lays the plain rows out as
+   a flex line further down this file. */
+.order-modal .merch-choice--stacked .choice--detailed {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 10px;
+  align-items: start;
+}
+
+.order-modal .merch-choice--stacked .choice--detailed input {
+  grid-row: 1 / 3;
+  margin-top: 2px;
+}
+
+.choice--detailed strong {
+  font-size: 13px;
+}
+
+.choice--detailed small {
+  margin-top: 3px;
+  color: #6d7d91;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
 .order-modal form {
   display: grid;
   gap: 15px;
@@ -833,6 +866,10 @@
 
 .dark-mode .merch-choice {
   border-color: #334a66;
+}
+
+.dark-mode .choice--detailed small {
+  color: #b7c3d2;
 }
 
 .dark-mode .order-modal input,

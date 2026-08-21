@@ -240,6 +240,16 @@ export const en: Dictionary = {
         orderNoun: "a cap.",
         variantTitle: "Cap colour",
         variants: { black: "Black", white: "White" },
+        sizeChoices: {
+          kids: {
+            name: "Kids",
+            note: "A five-panel cap in 100% lightweight cotton, in a child's size. Hook-and-loop fastening.",
+          },
+          adult: {
+            name: "Adult",
+            note: "A five-panel cap with a stiff peak, 100% dense cotton, 340 g/m², metal fastening.",
+          },
+        },
       },
     },
   },
