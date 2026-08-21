@@ -12,9 +12,8 @@ import { SiteHeader } from "./SiteHeader";
 import { ThemeShell } from "../theme/theme";
 
 /**
- * The shop page. Chrome matches the schedule subpage — back link, logo,
- * language switcher — and the sections below follow the merch prototype:
- * a gold hero, the collection grid, then the ordering note.
+ * The shop page, laid out like the schedule subpage: the same intro block, the
+ * same card treatment on the grid below it, then the ordering band.
  */
 export function MerchPage({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const copy = dict.merchPage;
@@ -23,20 +22,15 @@ export function MerchPage({ locale, dict }: { locale: Locale; dict: Dictionary }
     <ThemeShell className="merch-page">
       <SiteHeader locale={locale} dict={dict} page="/merch" />
 
-      <section className="shop-hero">
-        <span className="shop-hero-mark" aria-hidden="true">✦</span>
-        <p className="eyebrow"><span>{copy.eyebrow}</span><i /><span>{copy.eyebrowPlace}</span></p>
+      {/* Same shape as the schedule subpage: label, heading, one line of copy. */}
+      <section className="merch-intro">
+        <div className="section-label">{copy.label}</div>
         <h1>{copy.headingTop}<br /><em>{copy.headingEm}</em></h1>
-        <p className="shop-hero-text">{copy.text}</p>
-        <a className="scroll-cue" href="#products"><span aria-hidden="true">↓</span> {copy.scrollCue}</a>
+        <p>{copy.text}</p>
       </section>
 
       <section className="products-section" id="products" aria-label={dict.nav.merch}>
-        <div className="section-intro">
-          <p className="section-number">{copy.collectionLabel}</p>
-          <h2>{copy.collectionTitle}</h2>
-          <p>{copy.collectionText}</p>
-        </div>
+        <h2>{copy.collectionTitle}</h2>
         <MerchShop dict={dict} />
       </section>
 

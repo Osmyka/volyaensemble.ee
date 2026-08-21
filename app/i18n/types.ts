@@ -157,16 +157,11 @@ export interface Dictionary {
     cta: string;
   };
   merchPage: {
-    /** Hero eyebrow: section number on the left, city on the right. */
-    eyebrow: string;
-    eyebrowPlace: string;
+    label: string;
     headingTop: string;
     headingEm: string;
     text: string;
-    scrollCue: string;
-    collectionLabel: string;
     collectionTitle: string;
-    collectionText: string;
     orderLabel: string;
     orderTitle: string;
     orderText: string;
