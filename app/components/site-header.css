@@ -1,5 +1,6 @@
 /*
- * The one header, shared by every page.
+ * The site's two bars: the header at the top of every page and the footer at
+ * the foot of the home page.
  *
  * It stays put while the page scrolls. Phones are the exception: the tab bar at
  * the foot already carries the navigation, and a pinned bar would eat a tenth
@@ -54,4 +55,24 @@
 /* The page this entry points at. */
 .navlinks a.is-current {
   color: #f1d36a;
+}
+/*
+ * The footer takes the header's box: same measure, same centring, so the two
+ * bars line up as a pair rather than one floating inside the other. It used to
+ * run edge to edge with its content centred by a `100vw` calculation, which
+ * counts the scrollbar and left the two misaligned by a few pixels anyway.
+ */
+.footer {
+  box-sizing: border-box;
+  max-width: 1320px;
+  margin-inline: auto;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+@media (max-width: 800px) {
+  .footer {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
