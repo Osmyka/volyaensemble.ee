@@ -9,15 +9,18 @@
   min-height: 100vh;
   background: #f7f5ef;
   color: #203754;
-  padding: 0 32px 90px;
+  padding: 0 0 90px;
 }
 
-/* The bar and the ordering band reach the window edges past those gutters. */
-.merch-page > .nav,
-.merch-page > .order-note {
-  width: calc(100% + 64px);
-  max-width: none;
-  margin-left: -32px;
+/*
+ * The page has no gutters of its own: each section holds its own measure, the
+ * way `.wrap` does on the home page. That keeps the header identical
+ * everywhere, and lets the ordering band run to the window edges.
+ */
+.merch-intro,
+.products-section {
+  width: min(1256px, calc(100% - 64px));
+  margin-inline: auto;
 }
 
 /* Intro ----------------------------------------------------------------- */
@@ -27,8 +30,6 @@
  * read as one pair, not as a shop bolted onto a site.
  */
 .merch-intro {
-  max-width: 1256px;
-  margin: 0 auto;
   padding: 85px 0 48px;
 }
 
@@ -59,8 +60,6 @@
 /* Collection ------------------------------------------------------------ */
 
 .products-section {
-  max-width: 1256px;
-  margin: 0 auto;
   padding: 0 0 20px;
 }
 
@@ -604,13 +603,12 @@
 
 @media (max-width: 800px) {
   .merch-page {
-    padding: 0 20px 60px;
+    padding: 0 0 60px;
   }
 
-  .merch-page > .nav,
-  .merch-page > .order-note {
-    width: calc(100% + 40px);
-    margin-left: -20px;
+  .merch-intro,
+  .products-section {
+    width: min(1256px, calc(100% - 40px));
   }
 
   .merch-intro {

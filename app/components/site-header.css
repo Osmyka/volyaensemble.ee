@@ -51,23 +51,6 @@
   }
 }
 
-/*
- * The schedule page carries its own side gutters, so the bar has to bleed past
- * them to meet the window edges the way it does on the other pages.
- */
-.schedule-page > .nav {
-  width: calc(100% + 64px);
-  max-width: none;
-  margin-left: -32px;
-}
-
-@media (max-width: 800px) {
-  .schedule-page > .nav {
-    width: calc(100% + 40px);
-    margin-left: -20px;
-  }
-}
-
 /* The page this entry points at. */
 .navlinks a.is-current {
   color: #f1d36a;
