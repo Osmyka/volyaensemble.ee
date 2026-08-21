@@ -93,7 +93,6 @@ export function HomePage({ locale, dict }: { locale: Locale; dict: Dictionary })
           <div className="footer-actions">
             <ActionLink variant="chip" href={links.instagram} external>Instagram</ActionLink>
             <ActionLink variant="chip" href={links.facebook} external>Facebook</ActionLink>
-            <ActionLink variant="chip" href={`mailto:${links.email}`}>{dict.footer.email}</ActionLink>
           </div>
         </div>
         <div className="footer-legal">{lines(dict.footer.legal)}<br /><br />{dict.footer.madeWith}</div>

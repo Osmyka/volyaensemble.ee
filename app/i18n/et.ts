@@ -131,7 +131,6 @@ export const et: Dictionary = {
     navigationTitle: "NAVIGATSIOON",
     followTitle: "JÄLGI MEID",
     telegram: "Telegram @volya_ee",
-    email: "E-post",
     organisation: "Ukraina Noorsoo Liit Eestis",
     legal: "© 2025 VOLYA",
     madeWith: "Tehtud armastusega Tallinnas ✦",

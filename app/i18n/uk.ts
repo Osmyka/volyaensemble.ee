@@ -128,7 +128,6 @@ export const uk: Dictionary = {
     navigationTitle: "НАВІГАЦІЯ",
     followTitle: "СЛІДКУЙ ЗА НАМИ",
     telegram: "Telegram @volya_ee",
-    email: "Email",
     organisation: "Ukraina Noorsoo Liit Eestis",
     legal: "© 2025 VOLYA",
     madeWith: "Зроблено з любовʼю в Таллінні ✦",

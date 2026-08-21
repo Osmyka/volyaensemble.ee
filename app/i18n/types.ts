@@ -135,7 +135,6 @@ export interface Dictionary {
     navigationTitle: string;
     followTitle: string;
     telegram: string;
-    email: string;
     organisation: string;
     legal: string;
     madeWith: string;
