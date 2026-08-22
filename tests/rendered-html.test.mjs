@@ -204,6 +204,16 @@ test("every page's header carries the join action", async () => {
   }
 });
 
+test("every page ends with the same footer", async () => {
+  for (const route of routes) {
+    const html = await (await render(route.path)).text();
+    const footer = html.match(/<footer class="footer wrap"[\s\S]*?<\/footer>/);
+    assert.ok(footer, `no footer on ${route.path}`);
+    assert.match(footer[0], /80163437/, `no registry line on ${route.path}`);
+    assert.match(footer[0], new RegExp(`href="${route.home === "/" ? "/" : route.home}"|href="#top"`));
+  }
+});
+
 test("the merch page prices every piece and offers the size chart", async () => {
   const html = await (await render("/merch")).text();
   for (const price of ["€10", "€25", "€20", "€15"]) {

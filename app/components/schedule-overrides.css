@@ -111,6 +111,8 @@
  * the same box on every page.
  */
 .schedule-page {
+  /* Side gutters only: `mobile.css` sets a bottom padding that keeps the phone
+     tab bar clear of the page's last element. */
   padding-left: 0;
   padding-right: 0;
 }
