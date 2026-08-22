@@ -114,8 +114,8 @@ export function SchedulePage({ locale, dict }: { locale: Locale; dict: Dictionar
         </div>
       </section>
       <section className="schedule-details">
-        <div><span>01</span><h2>{dict.schedulePage.detailChoreography}</h2><p>{lines(dict.schedulePage.choreographyFrequency)}</p></div>
-        <div><span>02</span><h2>{dict.schedulePage.detailVocal}</h2><p>{lines(dict.schedulePage.vocalFrequency)}</p></div>
+        <div><span className="detail-index">01</span><h2>{dict.schedulePage.detailChoreography}</h2><p>{lines(dict.schedulePage.choreographyFrequency)}</p></div>
+        <div><span className="detail-index">02</span><h2>{dict.schedulePage.detailVocal}</h2><p>{lines(dict.schedulePage.vocalFrequency)}</p></div>
         <ActionLink variant="button" tone="navy" href={links.joinForm} external>{dict.schedulePage.cta}</ActionLink>
       </section>
 
