@@ -56,12 +56,18 @@
 
 .action-link--navy {
   background: #203754;
-  color: #edf3fa;
+  color: #fff;
+}
+
+/* Pin the label itself. A parent `span` colour (the numbered 01/02 on
+   /schedule) used to win on specificity and left grey text on navy. */
+.action-link--navy .action-link-label {
+  color: #fff;
 }
 
 .action-link--navy .action-mark {
-  background: rgba(237, 243, 250, 0.12);
-  color: #edf3fa;
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
 }
 
 .action-link--gold {
@@ -99,6 +105,11 @@
 .action-link--light:hover .action-mark {
   background: #d6b85f;
   color: #203754;
+}
+
+.dark-mode .action-link--navy,
+.dark-mode .action-link--navy .action-link-label {
+  color: #fff;
 }
 
 .dark-mode .action-link--navy {

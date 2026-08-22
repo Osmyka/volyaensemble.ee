@@ -94,7 +94,7 @@
   border-color: #334a66;
 }
 
-.dark-mode .schedule-details span {
+.dark-mode .schedule-details .detail-index {
   color: #86a7ce;
 }
 

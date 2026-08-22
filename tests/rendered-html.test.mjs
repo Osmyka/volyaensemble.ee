@@ -220,3 +220,27 @@ test("action links replace the old arrow characters", async () => {
     assert.match(html, /class="action-link/, `no action links on ${path}`);
   }
 });
+
+/**
+ * The schedule page's 01/02 labels used to be styled as `.schedule-details span`,
+ * which also painted the navy CTA's `.action-link-label` #56779b — about 2.6:1
+ * on #203754, well under the 4.5:1 WCAG AA floor for text.
+ */
+test("navy action-link labels stay white on the dark fill", async () => {
+  const strip = source => source.replace(/\/\*[\s\S]*?\*\//g, "");
+  const actionLink = strip(await readFile(new URL("../app/components/action-link.css", import.meta.url), "utf8"));
+  assert.match(
+    actionLink,
+    /\.action-link--navy\s+\.action-link-label\s*\{[^}]*color:\s*#fff\b/i,
+    "navy CTA label must be white so it stays readable on #203754",
+  );
+
+  for (const sheet of ["schedule.css", "schedule-overrides.css"]) {
+    const css = strip(await readFile(new URL(`../app/components/${sheet}`, import.meta.url), "utf8"));
+    assert.doesNotMatch(
+      css,
+      /\.schedule-details\s+span\s*\{/,
+      `${sheet} must not recolour every span inside .schedule-details`,
+    );
+  }
+});
