@@ -137,6 +137,14 @@ test("the viewport opts into safe-area insets", async () => {
   assert.match(html, /<meta name="theme-color" content="#203754"/);
 });
 
+test("every page uses the VOLYA flower favicon", async () => {
+  for (const route of routes) {
+    const html = await (await render(route.path)).text();
+    assert.match(html, /<link rel="icon" href="\/favicon\.png"/);
+    assert.match(html, /<link rel="apple-touch-icon" href="\/favicon\.png"/);
+  }
+});
+
 /**
  * Copy baked into a stylesheet is invisible to the HTML checks above and no
  * translation can reach it, which is exactly how Ukrainian teacher names and

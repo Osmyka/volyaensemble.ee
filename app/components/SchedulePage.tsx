@@ -33,7 +33,7 @@ const sessions: Session[] = [
   { day: 1, start: "17:00", end: "18:30", kind: "dance", ages: "14–18", place: addresses.choreography.street },
   { day: 1, start: "17:30", end: "19:00", kind: "dance", ages: "5–7", place: addresses.vocal.street },
   { day: 1, start: "19:00", end: "20:00", kind: "vocal", ages: "14–18", place: addresses.vocal.street },
-  { day: 1, start: "19:30", end: "21:00", kind: "pro", place: addresses.choreography.street },
+  { day: 1, start: "19:30", end: "21:00", kind: "pro", place: addresses.vocal.street },
 
   { day: 2, start: "15:30", end: "17:00", kind: "dance", ages: "8–10", place: addresses.choreography.street },
   { day: 2, start: "17:00", end: "18:30", kind: "dance", ages: "11–13", place: addresses.choreography.street },

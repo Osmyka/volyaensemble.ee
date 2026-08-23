@@ -69,6 +69,11 @@ export function pageMetadata(locale: Locale, page: SitePage): Metadata {
     metadataBase: new URL("https://volyaensemble.ee"),
     title: copy.title,
     description: copy.description,
+    icons: {
+      icon: [{ url: "/favicon.png", type: "image/png", sizes: "512x512" }],
+      shortcut: "/favicon.png",
+      apple: [{ url: "/favicon.png", type: "image/png", sizes: "512x512" }],
+    },
     alternates: {
       canonical: localePath(locale, page),
       languages: { ...languages, "x-default": localePath("uk", page) },
