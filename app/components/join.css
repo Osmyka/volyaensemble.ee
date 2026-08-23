@@ -1,0 +1,170 @@
+/*
+ * Registration form. It sits on the merch page's chrome — same intro block,
+ * same card treatment — and borrows the order dialog's field styling so the
+ * site has one way of drawing a form.
+ */
+
+.join-section {
+  width: min(1256px, calc(100% - 64px));
+  margin: 0 auto;
+  padding-bottom: 40px;
+}
+
+.join-form {
+  display: grid;
+  gap: 18px;
+  max-width: 720px;
+  padding: 40px 44px 36px;
+  background: #fff;
+  border: 1px solid #dbe4ec;
+  border-radius: 24px;
+  box-shadow: 0 16px 40px rgba(55, 83, 111, 0.07);
+}
+
+/* Two fields that belong together read better side by side. */
+.join-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.join-form label {
+  display: grid;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.join-form input,
+.join-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  border: 1px solid #dbe4ec;
+  border-radius: 12px;
+  background: #fff;
+  color: #203754;
+  font: inherit;
+  font-size: 14px;
+  resize: vertical;
+}
+
+.join-form input:focus-visible,
+.join-form textarea:focus-visible {
+  outline: 2px solid #d6b85f;
+  outline-offset: 2px;
+}
+
+/* The note under a field: why it is asked, or when it is required. */
+.join-form small {
+  color: #6d7d91;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.join-choice {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 0;
+  padding: 14px 16px;
+  border: 1px solid #dbe4ec;
+  border-radius: 14px;
+}
+
+.join-choice legend {
+  padding: 0 6px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.join-form .choice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.join-form .choice input {
+  width: auto;
+  padding: 0;
+}
+
+/* The closing question, set apart because it is the one that is optional. */
+.join-wishes {
+  display: grid;
+  gap: 10px;
+  padding: 20px 22px;
+  background: #edf5fb;
+  border: 1px solid #dbe7f1;
+  border-radius: 18px;
+}
+
+.join-wishes strong {
+  font-size: 14px;
+}
+
+.join-wishes p {
+  margin: 0;
+  color: #6d7d91;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.join-thanks {
+  font-weight: 700;
+}
+
+.join-form .merch-submit {
+  justify-self: start;
+}
+
+@media (max-width: 800px) {
+  .join-section {
+    width: min(1256px, calc(100% - 40px));
+  }
+
+  .join-form {
+    padding: 26px 20px 24px;
+    border-radius: 20px;
+  }
+
+  .join-row {
+    grid-template-columns: 1fr;
+  }
+
+  .join-form .merch-submit {
+    justify-self: stretch;
+  }
+}
+
+/* Dark theme ------------------------------------------------------------ */
+
+.dark-mode .join-form {
+  background: #1a2940;
+  border-color: #334a66;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+}
+
+.dark-mode .join-form input,
+.dark-mode .join-form textarea {
+  background: #16233a;
+  border-color: #334a66;
+  color: #edf3fa;
+}
+
+.dark-mode .join-form small,
+.dark-mode .join-wishes p {
+  color: #b7c3d2;
+}
+
+.dark-mode .join-choice {
+  border-color: #334a66;
+}
+
+.dark-mode .join-wishes {
+  background: #16233a;
+  border-color: #334a66;
+}

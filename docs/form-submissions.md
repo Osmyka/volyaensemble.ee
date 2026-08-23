@@ -1,6 +1,7 @@
-# Merch orders → Google Sheets
+# Merch orders and registrations → Google Sheets
 
-An order placed in the shop dialog is written to that product's spreadsheet.
+An order placed in the shop dialog, or a form filled in on `/join`, is written
+to its own spreadsheet.
 Nothing on the site holds the spreadsheets' address: the browser posts to
 `/api/order` on our own Worker, and the Worker forwards it to an Apps Script web
 app whose URL lives in a secret.
@@ -24,14 +25,15 @@ the secret is missing — the dialog falls back to opening a pre-filled e-mail t
 
 | Where | What it does |
 | --- | --- |
-| `app/components/MerchShop.tsx` | Posts the order, shows sending / sent / failed, opens the mail fallback |
-| `worker/index.ts` → `/api/order` | Validates the order, drops bot submissions, forwards it |
+| `app/components/MerchShop.tsx` | Posts an order, shows sending / sent / failed, opens the mail fallback |
+| `app/components/JoinForm.tsx` | The same for a registration |
+| `worker/index.ts` → `/api/order`, `/api/join` | Validates the submission, drops bot ones, forwards it |
 | `docs/orders-apps-script.gs` | Runs in Google, appends a row to the right sheet |
 
 ## Setting it up
 
 1. Open any of the five spreadsheets → **Extensions → Apps Script**.
-2. Replace `Code.gs` with [`orders-apps-script.gs`](orders-apps-script.gs), save.
+2. Replace `Code.gs` with [`forms-apps-script.gs`](forms-apps-script.gs), save.
 3. **Deploy → New deployment → Web app**, with *Execute as: Me* and *Who has
    access: Anyone*. Authorise when Google asks. The script writes as you, so the
    spreadsheets need no sharing changes.
@@ -79,10 +81,15 @@ Verified against the live sheets:
 | backpack | Колір рюкзака · Імʼя · Email · Деталі |
 | tote | Імʼя · Email · Деталі |
 | cap | Колір · Розмір · Імʼя · Email · Деталі |
+| join | Прізвище та Імʼя · Вік · Дата народження · Батьки · Телефон · Email · Напрям · Досвід хореографії · Досвід вокалу |
 
 The form always sends everything it collected; a sheet simply takes the parts
 it has columns for. Adding «Кількість» to the cap, backpack or tote sheet is
 enough to start recording quantity there — no code change.
+
+The registration sheet has no column for the closing question («яким би Ви
+хотіли бачити цей колектив»). The form asks it and sends the answer, but it is
+dropped on arrival until a column named «Побажання» exists.
 
 ## How columns are matched
 
@@ -91,3 +98,8 @@ columns may sit in any order and a sheet may leave some out. A heading it does
 not recognise is left blank rather than guessed at — the recognised ones are
 listed in `COLUMNS` at the top of the script, including both apostrophe
 spellings of «Ім'я та прізвище».
+
+Headings too long or too decorated for that list — the registration sheet
+spells its questions out in full, emoji included — are matched on a phrase
+instead, in `PHRASES`. So «(для вокальної) 🎤 Чи займалися раніше вокалом?…»
+is recognised by the word «вокал» alone and survives an edit to the wording.

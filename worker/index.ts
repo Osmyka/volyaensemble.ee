@@ -54,6 +54,52 @@ const orderFields: Record<string, number> = {
   locale: 8,
 };
 
+/** Everything the registration form can send, with its length cap. */
+const joinFields: Record<string, number> = {
+  name: 200,
+  age: 8,
+  birthDate: 20,
+  parent: 200,
+  phone: 60,
+  email: 200,
+  section: 20,
+  sectionLabel: 60,
+  danceExperience: 1000,
+  vocalExperience: 1000,
+  wishes: 2000,
+  locale: 8,
+};
+
+/**
+ * Takes a registration and hands it to the ensemble's spreadsheet, by the same
+ * road as an order: our endpoint, then the Apps Script behind a shared token.
+ */
+async function handleJoin(request: Request, env: Env): Promise<Response> {
+  if (request.method !== "POST") return json({ ok: false, error: "method" }, 405);
+
+  let body: Record<string, unknown>;
+  try {
+    body = (await request.json()) as Record<string, unknown>;
+  } catch {
+    return json({ ok: false, error: "malformed" }, 400);
+  }
+
+  if (typeof body.website === "string" && body.website.length > 0) return json({ ok: true });
+
+  const entry: Record<string, string> = { product: "join" };
+  for (const [field, limit] of Object.entries(joinFields)) {
+    const value = body[field];
+    if (typeof value !== "string") continue;
+    entry[field] = value.slice(0, limit);
+  }
+
+  if (!entry.name || !entry.phone || !entry.email) {
+    return json({ ok: false, error: "incomplete" }, 400);
+  }
+
+  return forward(entry, env);
+}
+
 /**
  * Takes a merch order and hands it to the spreadsheet.
  *
@@ -86,6 +132,11 @@ async function handleOrder(request: Request, env: Env): Promise<Response> {
 
   // Checked after validation, so a misconfigured deployment still rejects
   // nonsense rather than answering "unconfigured" to everything.
+  return forward(order, env);
+}
+
+/** Hands a validated submission to the Apps Script that writes the row. */
+async function forward(entry: Record<string, string>, env: Env): Promise<Response> {
   if (!env.ORDERS_WEBHOOK_URL || !env.ORDERS_TOKEN) {
     return json({ ok: false, error: "unconfigured" }, 503);
   }
@@ -94,7 +145,7 @@ async function handleOrder(request: Request, env: Env): Promise<Response> {
     method: "POST",
     // Apps Script rejects a preflight, and text/plain avoids provoking one.
     headers: { "content-type": "text/plain;charset=utf-8" },
-    body: JSON.stringify({ ...order, token: env.ORDERS_TOKEN }),
+    body: JSON.stringify({ ...entry, token: env.ORDERS_TOKEN }),
   });
 
   if (!response.ok) return json({ ok: false, error: "upstream" }, 502);
@@ -115,6 +166,7 @@ const worker = {
     const url = new URL(request.url);
 
     if (url.pathname === "/api/order") return handleOrder(request, env);
+    if (url.pathname === "/api/join") return handleJoin(request, env);
 
     if (url.pathname === "/_vinext/image") {
       const allowedWidths = [...DEFAULT_DEVICE_SIZES, ...DEFAULT_IMAGE_SIZES];

@@ -46,6 +46,7 @@ export function SiteHeader({
 
   const current = page === "/schedule" ? "schedule" : page === "/merch" ? "merch" : null;
 
+
   return (
     <nav className="nav wrap">
       <a className="brand" href={onHome ? "#top" : home} aria-label={dict.nav.brandHome}>
@@ -66,7 +67,7 @@ export function SiteHeader({
       <div className="nav-tools">
         <ThemeToggle label={dict.nav.toggleTheme} lightLabel={dict.nav.themeLight} darkLabel={dict.nav.themeDark} />
         <LanguageSwitcher locale={locale} page={page} dict={dict} />
-        <JoinButton className="nav-cta" label={dict.nav.join} />
+        <JoinButton locale={locale} className="nav-cta" label={dict.nav.join} />
       </div>
     </nav>
   );

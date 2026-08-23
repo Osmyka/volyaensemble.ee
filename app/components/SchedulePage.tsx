@@ -1,7 +1,7 @@
 import "./schedule.css";
 import "./schedule-overrides.css";
-import { addresses, links } from "../i18n/contacts";
-import type { Locale } from "../i18n/config";
+import { addresses } from "../i18n/contacts";
+import { localePath, type Locale } from "../i18n/config";
 import type { Dictionary } from "../i18n/types";
 import { BottomNav } from "../mobile/BottomNav";
 import { ActionLink } from "./ActionLink";
@@ -78,7 +78,7 @@ export function SchedulePage({ locale, dict }: { locale: Locale; dict: Dictionar
       <section className="schedule-details">
         <div><span>01</span><h2>{dict.schedulePage.detailChoreography}</h2><p>{lines(dict.schedulePage.choreographyFrequency)}</p></div>
         <div><span>02</span><h2>{dict.schedulePage.detailVocal}</h2><p>{lines(dict.schedulePage.vocalFrequency)}</p></div>
-        <ActionLink variant="button" tone="navy" href={links.joinForm} external>{dict.schedulePage.cta}</ActionLink>
+        <ActionLink variant="button" tone="navy" href={localePath(locale, "/join")}>{dict.schedulePage.cta}</ActionLink>
       </section>
 
       <SiteFooter locale={locale} dict={dict} page="/schedule" />

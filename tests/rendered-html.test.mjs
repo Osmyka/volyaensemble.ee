@@ -19,6 +19,9 @@ const routes = [
   { path: "/merch", lang: "uk", title: "Наш мерч — VOLYA", home: "/" },
   { path: "/et/merch", lang: "et", title: "Meie merch — VOLYA", home: "/et" },
   { path: "/en/merch", lang: "en", title: "Our merch — VOLYA", home: "/en" },
+  { path: "/join", lang: "uk", title: "Реєстрація — VOLYA", home: "/" },
+  { path: "/et/join", lang: "et", title: "Registreerimine — VOLYA", home: "/et" },
+  { path: "/en/join", lang: "en", title: "Registration — VOLYA", home: "/en" },
 ];
 
 const cyrillic = /[Ѐ-ӿ]/;
@@ -68,7 +71,7 @@ test("non-Ukrainian locales contain no untranslated copy", async () => {
 
 // The logo is the way back: subpages carry no separate "back" link.
 test("subpages link back to their own locale's home", async () => {
-  for (const route of routes.filter(entry => /\/(schedule|merch)$/.test(entry.path))) {
+  for (const route of routes.filter(entry => /\/(schedule|merch|join)$/.test(entry.path))) {
     const html = await (await render(route.path)).text();
     assert.match(
       html,
@@ -212,6 +215,17 @@ test("every page ends with the same footer", async () => {
     assert.match(footer[0], /80163437/, `no registry line on ${route.path}`);
     assert.match(footer[0], new RegExp(`href="${route.home === "/" ? "/" : route.home}"|href="#top"`));
   }
+});
+
+test("the join page asks for every required detail", async () => {
+  const html = await (await render("/join")).text();
+  for (const field of ["name", "age", "birthDate", "parent", "phone", "email", "section", "wishes"]) {
+    assert.match(html, new RegExp(`name="${field}"`), `no ${field} field on /join`);
+  }
+  // The buttons that used to leave for a Google form now open this page.
+  const home = await (await render("/")).text();
+  assert.doesNotMatch(home, /forms\.gle/, "a join call to action still leaves the site");
+  assert.match(home, /href="\/join"/);
 });
 
 test("the merch page prices every piece and offers the size chart", async () => {
