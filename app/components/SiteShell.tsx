@@ -53,7 +53,14 @@ const socialCard = "/og-card.jpg";
  */
 export function pageMetadata(locale: Locale, page: SitePage): Metadata {
   const dict = getDictionary(locale);
-  const copy = page === "/" ? dict.meta.home : page === "/schedule" ? dict.meta.schedule : dict.meta.merch;
+  const copy =
+    page === "/"
+      ? dict.meta.home
+      : page === "/schedule"
+        ? dict.meta.schedule
+        : page === "/merch"
+          ? dict.meta.merch
+          : dict.meta.join;
   const languages = Object.fromEntries(
     locales.map(candidate => [localeTags[candidate], localePath(candidate, page)]),
   );

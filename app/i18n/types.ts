@@ -27,6 +27,7 @@ export interface Dictionary {
     home: { title: string; description: string; ogDescription: string };
     schedule: { title: string; description: string };
     merch: { title: string; description: string };
+    join: { title: string; description: string };
   };
   nav: {
     /** Phone tab bar only — the desktop header has no "home" entry. */
@@ -155,6 +156,54 @@ export interface Dictionary {
     choreographyFrequency: string;
     vocalFrequency: string;
     cta: string;
+  };
+  /**
+   * The registration form. `sectionNote` lines only appear once the matching
+   * section is chosen, and `parentNote` only for a participant under 18.
+   */
+  joinPage: {
+    label: string;
+    headingTop: string;
+    headingEm: string;
+    text: string;
+    nameLabel: string;
+    nameHint: string;
+    ageLabel: string;
+    birthLabel: string;
+    parentLabel: string;
+    parentNote: string;
+    phoneLabel: string;
+    phoneHint: string;
+    emailLabel: string;
+    sectionLabel: string;
+    sections: { dance: string; vocal: string; both: string };
+    danceLabel: string;
+    vocalLabel: string;
+    experienceHint: string;
+    wishesTitle: string;
+    wishesText: string;
+    wishesLabel: string;
+    thanks: string;
+    submit: string;
+    sending: string;
+    sent: string;
+    sentNote: string;
+    failed: string;
+    /** Column labels for the registration e-mail used when the write fails. */
+    mail: {
+      subject: string;
+      name: string;
+      age: string;
+      birth: string;
+      parent: string;
+      phone: string;
+      email: string;
+      section: string;
+      dance: string;
+      vocal: string;
+      wishes: string;
+      notSpecified: string;
+    };
   };
   merchPage: {
     label: string;

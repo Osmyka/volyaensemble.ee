@@ -22,7 +22,7 @@ export const localeTags: Record<Locale, string> = {
 };
 
 /** Pages that exist in every locale. */
-export type SitePage = "/" | "/schedule" | "/merch";
+export type SitePage = "/" | "/schedule" | "/merch" | "/join";
 
 /**
  * Path for `page` in `locale`. The default locale has no prefix, so

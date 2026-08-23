@@ -13,6 +13,7 @@ import { ThemeShell } from "../theme/theme";
 
 export function HomePage({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const schedulePath = localePath(locale, "/schedule");
+  const joinPath = localePath(locale, "/join");
 
   return (
     <ThemeShell className="site">
@@ -24,7 +25,7 @@ export function HomePage({ locale, dict }: { locale: Locale; dict: Dictionary })
           <img className="hero-brand" src="/logo-volya.webp" alt="VOLYA" width={960} height={386} />
           <p className="hero-text">{dict.hero.text}</p>
           <div className="hero-actions">
-            <ActionLink variant="button" tone="navy" href={links.joinForm} external>{dict.hero.joinCta}</ActionLink>
+            <ActionLink variant="button" tone="navy" href={joinPath}>{dict.hero.joinCta}</ActionLink>
             <ActionLink variant="play" href={links.video} external>{dict.hero.videoLabel}</ActionLink>
           </div>
           <div className="hero-note"><strong>{dict.hero.countValue}</strong><span>{lines(dict.hero.countCaption)}</span></div>
@@ -58,7 +59,7 @@ export function HomePage({ locale, dict }: { locale: Locale; dict: Dictionary })
 
       <section className="gallery wrap" id="gallery"><div className="gallery-head"><div><div className="section-label">{dict.gallery.label}</div><h2>{dict.gallery.headingTop} <em>{dict.gallery.headingEm}</em></h2></div><ActionLink variant="text" href={links.instagram} external>{dict.gallery.link}</ActionLink></div><div className="gallery-grid">{Array.from({ length: 6 }, (_, index) => <div className={`g-${["one", "two", "three", "four", "five", "six"][index]}`} key={index}><img src={`/moments-${index + 1}.webp`} alt={withNumber(dict.gallery.photoAlt, index + 1)} width={1000} height={800} loading="lazy" decoding="async" /></div>)}</div></section>
 
-      <section className="join" id="join"><div className="wrap join-inner"><div className="section-label">{dict.join.label}</div><h2>{dict.join.headingTop}<br /><em>{dict.join.headingEm}</em></h2><p>{dict.join.text}</p><ActionLink variant="button" tone="light" href={links.joinForm} external>{dict.join.cta}</ActionLink><div className="join-mark">VOLYA<br /><small>{lines(dict.join.markCaption)}</small></div></div></section>
+      <section className="join" id="join"><div className="wrap join-inner"><div className="section-label">{dict.join.label}</div><h2>{dict.join.headingTop}<br /><em>{dict.join.headingEm}</em></h2><p>{dict.join.text}</p><ActionLink variant="button" tone="light" href={joinPath}>{dict.join.cta}</ActionLink><div className="join-mark">VOLYA<br /><small>{lines(dict.join.markCaption)}</small></div></div></section>
 
       <SiteFooter locale={locale} dict={dict} page="/" />
 

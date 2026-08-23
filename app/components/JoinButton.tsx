@@ -1,4 +1,4 @@
-import { links } from "../i18n/contacts";
+import { localePath, type Locale } from "../i18n/config";
 import { JoinIcon } from "../mobile/icons";
 import { LinkMark } from "./ActionLink";
 
@@ -13,15 +13,21 @@ import { LinkMark } from "./ActionLink";
  * Both forms are in the markup and chosen in CSS, so one cached document still
  * serves every device.
  */
-export function JoinButton({ label, className }: { label: string; className?: string }) {
+export function JoinButton({
+  locale,
+  label,
+  className,
+}: {
+  locale: Locale;
+  label: string;
+  className?: string;
+}) {
   return (
     <a
       className={["action-link", "action-link--button", "action-link--gold", "join-cta", className]
         .filter(Boolean)
         .join(" ")}
-      href={links.joinForm}
-      target="_blank"
-      rel="noreferrer"
+      href={localePath(locale, "/join")}
       aria-label={label}
     >
       <span className="join-cta-mark" aria-hidden="true"><JoinIcon /></span>

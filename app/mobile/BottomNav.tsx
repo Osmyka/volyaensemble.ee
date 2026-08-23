@@ -40,6 +40,8 @@ export function BottomNav({
 
   const isActive = (id: TabId) => {
     if (page === "/merch") return id === "merch";
+    // Registration is not a tab, so nothing in the bar is current there.
+    if (page === "/join") return false;
     if (page === "/schedule") return id === "schedule";
     if (id === "home") return activeSection === "top" || activeSection === null;
     const tab = tabs.find(entry => entry.id === id);

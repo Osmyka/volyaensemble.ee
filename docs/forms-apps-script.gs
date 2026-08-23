@@ -1,7 +1,7 @@
 /**
- * VOLYA merch orders → Google Sheets.
+ * VOLYA merch orders and registrations → Google Sheets.
  *
- * One script serves every product: it looks the spreadsheet up by product id,
+ * One script serves every form: it looks the spreadsheet up by id,
  * reads that sheet's own header row, and fills each column by its title. So a
  * sheet can have its columns in any order, and adding or removing one needs no
  * change here — only a header the list below knows about.
@@ -29,8 +29,9 @@
  *    change to this file, or the old version keeps running.
  */
 
-/** Product id from the site → the spreadsheet that collects it. */
+/** Form id from the site → the spreadsheet that collects it. */
 var SHEETS = {
+  join: "1oSVeLA6BmycZhgF9hS_W4WehTMYs6YKixYKs_V9aBgA",
   tshirt: "1nL7QBtGeY2pHM1kqn5l3X9pT8nyLPusfxv2Pt6rcAgg",
   hoodie: "1BeDSPPwH_XDEApa_pj1QU7LCnwrf8NLWyaXL_wuyoSg",
   backpack: "1FtOkMj_ZGyKVTsPI0vDaYKX7euqzNwxD-quDADkCiXk",
@@ -68,7 +69,40 @@ var COLUMNS = {
   "деталі замовлення": "details",
   "деталі": "details",
   "мова": "locale",
+
+  /* Registration form. */
+  "дата і час реєстрації": "timestamp",
+  "прізвище та імʼя учасника латиницею": "name",
+  "вік учасника": "age",
+  "дата народження учасника": "birthDate",
+  "контактний номер телефону": "phone",
+  "яку частину колективу бажає відвідувати учасник?": "sectionLabel",
+  "побажання": "wishes",
 };
+
+/**
+ * Headings too long or too decorated to list above are matched on a phrase
+ * instead — the registration sheet spells its questions out in full, emoji
+ * and all, and those wordings are likely to be edited by hand one day.
+ */
+var PHRASES = [
+  ["одного з батьків", "parent"],
+  ["хореограф", "danceExperience"],
+  ["вокал", "vocalExperience"],
+  ["телефон", "phone"],
+  ["частину колективу", "sectionLabel"],
+  ["декілька слів", "wishes"],
+  ["побажан", "wishes"],
+];
+
+function fieldFor(heading) {
+  var key = normalise(heading);
+  if (COLUMNS[key]) return COLUMNS[key];
+  for (var i = 0; i < PHRASES.length; i++) {
+    if (key.indexOf(PHRASES[i][0]) !== -1) return PHRASES[i][1];
+  }
+  return null;
+}
 
 function normalise(heading) {
   return String(heading)
@@ -105,10 +139,25 @@ function doPost(request) {
       contact: order.contact || "",
       details: order.details || "",
       locale: order.locale || "",
+
+      /* Registration fields. */
+      name: order.name || "",
+      age: order.age || "",
+      birthDate: order.birthDate || "",
+      parent: order.parent || "",
+      phone: order.phone || "",
+      email: order.email || "",
+      sectionLabel: order.sectionLabel || "",
+      danceExperience: order.danceExperience || "",
+      vocalExperience: order.vocalExperience || "",
+      wishes: order.wishes || "",
     };
 
+    /* The registration sheet keeps the e-mail in its own column. */
+    if (order.product === "join") values.contact = order.email || "";
+
     var row = headings.map(function (heading) {
-      var field = COLUMNS[normalise(heading)];
+      var field = fieldFor(heading);
       return field ? values[field] : "";
     });
 
