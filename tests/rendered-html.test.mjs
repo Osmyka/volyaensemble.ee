@@ -25,6 +25,7 @@ const routes = [
 ];
 
 const cyrillic = /[Ѐ-ӿ]/;
+const associationAbbreviation = "СУМ";
 
 async function render(path) {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
@@ -65,7 +66,15 @@ for (const route of routes) {
 test("non-Ukrainian locales contain no untranslated copy", async () => {
   for (const route of routes.filter(entry => entry.lang !== "uk")) {
     const html = await (await render(route.path)).text();
-    assert.doesNotMatch(visibleText(html), cyrillic, `Cyrillic text left on ${route.path}`);
+    const textWithoutBrandName = visibleText(html).replaceAll(associationAbbreviation, "");
+    assert.doesNotMatch(textWithoutBrandName, cyrillic, `Cyrillic text left on ${route.path}`);
+  }
+});
+
+test("the association card uses the official abbreviation and separates its link", async () => {
+  for (const path of ["/", "/et", "/en"]) {
+    const html = await (await render(path)).text();
+    assert.match(html, /СУМ\)<\/b> <a class="action-link action-link--text"/, path);
   }
 });
 

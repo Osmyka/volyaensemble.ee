@@ -29,7 +29,7 @@ export function HomePage({ locale, dict }: { locale: Locale; dict: Dictionary })
             <ActionLink variant="play" href={links.video} external>{dict.hero.videoLabel}</ActionLink>
           </div>
           <div className="hero-note"><strong>{dict.hero.countValue}</strong><span>{lines(dict.hero.countCaption)}</span></div>
-          <div className="union-note"><img src="/logo-sum.webp" alt={dict.hero.unionLogoAlt} width={220} height={347} /><div><b>{lines(dict.hero.unionText)}</b><ActionLink variant="text" href={links.union} external>{dict.hero.unionLink}</ActionLink></div></div>
+          <div className="union-note"><img src="/logo-sum.webp" alt={dict.hero.unionLogoAlt} width={220} height={347} /><div><b>{lines(dict.hero.unionText)}</b>{" "}<ActionLink variant="text" href={links.union} external>{dict.hero.unionLink}</ActionLink></div></div>
         </div>
         <div className="hero-visual">
           <div className="hero-image" role="img" aria-label={dict.hero.photoAlt} />
