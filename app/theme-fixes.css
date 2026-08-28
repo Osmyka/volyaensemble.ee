@@ -213,3 +213,92 @@
   color: #edf3fa;
   opacity: 0.07;
 }
+
+/* ---------------------------------------------------------------------------
+ * 7. Phone layout: uniform side gutters and section rhythm.
+ *
+ * Several stacked overrides left sections with different horizontal padding,
+ * asymmetric card shadows that eat into the right gutter, and a nav logo offset
+ * that no longer matched `.wrap`. One gutter token keeps labels, headings, cards
+ * and the gallery grid on the same vertical line.
+ * ------------------------------------------------------------------------ */
+@media (max-width: 800px) {
+  :root {
+    --page-gutter: 20px;
+  }
+
+  .wrap {
+    padding-left: var(--page-gutter);
+    padding-right: var(--page-gutter);
+  }
+
+  .nav.wrap {
+    padding-left: var(--page-gutter);
+    padding-right: var(--page-gutter);
+  }
+
+  .nav > .brand {
+    margin-left: 0;
+  }
+
+  .about,
+  .team,
+  .place,
+  .schedule,
+  .gallery {
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+
+  .about-content {
+    padding-left: 0;
+    margin-top: 20px;
+  }
+
+  .about-body {
+    max-width: none;
+    margin-top: 24px;
+    padding: 20px;
+  }
+
+  .values {
+    margin-top: 40px;
+  }
+
+  .schedule-card {
+    margin: 32px 0 0;
+    box-shadow: 6px 6px 0 #e9dfc2;
+  }
+
+  .place-photo {
+    margin-bottom: 32px;
+    box-shadow: 6px 6px 0 #e2ebf2;
+  }
+
+  .address {
+    width: 100%;
+    max-width: none;
+    box-sizing: border-box;
+  }
+
+  .gallery-head {
+    margin-bottom: 24px;
+  }
+
+  .gallery-grid {
+    gap: 12px;
+  }
+
+  .join {
+    padding: 48px var(--page-gutter);
+  }
+
+  .join-inner {
+    padding: 32px 24px;
+  }
+
+  .footer {
+    padding-left: var(--page-gutter);
+    padding-right: var(--page-gutter);
+  }
+}

@@ -113,14 +113,14 @@ export const en: Dictionary = {
     culturalCentre: "Salme Cultural Centre",
   },
   gallery: {
-    label: "04 / MOMENTS",
+    label: "05 / MOMENTS",
     headingTop: "Alive.",
     headingEm: "Real.",
     link: "See more photos",
     photoAlt: "A moment from the life of the VOLYA ensemble {n}",
   },
   join: {
-    label: "05 / BE WITH US",
+    label: "06 / BE WITH US",
     headingTop: "Ready to be",
     headingEm: "part of VOLYA?",
     text: "Become part of our big Ukrainian family.",
