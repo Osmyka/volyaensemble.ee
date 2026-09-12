@@ -72,6 +72,11 @@ export function SiteFooter({
         <br /><br />
         {dict.footer.madeWith}
       </div>
+      {/* Studio credit: its own quiet line under the whole footer. */}
+      <div className="footer-credit">
+        <span>{dict.footer.creditPrefix}</span>{" "}
+        <b>{dict.footer.creditStudio}</b>
+      </div>
     </footer>
   );
 }
