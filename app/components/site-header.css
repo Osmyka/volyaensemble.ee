@@ -76,3 +76,32 @@
     padding-right: 20px;
   }
 }
+
+/*
+ * Studio credit. A quiet line of its own beneath the footer columns: it spans
+ * the whole grid so it reads as a sign-off rather than a fifth column, and the
+ * hairline above separates it without adding another band of colour.
+ */
+.footer-credit {
+  grid-column: 1 / -1;
+  margin-top: 44px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, .1);
+  text-align: right;
+  font-size: 10px;
+  letter-spacing: .3px;
+  line-height: 1.7;
+  color: #8b95ad;
+}
+
+.footer-credit b {
+  font-weight: 600;
+  color: #aeb8cf;
+}
+
+@media (max-width: 800px) {
+  .footer-credit {
+    margin-top: 30px;
+    text-align: left;
+  }
+}

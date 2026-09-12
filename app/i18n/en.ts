@@ -113,14 +113,14 @@ export const en: Dictionary = {
     culturalCentre: "Salme Cultural Centre",
   },
   gallery: {
-    label: "04 / MOMENTS",
+    label: "05 / MOMENTS",
     headingTop: "Alive.",
     headingEm: "Real.",
     link: "See more photos",
     photoAlt: "A moment from the life of the VOLYA ensemble {n}",
   },
   join: {
-    label: "05 / BE WITH US",
+    label: "06 / BE WITH US",
     headingTop: "Ready to be",
     headingEm: "part of VOLYA?",
     text: "Become part of our big Ukrainian family.",
@@ -136,6 +136,8 @@ export const en: Dictionary = {
     organisation: "Ukraina Noorsoo Liit Eestis",
     legal: "© 2025 VOLYA",
     madeWith: "Made with love in Tallinn ✦",
+    creditPrefix: "Website by",
+    creditStudio: "software studio Osmyka",
   },
   schedulePage: {
     label: "SCHEDULE / 2026",

@@ -116,14 +116,14 @@ export const et: Dictionary = {
     culturalCentre: "Salme Kultuurikeskus",
   },
   gallery: {
-    label: "04 / HETKED",
+    label: "05 / HETKED",
     headingTop: "Elavad.",
     headingEm: "Ehedad.",
     link: "Vaata rohkem fotosid",
     photoAlt: "Hetk ansambli VOLYA elust {n}",
   },
   join: {
-    label: "05 / OLE MEIEGA",
+    label: "06 / OLE MEIEGA",
     headingTop: "Valmis olema",
     headingEm: "osa VOLYAst?",
     text: "Saa osaks meie suurest ukraina perest.",
@@ -139,6 +139,8 @@ export const et: Dictionary = {
     organisation: "Ukraina Noorsoo Liit Eestis",
     legal: "© 2025 VOLYA",
     madeWith: "Tehtud armastusega Tallinnas ✦",
+    creditPrefix: "Veebilehe tegi",
+    creditStudio: "software studio Osmyka",
   },
   schedulePage: {
     label: "AJAKAVA / 2026",

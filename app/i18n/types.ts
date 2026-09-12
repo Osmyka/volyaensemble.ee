@@ -139,6 +139,8 @@ export interface Dictionary {
     organisation: string;
     legal: string;
     madeWith: string;
+    creditPrefix: string;
+    creditStudio: string;
   };
   schedulePage: {
     label: string;
