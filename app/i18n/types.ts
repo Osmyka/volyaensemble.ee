@@ -157,6 +157,15 @@ export interface Dictionary {
     detailVocal: string;
     choreographyFrequency: string;
     vocalFrequency: string;
+    /** Monthly fees under the choreography card; line breaks via `\n`. */
+    choreographyPrices: string;
+    /** Monthly fees under the vocals card; line breaks via `\n`. */
+    vocalPrices: string;
+    /** Footnotes for marked timetable slots. */
+    slotNotes: {
+      recruiting: string;
+      startsOctober: string;
+    };
     cta: string;
   };
   /**

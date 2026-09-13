@@ -157,6 +157,12 @@ export const et: Dictionary = {
     detailVocal: "Vokaal",
     choreographyFrequency: "2–3 korda nädalas\n1,5 tundi",
     vocalFrequency: "2 korda nädalas\n1–1,5 tundi",
+    choreographyPrices: "5–7 aastat — 50 € / kuu\n8–18 aastat — 60 € / kuu",
+    vocalPrices: "40 € / kuu\nKoreograafia + vokaal — 90 € / kuu",
+    slotNotes: {
+      recruiting: "Käib grupi komplekteerimine — tunde veel ei toimu",
+      startsOctober: "Tunnid algavad oktoobris 2026",
+    },
     cta: "Registreeru tundi",
   },
   joinPage: {
