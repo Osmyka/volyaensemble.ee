@@ -89,6 +89,38 @@
   color: #eddcb0;
 }
 
+/* Noted slots keep the same colours but read as provisional: dashed edge and a
+   footnote mark in the label. Full text lives under the table. */
+.full-schedule .slot--noted {
+  outline: 1px dashed currentColor;
+  outline-offset: -3px;
+}
+
+.schedule-footnotes {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+  color: #6d7d91;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.schedule-footnotes span {
+  color: #56779b;
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.dark-mode .schedule-footnotes {
+  color: #9fb0c4;
+}
+
+.dark-mode .schedule-footnotes span {
+  color: #a7c0de;
+}
+
 .dark-mode .schedule-details > div {
   background: #1a2940;
   border-color: #334a66;
@@ -104,6 +136,23 @@
 
 .dark-mode .schedule-details p {
   color: #b7c3d2;
+}
+
+.dark-mode .schedule-details .detail-prices {
+  border-color: #334a66;
+  color: #edf3fa;
+}
+
+/* Monthly fees sit under the frequency copy, separated by a light rule so the
+   cards stay scannable without competing with the schedule grid above. */
+.schedule-details .detail-prices {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #e7edf2;
+  color: #203754;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.65;
 }
 /*
  * The page's own side gutters made the header narrower here than on the home

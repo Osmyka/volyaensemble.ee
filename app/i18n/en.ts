@@ -154,6 +154,12 @@ export const en: Dictionary = {
     detailVocal: "Vocals",
     choreographyFrequency: "2–3 times a week\n1.5 hours",
     vocalFrequency: "2 times a week\n1–1.5 hours",
+    choreographyPrices: "Ages 5–7 — €50 / month\nAges 8–18 — €60 / month",
+    vocalPrices: "€40 / month\nChoreography + vocals — €90 / month",
+    slotNotes: {
+      recruiting: "Recruiting for this group — classes have not started yet",
+      startsOctober: "Classes start in October 2026",
+    },
     cta: "Sign up for a class",
   },
   joinPage: {

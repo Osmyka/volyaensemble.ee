@@ -12,6 +12,9 @@ import { lines } from "./text";
 
 const times = Array.from({ length: 22 }, (_, i) => `${String(10 + Math.floor(i / 2)).padStart(2, "0")}:${i % 2 ? "30" : "00"}`);
 
+/** Status callouts that sit as footnotes under the grid; marks stay short in-cell. */
+type SlotNote = "recruiting" | "startsOctober";
+
 type Session = {
   day: number;
   start: string;
@@ -19,6 +22,12 @@ type Session = {
   kind: "dance" | "vocal" | "pro";
   ages?: string;
   place: string;
+  note?: SlotNote;
+};
+
+const noteMarks: Record<SlotNote, string> = {
+  recruiting: "*",
+  startsOctober: "**",
 };
 
 /**
@@ -29,19 +38,19 @@ type Session = {
 const sessions: Session[] = [
   { day: 0, start: "16:00", end: "17:30", kind: "dance", ages: "8–10", place: addresses.choreography.street },
 
-  { day: 1, start: "16:30", end: "17:30", kind: "vocal", ages: "7–9", place: addresses.vocal.street },
+  { day: 1, start: "16:30", end: "17:30", kind: "vocal", ages: "7–9", place: addresses.vocal.street, note: "recruiting" },
   { day: 1, start: "17:00", end: "18:30", kind: "dance", ages: "14–18", place: addresses.choreography.street },
-  { day: 1, start: "17:30", end: "19:00", kind: "dance", ages: "5–7", place: addresses.vocal.street },
-  { day: 1, start: "19:00", end: "20:00", kind: "vocal", ages: "14–18", place: addresses.vocal.street },
-  { day: 1, start: "19:30", end: "21:00", kind: "pro", place: addresses.vocal.street },
+  { day: 1, start: "17:30", end: "19:00", kind: "dance", ages: "5–7", place: addresses.vocal.street, note: "startsOctober" },
+  { day: 1, start: "18:30", end: "19:30", kind: "vocal", ages: "14–18", place: addresses.vocal.street },
+  { day: 1, start: "19:30", end: "20:30", kind: "pro", place: addresses.vocal.street },
 
   { day: 2, start: "15:30", end: "17:00", kind: "dance", ages: "8–10", place: addresses.choreography.street },
   { day: 2, start: "17:00", end: "18:30", kind: "dance", ages: "11–13", place: addresses.choreography.street },
   { day: 2, start: "19:00", end: "20:00", kind: "vocal", ages: "10–13", place: addresses.vocal.street },
 
-  { day: 3, start: "16:30", end: "17:30", kind: "vocal", ages: "7–9", place: addresses.vocal.street },
+  { day: 3, start: "16:30", end: "17:30", kind: "vocal", ages: "7–9", place: addresses.vocal.street, note: "recruiting" },
   { day: 3, start: "17:00", end: "18:30", kind: "dance", ages: "14–18", place: addresses.choreography.street },
-  { day: 3, start: "17:30", end: "19:00", kind: "dance", ages: "5–7", place: addresses.vocal.street },
+  { day: 3, start: "17:30", end: "19:00", kind: "dance", ages: "5–7", place: addresses.vocal.street, note: "startsOctober" },
 
   { day: 4, start: "15:30", end: "17:00", kind: "dance", ages: "8–10", place: addresses.choreography.street },
   { day: 4, start: "17:00", end: "18:30", kind: "dance", ages: "11–13", place: addresses.choreography.street },
@@ -51,6 +60,10 @@ const sessions: Session[] = [
   { day: 5, start: "14:00", end: "15:30", kind: "dance", ages: "11–13", place: addresses.culturalCentre.street },
   { day: 5, start: "15:30", end: "17:00", kind: "dance", ages: "14–18", place: addresses.culturalCentre.street },
 ];
+
+const usedNotes = (["recruiting", "startsOctober"] as const).filter(note =>
+  sessions.some(session => session.note === note),
+);
 
 /** Venue labels in the grid stay short: the street, without the city. */
 const shortPlace = (place: string) => place.split(",")[0];
@@ -77,12 +90,27 @@ export function SchedulePage({ locale, dict }: { locale: Locale; dict: Dictionar
     const duration = active
       ? Math.min((minutes(active.end) - minutes(active.start)) / 30, times.length - index)
       : 1;
+    const note = active?.note;
+    const mark = note ? noteMarks[note] : "";
+    const noteText = note ? dict.schedulePage.slotNotes[note] : "";
     const label = active
-      ? `${dict.schedulePage.kinds[active.kind]}${active.ages ? ` · ${active.ages}` : ""}`
+      ? `${dict.schedulePage.kinds[active.kind]}${active.ages ? ` · ${active.ages}` : ""}${mark ? ` ${mark}` : ""}`
+      : "";
+    const aria = active
+      ? [label, `${active.start}–${active.end}`, shortPlace(active.place), noteText].filter(Boolean).join(", ")
       : "";
     return (
       <td key={`${day}-${laneIndex}-${time}`} colSpan={active ? duration : 1}>
-        {active && <span className={`slot ${active.kind === "pro" ? "vocal" : active.kind}`} aria-label={`${label}, ${active.start}–${active.end}, ${shortPlace(active.place)}`}><b>{label}</b><small>{shortPlace(active.place)}</small></span>}
+        {active && (
+          <span
+            className={`slot ${active.kind === "pro" ? "vocal" : active.kind}${note ? " slot--noted" : ""}`}
+            title={noteText || undefined}
+            aria-label={aria}
+          >
+            <b>{label}</b>
+            <small>{shortPlace(active.place)}</small>
+          </span>
+        )}
       </td>
     );
   };
@@ -112,10 +140,29 @@ export function SchedulePage({ locale, dict }: { locale: Locale; dict: Dictionar
             })}</tbody>
           </table>
         </div>
+        {usedNotes.length > 0 && (
+          <ul className="schedule-footnotes">
+            {usedNotes.map(note => (
+              <li key={note}>
+                <span aria-hidden="true">{noteMarks[note]}</span> {dict.schedulePage.slotNotes[note]}
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
       <section className="schedule-details">
-        <div><span className="detail-index">01</span><h2>{dict.schedulePage.detailChoreography}</h2><p>{lines(dict.schedulePage.choreographyFrequency)}</p></div>
-        <div><span className="detail-index">02</span><h2>{dict.schedulePage.detailVocal}</h2><p>{lines(dict.schedulePage.vocalFrequency)}</p></div>
+        <div>
+          <span className="detail-index">01</span>
+          <h2>{dict.schedulePage.detailChoreography}</h2>
+          <p>{lines(dict.schedulePage.choreographyFrequency)}</p>
+          <p className="detail-prices">{lines(dict.schedulePage.choreographyPrices)}</p>
+        </div>
+        <div>
+          <span className="detail-index">02</span>
+          <h2>{dict.schedulePage.detailVocal}</h2>
+          <p>{lines(dict.schedulePage.vocalFrequency)}</p>
+          <p className="detail-prices">{lines(dict.schedulePage.vocalPrices)}</p>
+        </div>
         <ActionLink variant="button" tone="navy" href={localePath(locale, "/join")}>{dict.schedulePage.cta}</ActionLink>
       </section>
 

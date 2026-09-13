@@ -154,6 +154,12 @@ export const uk: Dictionary = {
     detailVocal: "Вокал",
     choreographyFrequency: "2–3 рази на тиждень\nпо 1,5 години",
     vocalFrequency: "2 рази на тиждень\nпо 1–1,5 години",
+    choreographyPrices: "5–7 років — 50 € на місяць\n8–18 років — 60 € на місяць",
+    vocalPrices: "40 € на місяць\nХореографія + вокал — 90 € на місяць",
+    slotNotes: {
+      recruiting: "Йде набір до групи — заняття ще не проводяться",
+      startsOctober: "Початок занять у жовтні 2026",
+    },
     cta: "Записатися на заняття",
   },
   joinPage: {
